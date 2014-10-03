@@ -1,0 +1,88 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 3 oct. 2014, 09:57:48
+    Author     : university
+*/
+.font-light {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+}
+.font-normal {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+}
+.font-bold {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 600;
+}
+.success {
+  color: #b4af20;
+}
+.warning {
+  color: #f87b1e;
+}
+.error {
+  color: #e52727;
+}
+.info {
+  color: #f9a920;
+}
+.neutral {
+  color: #514547;
+}
+.success-alt1 {
+  background-color: #b4af20;
+}
+.warning-alt1 {
+  background-color: #f87b1e;
+}
+.error-alt1 {
+  background-color: #e52727;
+}
+.info-alt1 {
+  background-color: #f9a920;
+}
+.neutral-alt1 {
+  background-color: #514547;
+}
+.color_inversion {
+  color: #fefefe;
+}
+.success-alt2 {
+  background-color: #b4af20;
+  color: #fefefe;
+}
+.warning-alt2 {
+  background-color: #f87b1e;
+  color: #fefefe;
+}
+.error-alt2 {
+  background-color: #e52727;
+  color: #fefefe;
+}
+.info-alt2 {
+  background-color: #f9a920;
+  color: #fefefe;
+}
+.neutral-alt2 {
+  background-color: #514547;
+  color: #fefefe;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Open Sans', sans-serif;
+}
+body {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+  background-color: #fefefe;
+  color: #514547;
+}

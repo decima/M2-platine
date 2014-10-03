@@ -1,0 +1,61 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 3 oct. 2014, 09:57:48
+    Author     : university
+*/
+@color_green : #B4AF20;
+@color_yellow : #F9A920;
+@color_orange : #F87B1E;
+@color_red : #E52727;
+@color_light : #FEFEFE;
+@color_dark : #514547;
+
+@ff : 'Open Sans', sans-serif;
+
+.font-light{ 
+    font-family: @ff;
+    font-weight: 300;
+}
+.font-normal{ 
+    font-family: @ff;
+    font-weight: 400;
+}
+.font-bold{ 
+    font-family: @ff;
+    font-weight: 600;
+}
+
+.success{color:@color_green}
+.warning{color:@color_orange}
+.error{color:@color_red}
+.info{color:@color_yellow}
+.neutral{color:@color_dark}
+
+.success-alt1{background-color:@color_green}
+.warning-alt1{background-color:@color_orange}
+.error-alt1{background-color:@color_red}
+.info-alt1{background-color:@color_yellow}
+.neutral-alt1{background-color:@color_dark}
+
+.color_inversion{color:@color_light;}
+.success-alt2{.success-alt1;.color_inversion;}
+.warning-alt2{.warning-alt1;.color_inversion;}
+.error-alt2{.error-alt1;.color_inversion;}
+.info-alt2{.info-alt1;.color_inversion;}
+.neutral-alt2{.neutral-alt1;.color_inversion;}
+
+h1,h2,h3,h4,h5,h6{
+    font-family:@ff;
+}
+
+body{
+    .font-normal;
+    background-color:@color_light;
+    color:@color_dark;
+    
+}
+
