@@ -7,12 +7,20 @@ and open the template in the editor.
     Created on : 3 oct. 2014, 09:57:48
     Author     : university
 */
+
+/*
 @color_green : #B4AF20;
 @color_yellow : #F9A920;
 @color_orange : #F87B1E;
 @color_red : #E52727;
 @color_light : #FEFEFE;
-@color_dark : #514547;
+@color_dark : #514547;*/
+@color_green : #27ae60;
+@color_orange : #f39c12;
+@color_yellow : #f1c40f;
+@color_red : #e74c3c;
+@color_light:#ecf0f1;
+@color_dark:#2c3e50;
 
 @ff : 'Open Sans', sans-serif;
 
@@ -29,6 +37,80 @@ and open the template in the editor.
     font-weight: 600;
 }
 
+.fontsize-big{
+    font-size:32px;
+}
+.fontsize-medium{
+    font-size: 20px;
+}
+.fontsize{
+    font-size:12px;
+}
+.fontsize-small{
+    font-size:10px;
+}
+.fontsize-mini{
+    font-size:8px;
+}
+.margins_and_paddings{
+    min-height: 400px;
+    &>div{
+        min-height: 140px;
+    }
+}
+.margins{
+    margin:8px;
+    padding:8px;
+    float:left;
+    min-width: 100px;
+    min-height: 100px;
+}
+
+.margin-1{
+    .margins;
+    border: 2px solid @color_green;
+}
+.margin-2{
+    .margins;
+    border: 2px solid @color_yellow;
+}.margin-3{
+    .margins;
+    border: 2px solid @color_orange;
+}.margin-4{
+    .margins;
+    border: 2px solid @color_red;
+}
+.margin-5{
+    .margins;
+    border: 2px solid @color_light;
+}
+.margin-6{
+    .margins;
+    border: 2px solid @color_dark;
+}
+.margina-1{
+    .margins;
+    background-color:@color_green;
+}
+.margina-2{
+    .margins;
+    background-color:@color_yellow;
+}.margina-3{
+    .margins;
+    background-color:@color_orange;
+}.margina-4{
+    .margins;
+    background-color:@color_red;
+}
+.margina-5{
+    .margins;
+    background-color:@color_light;
+}
+.margina-6{
+    .margins;
+    background-color:@color_dark;
+}
+
 .success{color:@color_green}
 .warning{color:@color_orange}
 .error{color:@color_red}
@@ -41,6 +123,8 @@ and open the template in the editor.
 .info-alt1{background-color:@color_yellow}
 .neutral-alt1{background-color:@color_dark}
 
+.backgroundcolor_inversion{background-color:@color_dark;}
+
 .color_inversion{color:@color_light;}
 .success-alt2{.success-alt1;.color_inversion;}
 .warning-alt2{.warning-alt1;.color_inversion;}
@@ -50,12 +134,20 @@ and open the template in the editor.
 
 h1,h2,h3,h4,h5,h6{
     font-family:@ff;
+    padding:0px;
+    margin:0px;
+}
+h1{
+    //.fontsize-big;
+}
+h2{
+    //.fontsize-medium;
 }
 
 body{
     .font-normal;
     background-color:@color_light;
     color:@color_dark;
-    
+
 }
 
