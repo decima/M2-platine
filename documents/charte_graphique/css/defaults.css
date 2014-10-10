@@ -3,7 +3,7 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 */
-/* 
+/*
     Created on : 3 oct. 2014, 09:57:48
     Author     : university
 */
@@ -43,6 +43,7 @@ and open the template in the editor.
 }
 .margins_and_paddings {
   min-height: 400px;
+  padding: 8px;
 }
 .margins_and_paddings > div {
   min-height: 140px;
