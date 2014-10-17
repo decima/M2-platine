@@ -1,3 +1,37 @@
+* {
+  margin: 0px;
+  padding: 0px;
+}
+html {
+  height: 100%;
+}
 body {
+  background-color: #ecf0f1;
+  height: 100%;
+  min-width: 1000px;
+}
+body menu {
+  float: left;
   background-color: #2c3e50;
+  min-width: 315px;
+  max-width: 25%;
+  height: 100%;
+}
+body .page {
+  padding: 16px;
+  -webkit-box-sizing: border-box;
+  /* Safari/Chrome, other WebKit */
+
+  -moz-box-sizing: border-box;
+  /* Firefox, other Gecko */
+
+  box-sizing: border-box;
+  /* Opera/IE 8+ */
+
+  background-color: #27ae60;
+  float: left;
+  width: 70%;
+}
+.clear {
+  clear: both;
 }
