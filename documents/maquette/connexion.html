@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head lang="fr">
+        <meta charset="UTF-8">
+        <title>Connexion</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="styles/connexion.css"/>
+        <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+        <script type="text/javascript">
+            $(window).resize(function() {
+                var height = ($(window).height()-$("#connexion_area").height())/2;
+                $("#connexion_area").css("margin-top", height+"px");
+            });
+            $(document).ready(function(){
+                var height = ($(window).height()-$("#connexion_area").height())/2;
+                $("#connexion_area").css("margin-top", height+"px");
+            });
+        </script>
+    </head>
+    <body>
+        <div id="page">
+            <div id="connexion_area">
+                <div id="titre">Se connecter</div>
+                <div id="formulaire">
+                    <input type="text" placeholder="Identifiant" />
+                    <input type="password" placeholder="Mot de passe" />
+                </div>
+                <a href="">Connexion</a>
+            </div>
+        </div>
+    </body>
+</html>
