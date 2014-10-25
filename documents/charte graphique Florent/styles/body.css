@@ -184,7 +184,7 @@ textarea {
     margin: auto;
     padding-top: 10px;
     padding-bottom: 10px;
-    background-color: #E8E8E8;
+    background-color: #FEFEFE;
     box-shadow: 0 0 2px #AAA;
     border-radius: 2px;
     position: relative;
@@ -240,7 +240,7 @@ textarea.actualite_area_text {
     margin: auto;
     border: 0;
     padding: 10px;
-    background-color: #E8E8E8;
+    background-color: #FEFEFE;
     box-shadow: 0 0 2px #AAA;
     border-radius: 2px;
 }
