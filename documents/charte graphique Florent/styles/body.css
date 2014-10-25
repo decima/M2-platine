@@ -229,13 +229,20 @@ textarea {
     line-height: 30px;
     font-size: 13px;
 }
+
+.quoi_de_neuf_bloc {
+    width: 530px;
+    float: left;
+}
 textarea.actualite_area_text {
-    width: 498px;
+    width: 510px;
     min-height: 50px;
-    padding: 0 10px;
     margin: auto;
-    background-color: inherit;
     border: 0;
+    padding: 10px;
+    background-color: #E8E8E8;
+    box-shadow: 0 0 2px #AAA;
+    border-radius: 2px;
 }
 .actualite_btn {
     margin-top: 10px;

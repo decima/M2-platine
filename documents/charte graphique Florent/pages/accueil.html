@@ -5,7 +5,7 @@
     <title>Accueil</title>
     <link type="text/css" rel="stylesheet" href="../styles/body.css">
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,600,700,400' rel='stylesheet' type='text/css'>
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
     <script type="text/javascript" src="../js/jquery.elastic.source.js"></script>
     <script type="text/javascript">
@@ -13,14 +13,13 @@
             var width_lateral_left = ($(window).width()-$("#page").width())/2;
             $("#lateral_left").width(width_lateral_left);
 
-            if($(window).height() > $("#page").height())
+            if($(window).height() > $(document).height())
                 var height = $(window).height();
             else
-                var height = $("#page").height();
+                var height = $(document).height();
 
             $("#lateral_left").height(height);
             $("#page_lateral_profil").height(height);
-
         });
         $(document).ready(function(){
             $('textarea').elastic();
@@ -28,10 +27,10 @@
             var width_lateral_left = ($(window).width()-$("#page").width())/2;
             $("#lateral_left").width(width_lateral_left);
 
-            if($(window).height() > $("#page").height())
+            if($(window).height() > $(document).height())
                 var height = $(window).height();
             else
-                var height = $("#page").height();
+                var height = $(document).height();
 
             $("#lateral_left").height(height);
             $("#page_lateral_profil").height(height);
@@ -64,10 +63,8 @@
                         <img src="../images/patrick_jane_m.png" alt="" />
                     </div>
                 </div>
-                <div class="actualite_bloc">
-                    <div class="actualite_area">
-                        <textarea class="actualite_area_text" placeholder="Exprimez-vous !"></textarea>
-                    </div>
+                <div class="quoi_de_neuf_bloc">
+                    <textarea class="actualite_area_text" placeholder="Exprimez-vous !"></textarea>
                     <a href="accueil.html" class="btn actualite_btn">Publier</a>
                 </div>
                 <div class="clear"></div>
