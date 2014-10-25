@@ -301,7 +301,28 @@ textarea.actualite_area_text {
     font-size: 24px;
     font-weight: 600;
     display: inline-block;
+    cursor: default;
 }
+.profil_bloc {
+    width: 510px;
+    margin: auto;
+    padding: 10px 20px;
+    background-color: #FEFEFE;
+    box-shadow: 0 0 2px #AAA;
+    border-radius: 2px;
+}
+.profil_bloc_contenu {
+    width: 100%;
+    color: #333;
+    font-size: 14px;
+}
+.profil_bloc_contenu ul {
+    color: #CC0C39;
+}
+.liste_contenu {
+    color: #333;
+}
+
 
 .titre {
     font-size: 24px;
