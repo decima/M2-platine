@@ -126,6 +126,7 @@ textarea {
 #page_lateral_liens > .page_lateral_icon:hover {
     color: #CCC;
 }
+.actualite_buttons_area > .page_lateral_icon_actif > i,
 .page_lateral_icon > i.fa-power-off {
     color: #990100;
 }
