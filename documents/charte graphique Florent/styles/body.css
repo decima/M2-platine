@@ -3,6 +3,7 @@ body {
 
     margin: auto;
     background-image: url('../images/bg_white.png');
+    /*background-image: url('../images/bg_white_bkup.png');*/
     font-family: 'Open Sans', sans-serif;
     color: #333;
 }
@@ -21,7 +22,7 @@ textarea {
     width: 700px;
 
     margin: auto;
-    background-color: #E8E8E8;
+    background-color: #FEFEFE;
     border-radius: 2px;
 
     border:1px #CCCCCC;
@@ -69,12 +70,12 @@ textarea {
 
 #lateral_left {
     float: left;
-    background-color: #E8E8E8;
+    background-color: #FEFEFE;
 }
 #page_lateral_profil {
     width: 300px;
     float: left;
-    background-color: #E8E8E8;
+    background-color: #FEFEFE;
     margin-right: -1px;
     border-right: 1px solid #CCCCCC;
 }
@@ -100,7 +101,7 @@ textarea {
     margin: auto;
     text-align: center;
     text-decoration: none;
-    color: #990100;
+    color: #CC0C39;
     font-size: 16px;
     font-weight: 600;
     display: inline-block;
@@ -126,12 +127,29 @@ textarea {
 #page_lateral_liens > .page_lateral_icon:hover {
     color: #CCC;
 }
-.actualite_buttons_area > .page_lateral_icon_actif > i,
+#page_lateral_liens > .page_lateral_icon > i {
+    width: 100%;
+}
 .page_lateral_icon > i.fa-power-off {
-    color: #990100;
+    color: #CC0C39;
 }
 .page_lateral_icon > i.fa-power-off:hover {
-    color: #D90202;
+    color: #D63B5F;
+}
+.bille_notification {
+    width: 18px;
+    height: 18px;
+    line-height: 18px;
+    background-color: #CC0C39;
+    color: #FEFEFE;
+    font-size: 10px;
+    display: inline-block;
+    position: relative;
+    border-radius: 18px;
+    font-family: 'Open Sans', sans-serif;
+    top: -15px;
+    left: 5px;
+    text-align:center;
 }
 
 #page_contenu {
@@ -142,7 +160,7 @@ textarea {
     width: 660px;
     height: 1px;
     margin: 20px auto;
-    background-color: #AAA;
+    background-color: #CCC;
 }
 .actualite {
     width: 100%;
@@ -170,7 +188,7 @@ textarea {
     margin: 10px auto;
     text-align: center;
     text-decoration: none;
-    color: #990100;
+    color: #CC0C39;
     font-size: 12px;
     font-weight: 600;
     display: inline-block;
@@ -199,7 +217,7 @@ textarea {
     z-index: 150;
     width: 100%;
     height: 35px;
-    background-color: #AAA;
+    background-color: #CC0C39;
     position: relative;
     margin-top: -5px;
     border-bottom-left-radius: 2px;
@@ -212,22 +230,28 @@ textarea {
     margin-left: 10px;
     height: 30px;
     line-height: 30px;
-    color: #333;
+    color: #7a0414;
     font-size: 13px;
 }
 .actualite_buttons_area > a {
     margin: 0 10px;
-    color: #333;
+    color: #7a0414;
     text-decoration: none;
+}
+.actualite_buttons_area > a:hover {
+    color: #E8E8E8;
 }
 .actualite_buttons > .actualite_date {
     float: right;
     padding-top: 5px;
     margin-right: 20px;
-    color: #333;
+    color: #7a0414;
     height: 30px;
     line-height: 30px;
     font-size: 13px;
+}
+.actualite_buttons_area > .page_lateral_icon_actif {
+    color: #FEFEFE;
 }
 
 .quoi_de_neuf_bloc {
@@ -249,10 +273,40 @@ textarea.actualite_area_text {
     margin-bottom: -20px;
 }
 
+
+
+#profil_top {
+    width: 100%;
+    margin: 40px auto;
+}
+#profil_top_avatar {
+    width: 200px;
+    height: 200px;
+
+    margin: 50px auto 20px;
+    border-radius: 200px;
+    overflow: hidden;
+    box-shadow: 0px 0px 2px #AAA;
+}
+#profil_top_avatar > img {
+    width: 200px;
+    height: 200px;
+}
+#profil_top_avatar_nom {
+    width: 100%;
+    margin: auto;
+    text-align: center;
+    text-decoration: none;
+    color: #CC0C39;
+    font-size: 24px;
+    font-weight: 600;
+    display: inline-block;
+}
+
 .titre {
     font-size: 24px;
     font-weight: 600;
-    color: #990100;
+    color: #CC0C39;
     margin-bottom: 10px;
 }
 .contenu {
@@ -274,12 +328,12 @@ a.btn {
     text-decoration: none;
     font-size: 13px;
 
-    background-color: #990100;
+    background-color: #CC0C39;
     border-radius: 2px;
     color: #E8E8E8;
     position: relative;
     right: 0;
 }
 a.btn:hover {
-    background-color: #B90504;
+    background-color: #D63B5F;
 }

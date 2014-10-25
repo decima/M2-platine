@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head lang="fr">
+    <meta charset="UTF-8">
+    <title>Profil de Teresa Lisbon</title>
+    <link type="text/css" rel="stylesheet" href="../styles/body.css">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,600,700,400' rel='stylesheet' type='text/css'>
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+    <script type="text/javascript" src="../js/jquery.elastic.source.js"></script>
+    <script type="text/javascript">
+        $(window).resize(function() {
+            var width_lateral_left = ($(window).width()-$("#page").width())/2;
+            $("#lateral_left").width(width_lateral_left);
+
+            if($(window).height() > $("#page_contenu").height())
+                var height = $(window).height();
+            else
+                var height = $("#page_contenu").height();
+
+            $("#lateral_left").height(height);
+            $("#page_lateral_profil").height(height);
+        });
+        $(window).load(function(){
+            var width_lateral_left = ($(window).width()-$("#page").width())/2;
+            $("#lateral_left").width(width_lateral_left);
+
+            if($(window).height() > $("#page_contenu").height())
+                var height = $(window).height();
+            else
+                var height = $("#page_contenu").height();
+
+            $("#lateral_left").height(height);
+            $("#page_lateral_profil").height(height);
+
+            $('textarea').elastic();
+        });
+    </script>
+</head>
+<body>
+<div id="lateral_left"></div>
+<div id="page">
+    <div id="page_lateral_profil">
+        <div id="page_lateral_profil_avatar">
+            <img src="../images/patrick_jane_n.png" alt="" />
+        </div>
+        <div id="page_lateral_profil_nom"><a href="profil_patrick_jane.html"><i class="fa  fa-user fa-fw"></i> Patrick Jane</a></div>
+        <div class="page_lateral_profil_sep"></div>
+        <div id="page_lateral_liens">
+            <a href="" class="page_lateral_icon"><i class="fa  fa-ticket fa-fw"></i><span class="bille_notification">+99</span></a>
+            <a href="" class="page_lateral_icon"><i class="fa  fa-envelope fa-fw"></i><span class="bille_notification">2</span></a>
+            <a href="" class="page_lateral_icon"><i class="fa  fa-search fa-fw"></i></a>
+            <a href="" class="page_lateral_icon"><i class="fa  fa-gear fa-fw"></i></a>
+            <a href="connexion.html" class="page_lateral_icon" title="Déconnexion"><i class="fa  fa-power-off fa-fw"></i></a>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div id="page_contenu">
+        <div id="profil_top">
+            <div id="profil_top_avatar">
+                <img src="../images/teresa_lisbon_p.png" alt="" />
+            </div>
+            <div id="profil_top_avatar_nom">Teresa Lisbon</div>
+        </div>
+        <div class="page_contenu_sep"></div>
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="clear"></div>
+</body>
+</html>
