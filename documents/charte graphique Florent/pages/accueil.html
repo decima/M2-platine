@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head lang="en">
+<head lang="fr">
     <meta charset="UTF-8">
     <title>Accueil</title>
     <link type="text/css" rel="stylesheet" href="../styles/body.css">
@@ -22,8 +22,6 @@
             $("#page_lateral_profil").height(height);
         });
         $(document).ready(function(){
-            $('textarea').elastic();
-
             var width_lateral_left = ($(window).width()-$("#page").width())/2;
             $("#lateral_left").width(width_lateral_left);
 
@@ -34,6 +32,8 @@
 
             $("#lateral_left").height(height);
             $("#page_lateral_profil").height(height);
+
+            $('textarea').elastic();
         });
     </script>
 </head>
