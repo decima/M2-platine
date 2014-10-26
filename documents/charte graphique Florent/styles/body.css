@@ -437,6 +437,9 @@ textarea.actualite_area_text {
     box-shadow: 0 0 2px #AAA;
     overflow: hidden;
 }
+.messagerie_avatar_area > .messagerie_avatar_empty {
+    box-shadow: none;
+}
 .messagerie_avatar_area > .messagerie_avatar img {
     width: 50px;
     height: 50px;
@@ -460,8 +463,25 @@ textarea.actualite_area_text {
     box-shadow: 0 0 2px #AAA;
     border-radius: 2px;
     overflow: hidden;
+    display: block;
+    cursor: pointer;
 }
-.messagerie_bloc.messagerie_bloc_new {
+.messagerie_bloc_message {
+    width: 530px;
+    min-height: 50px;
+    padding-bottom: 10px;
+    float: left;
+    background-color: #FEFEFE;
+    box-shadow: 0 0 2px #AAA;
+    border-radius: 2px;
+    overflow: hidden;
+    display: block;
+}
+.messagerie_bloc_message_decalageG {
+    margin-left: 40px;
+}
+.messagerie_bloc.messagerie_bloc_new,
+.messagerie_bloc_message.messagerie_bloc_new {
     background-color: #CC0C39;
 }
 .messagerie_bloc_informations {
@@ -482,6 +502,16 @@ textarea.actualite_area_text {
 .messagerie_bloc_informations_date {
     float: right;
 }
+.messagerie_bloc_message_date {
+    width: 100%;
+    height: 20px;
+    line-height: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+    font-size: 12px;
+    color: #333;
+}
 .messagerie_bloc_texte {
     float: left;
     width: 460px;
@@ -499,8 +529,21 @@ textarea.actualite_area_text {
     text-align: justify;
     color: #333;
 }
+.messagerie_bloc_texte_large {
+    width: 490px;
+    margin-left: 20px;
+    font-size: 11px;
+    color: #333;
+    text-align: justify;
+}
 .messagerie_bloc.messagerie_bloc_new .messagerie_bloc_texte {
     color: #FEFEFE;
+}
+.messagerie_bloc_texte_large_sep {
+    width: 450px;
+    height: 1px;
+    background-color: #CCC;
+    margin: 10px auto;
 }
 .messagerie_bloc_texte a {
     color: #CC0C39;
@@ -521,13 +564,17 @@ textarea.actualite_area_text {
     height: 70px;
     line-height: 70px;
     color: #CC0C39;
-    cursor: default;
 }
 .messagerie_bloc.messagerie_bloc_new > .messagerie_bloc_informations a,
 .messagerie_bloc.messagerie_bloc_new > .messagerie_bloc_informations,
 .messagerie_bloc.messagerie_bloc_new > .messagerie_bloc_texte > .messagerie_bloc_texte_inside,
-.messagerie_bloc.messagerie_bloc_new > .messagerie_bloc_icone {
+.messagerie_bloc.messagerie_bloc_new > .messagerie_bloc_icone,
+.messagerie_bloc_message.messagerie_bloc_new > .messagerie_bloc_message_date,
+.messagerie_bloc_message.messagerie_bloc_new > .messagerie_bloc_texte_large {
     color: #FEFEFE;
+}
+.messagerie_bloc_message.messagerie_bloc_new > .messagerie_bloc_texte_large_sep {
+    background-color: #FEFEFE;
 }
 
 
