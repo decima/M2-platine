@@ -578,6 +578,50 @@ textarea.actualite_area_text {
 }
 
 
+.rechercher_input {
+    float: right;
+    font-size: 12px;
+    margin-right: 40px;
+    height: 35px;
+    line-height: 35px;
+}
+.rechercher_input_inside {
+    vertical-align: middle;
+    display: inline-block;
+    line-height: normal;
+}
+.rechercher_input_inside input {
+    width: 350px;
+    height: 25px;
+    margin: auto;
+    padding: 2px;
+    background-color: #FEFEFE;
+    border: 1px solid #CCC;
+    border-right: 0;
+    display: block;
+    float:left;
+}
+a.rechercher_input_loupe {
+    width: 20px;
+    height: 25px;
+    margin: auto;
+    padding: 2px;
+    line-height: 25px;
+    color: #CC0C39;
+    text-decoration: none;
+    background-color: #FEFEFE;
+    border: 1px solid #CCC;
+    border-left: 0;
+    display: block;
+    float:left;
+}
+.rechercher_message_no_entry {
+    width: 100%;
+    font-size: 12px;
+    color: #333;
+    text-align: center;
+}
+
 .titre {
     font-size: 24px;
     font-weight: 600;
