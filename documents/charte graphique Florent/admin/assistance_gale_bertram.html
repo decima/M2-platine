@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head lang="fr">
+    <meta charset="UTF-8">
+    <title>Assistance · Gale Bertram</title>
+    <link type="text/css" rel="stylesheet" href="../styles/body_admin.css">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,600,700,400' rel='stylesheet' type='text/css'>
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+    <script type="text/javascript" src="../js/jquery.elastic.source.js"></script>
+    <script type="text/javascript">
+        $(window).resize(function() {
+            var width_lateral_left = ($(window).width()-$("#page").width())/2;
+            $("#lateral_left").width(width_lateral_left);
+
+            if($(window).height() > $("#page").height())
+                var height = $(window).height();
+            else
+                var height = $("#page").height();
+
+            $("#lateral_left").height(height);
+            $("#page_lateral_profil").height(height);
+        });
+        $(window).load(function(){
+            var width_lateral_left = ($(window).width()-$("#page").width())/2;
+            $("#lateral_left").width(width_lateral_left);
+
+            if($(window).height() > $("#page").height())
+                var height = $(window).height();
+            else
+                var height = $("#page").height();
+
+            $("#lateral_left").height(height);
+            $("#page_lateral_profil").height(height);
+
+            $('textarea').elastic();
+        });
+    </script>
+</head>
+<body>
+<div id="lateral_left"></div>
+<div id="page">
+    <div id="page_lateral_profil">
+        <div id="page_lateral_profil_avatar">
+            <img src="../images/florent_peysson_n.png" alt="" />
+        </div>
+        <div id="page_lateral_profil_nom"><a href="../profil_florent_peysson.html"><i class="fa  fa-gear fa-fw"></i> Florent Peysson</a></div>
+        <div class="page_lateral_profil_sep"></div>
+        <div id="page_lateral_liens">
+            <a href="accueil.html" class="page_lateral_icon" title="Dashboard"><i class="fa  fa-tachometer fa-fw"></i></a>
+            <a href="" class="page_lateral_icon" title=""><i class="fa  fa- fa-fw"></i></a>
+            <a href="" class="page_lateral_icon" title=""><i class="fa  fa- fa-fw"></i></a>
+            <a href="rechercher.html" class="page_lateral_icon" title="Rechercher"><i class="fa  fa-search fa-fw"></i></a>
+            <a href="connexion.html" class="page_lateral_icon" title="Déconnexion"><i class="fa  fa-power-off fa-fw"></i></a>
+        </div>
+        <div id="page_lateral_categories">
+            <div class="page_lateral_categorie">
+                <div class="page_lateral_categorie_titre"><i class="fa  fa-users fa-fw"></i> Utilisateurs</div>
+                <a href="" title=""><i class="fa  fa-user fa-fw"></i> Gérer les utilisateurs</a>
+                <a href="" title=""><i class="fa  fa-users fa-fw"></i> Gérer les groupes</a>
+                <a href="" title=""><i class="fa  fa-shield fa-fw"></i> Gérer les permissions</a>
+            </div>
+            <div class="page_lateral_profil_sep"></div>
+            <div class="page_lateral_categorie">
+                <div class="page_lateral_categorie_titre"><i class="fa  fa-database fa-fw"></i> Bases de données</div>
+                <a href="" title=""><i class="fa  fa-wrench fa-fw"></i> Gérer</a>
+            </div>
+            <div class="page_lateral_profil_sep"></div>
+            <div class="page_lateral_categorie">
+                <div class="page_lateral_categorie_titre"><i class="fa  fa-cogs fa-fw"></i> Modules</div>
+                <a href="" title=""><i class="fa  fa-bars fa-fw"></i> Modules installés</a>
+                <a href="" title=""><i class="fa  fa-plus-square fa-fw"></i> Installer un module</a>
+                <a href="" title=""><i class="fa  fa-minus-square fa-fw"></i> Supprimer un module</a>
+            </div>
+            <div class="page_lateral_profil_sep"></div>
+            <div class="page_lateral_categorie">
+                <div class="page_lateral_categorie_titre"><i class="fa  fa-wrench fa-fw"></i> Maintenance</div>
+                <a href="incidents.html" title=""><i class="fa  fa-bug fa-fw"></i> Incidents</a>
+                <a href="" title=""><i class="fa  fa-clock-o fa-fw"></i> Tâches planifiées</a>
+                <a href="" title=""><i class="fa  fa-terminal fa-fw"></i> Terminal</a>
+                <a href="" title=""><i class="fa  fa-file-text-o fa-fw"></i> Logs</a>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div id="page_contenu">
+        <div class="titre titre_page">Assistance · Gale Bertram</div>
+        <div class="page_contenu_sep"></div>
+
+        <!-- Message -->
+        <div class="messagerie">
+            <div class="messagerie_bloc_message messagerie_bloc_message_decalageG">
+                <div class="messagerie_bloc_message_date"><i class="fa  fa-clock-o fa-fw"></i> 17:58</div>
+                <div class="messagerie_bloc_texte_large">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque at finibus dolor, ac fringilla arcu. Vivamus ipsum leo, interdum eu turpis vitae, porta tempor dolor. Vestibulum et augue quis nulla sagittis iaculis. Maecenas ac velit.
+                </div>
+            </div>
+            <div class="messagerie_avatar_area">
+                <div class="messagerie_avatar">
+                    <a href=""><img src="../images/florent_peysson_m.png" alt="" /></a>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+
+
+        <div class="messagerie">
+            <div class="messagerie_avatar_area">
+                <div class="messagerie_avatar">
+                    <a href="profil_gale_bertram.html"><img src="../images/gale_bertram_m.png" alt="" /></a>
+                </div>
+            </div>
+            <div class="messagerie_bloc_message">
+                <div class="messagerie_bloc_message_date"><i class="fa  fa-clock-o fa-fw"></i> 18:01</div>
+                <div class="messagerie_bloc_texte_large">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque at finibus dolor, ac fringilla arcu. Vivamus ipsum leo, interdum eu turpis vitae, porta tempor dolor. Vestibulum et augue quis nulla sagittis iaculis. Maecenas ac velit.
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="messagerie">
+            <div class="messagerie_bloc_message messagerie_bloc_message_decalageG">
+                <div class="messagerie_bloc_message_date"><i class="fa  fa-clock-o fa-fw"></i> 18:28</div>
+                <div class="messagerie_bloc_texte_large">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque at finibus dolor, ac fringilla arcu. Vivamus ipsum leo, interdum eu turpis vitae, porta tempor dolor. Vestibulum et augue quis nulla sagittis iaculis. Maecenas ac velit.
+                </div>
+                <div class="messagerie_bloc_texte_large_sep"></div>
+                <div class="messagerie_bloc_texte_large">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque at finibus dolor, ac fringilla arcu. Vivamus ipsum leo, interdum eu turpis vitae, porta tempor dolor. Vestibulum et augue quis nulla sagittis iaculis. Maecenas ac velit.
+                </div>
+            </div>
+            <div class="messagerie_avatar_area">
+                <div class="messagerie_avatar">
+                    <a href=""><img src="../images/florent_peysson_m.png" alt="" /></a>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+
+        <div class="messagerie">
+            <div class="messagerie_avatar_area">
+                <div class="messagerie_avatar">
+                    <a href="profil_gale_bertram.html"><img src="../images/gale_bertram_m.png" alt="" /></a>
+                </div>
+            </div>
+            <div class="messagerie_bloc_message">
+                <div class="messagerie_bloc_message_date"><i class="fa  fa-clock-o fa-fw"></i> 18:54</div>
+                <div class="messagerie_bloc_texte_large">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque at finibus dolor, ac fringilla arcu. Vivamus ipsum leo, interdum eu turpis vitae, porta tempor dolor. Vestibulum et augue quis nulla sagittis iaculis. Maecenas ac velit.
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="messagerie">
+            <div class="messagerie_avatar_area">
+                <div class="messagerie_avatar">
+                    <a href="profil_gale_bertram.html"><img src="../images/gale_bertram_m.png" alt="" /></a>
+                </div>
+            </div>
+            <div class="messagerie_bloc_message messagerie_bloc_new">
+                <div class="messagerie_bloc_message_date"><i class="fa  fa-clock-o fa-fw"></i> 18:57</div>
+                <div class="messagerie_bloc_texte_large">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque at finibus dolor, ac fringilla arcu. Vivamus ipsum leo, interdum eu turpis vitae, porta tempor dolor. Vestibulum et augue quis nulla sagittis iaculis. Maecenas ac velit.
+                </div>
+                <div class="messagerie_bloc_texte_large_sep"></div>
+                <div class="messagerie_bloc_texte_large">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque at finibus dolor, ac fringilla arcu. Vivamus ipsum leo, interdum eu turpis vitae, porta tempor dolor. Vestibulum et augue quis nulla sagittis iaculis. Maecenas ac velit.
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+
+        <div class="page_contenu_sep"></div>
+        <div class="actualite">
+            <div class="actualite_avatar_area">
+                <div class="actualite_avatar">
+                    <a href=""><img src="../images/florent_peysson_m.png" alt="" /></a>
+                </div>
+            </div>
+            <div class="quoi_de_neuf_bloc">
+                <textarea class="actualite_area_text" placeholder="Saisissez votre message"></textarea>
+                <a href="messagerie_gale_bertram.html" class="btn actualite_btn">Envoyer</a>
+            </div>
+            <div class="clear"></div>
+        </div>
+
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="clear"></div>
+</body>
+</html>

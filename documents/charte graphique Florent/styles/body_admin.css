@@ -168,7 +168,7 @@ textarea {
     width: 18px;
     height: 18px;
     line-height: 18px;
-    background-color: #CC0C39;
+    background-color: #202c4c;
     color: #FEFEFE;
     font-size: 10px;
     display: inline-block;
@@ -216,7 +216,7 @@ textarea {
     margin: 10px auto;
     text-align: center;
     text-decoration: none;
-    color: #CC0C39;
+    color: #202c4c;
     font-size: 12px;
     font-weight: 600;
     display: inline-block;
@@ -245,7 +245,7 @@ textarea {
     z-index: 150;
     width: 100%;
     height: 35px;
-    background-color: #CC0C39;
+    background-color: #202c4c;
     position: relative;
     margin-top: -5px;
     border-bottom-left-radius: 2px;
@@ -258,12 +258,12 @@ textarea {
     margin-left: 10px;
     height: 30px;
     line-height: 30px;
-    color: #7a0414;
+    color: #202c4c;
     font-size: 13px;
 }
 .actualite_buttons_area > a {
     margin: 0 10px;
-    color: #7a0414;
+    color: #202c4c;
     text-decoration: none;
 }
 .actualite_buttons_area > a:hover {
@@ -273,7 +273,7 @@ textarea {
     float: right;
     padding-top: 5px;
     margin-right: 20px;
-    color: #7a0414;
+    color: #202c4c;
     height: 30px;
     line-height: 30px;
     font-size: 13px;
@@ -350,7 +350,7 @@ textarea.actualite_area_text {
     margin: auto;
     text-align: center;
     text-decoration: none;
-    color: #CC0C39;
+    color: #202c4c;
     font-size: 24px;
     font-weight: 600;
     display: inline-block;
@@ -408,7 +408,11 @@ textarea.actualite_area_text {
     overflow: hidden;
 }
 .notification_bloc.notification_bloc_new {
-    background-color: #CC0C39;
+    background-color: #202c4c;
+}
+.notification_bloc.notification_bloc_center {
+    float: none;
+    margin: auto;
 }
 .notification_bloc_texte {
     margin-left: 20px;
@@ -420,12 +424,12 @@ textarea.actualite_area_text {
     color: #FEFEFE;
 }
 .notification_bloc_texte a {
-    color: #CC0C39;
+    color: #202c4c;
     text-decoration: none;
     font-weight: 600;
 }
 .notification_bloc_texte a:hover {
-    color: #D63B5F;
+    color: #4b556e;
 }
 .notification_bloc.notification_bloc_new .notification_bloc_texte a,
 .notification_bloc.notification_bloc_new .notification_bloc_texte a:hover {
@@ -437,7 +441,7 @@ textarea.actualite_area_text {
     line-height: 50px;
     font-size: 14px;
     float: right;
-    color: #CC0C39;
+    color: #202c4c;
     text-align: center;
     display: inline-block;
 }
@@ -478,7 +482,7 @@ textarea.actualite_area_text {
     margin: 10px auto;
     text-align: center;
     text-decoration: none;
-    color: #CC0C39;
+    color: #202c4c;
     font-size: 12px;
     font-weight: 600;
     display: inline-block;
@@ -510,7 +514,7 @@ textarea.actualite_area_text {
 }
 .messagerie_bloc.messagerie_bloc_new,
 .messagerie_bloc_message.messagerie_bloc_new {
-    background-color: #CC0C39;
+    background-color: #202c4c;
 }
 .messagerie_bloc_informations {
     height: 20px;
@@ -523,7 +527,7 @@ textarea.actualite_area_text {
 }
 .messagerie_bloc_informations a {
     text-decoration: none;
-    color: #CC0C39;
+    color: #202c4c;
     font-size: 12px;
     font-weight: 600;
 }
@@ -574,12 +578,12 @@ textarea.actualite_area_text {
     margin: 10px auto;
 }
 .messagerie_bloc_texte a {
-    color: #CC0C39;
+    color: #202c4c;
     text-decoration: none;
     font-weight: 600;
 }
 .messagerie_bloc_texte a:hover {
-    color: #D63B5F;
+    color: #4b556e;
 }
 .messagerie_bloc.messagerie_bloc_new .messagerie_bloc_texte a,
 .messagerie_bloc.messagerie_bloc_new .messagerie_bloc_texte a:hover {
@@ -591,7 +595,7 @@ textarea.actualite_area_text {
     text-align: center;
     height: 70px;
     line-height: 70px;
-    color: #CC0C39;
+    color: #202c4c;
 }
 .messagerie_bloc.messagerie_bloc_new > .messagerie_bloc_informations a,
 .messagerie_bloc.messagerie_bloc_new > .messagerie_bloc_informations,
@@ -731,7 +735,7 @@ a.cube_150x150 {
     border-radius: 2px;
 }
 a.cube_150x150_new {
-    background-color: #4b556e;
+    background-color: #202c4c;
 }
 .cube_150x150_num {
     width: 116px;
@@ -741,7 +745,7 @@ a.cube_150x150_new {
     text-align: center;
     margin: auto;
     font-size: 35px;
-    color: #4b556e;
+    color: #202c4c;
 }
 a.cube_150x150_new > .cube_150x150_num {
     color: #FEFEFE;
@@ -753,10 +757,20 @@ a.cube_150x150_new > .cube_150x150_num {
     line-height: 20px;
     vertical-align: middle;
     font-size: 12px;
-    color: #071438;
+    color: #202c4c;
 }
 a.cube_150x150_new > .cube_150x150_desc {
     color: #FEFEFE;
+}
+
+.incidents_ico_rouge {
+    color: #D84700;
+}
+.incidents_ico_orange {
+    color: #FFCC00;
+}
+.incidents_ico_vert {
+    color: #99CC00;
 }
 
 a.btn {

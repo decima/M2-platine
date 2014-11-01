@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+    <head lang="fr">
+        <meta charset="UTF-8">
+        <title>Assistance</title>
+        <link type="text/css" rel="stylesheet" href="../styles/body_admin.css">
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,600,700,400' rel='stylesheet' type='text/css'>
+        <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+        <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+        <script type="text/javascript" src="../js/jquery.elastic.source.js"></script>
+        <script type="text/javascript">
+            $(window).resize(function() {
+                var width_lateral_left = ($(window).width()-$("#page").width())/2;
+                $("#lateral_left").width(width_lateral_left);
+
+                if($(window).height() > $("#page").height())
+                    var height = $(window).height();
+                else
+                    var height = $("#page").height();
+
+                $("#lateral_left").height(height);
+                $("#page_lateral_profil").height(height);
+            });
+            $(window).load(function(){
+                var width_lateral_left = ($(window).width()-$("#page").width())/2;
+                $("#lateral_left").width(width_lateral_left);
+
+                if($(window).height() > $("#page").height())
+                    var height = $(window).height();
+                else
+                    var height = $("#page").height();
+
+                $("#lateral_left").height(height);
+                $("#page_lateral_profil").height(height);
+
+                $('textarea').elastic();
+            });
+        </script>
+    </head>
+    <body>
+        <div id="lateral_left"></div>
+        <div id="page">
+            <div id="page_lateral_profil">
+                <div id="page_lateral_profil_avatar">
+                    <img src="../images/florent_peysson_n.png" alt="" />
+                </div>
+                <div id="page_lateral_profil_nom"><a href="../profil_florent_peysson.html"><i class="fa  fa-gear fa-fw"></i> Florent Peysson</a></div>
+                <div class="page_lateral_profil_sep"></div>
+                <div id="page_lateral_liens">
+                    <a href="accueil.html" class="page_lateral_icon" title="Dashboard"><i class="fa  fa-tachometer fa-fw"></i></a>
+                    <a href="" class="page_lateral_icon" title=""><i class="fa  fa- fa-fw"></i></a>
+                    <a href="" class="page_lateral_icon" title=""><i class="fa  fa- fa-fw"></i></a>
+                    <a href="rechercher.html" class="page_lateral_icon" title="Rechercher"><i class="fa  fa-search fa-fw"></i></a>
+                    <a href="connexion.html" class="page_lateral_icon" title="Déconnexion"><i class="fa  fa-power-off fa-fw"></i></a>
+                </div>
+                <div id="page_lateral_categories">
+                    <div class="page_lateral_categorie">
+                        <div class="page_lateral_categorie_titre"><i class="fa  fa-users fa-fw"></i> Utilisateurs</div>
+                        <a href="" title=""><i class="fa  fa-user fa-fw"></i> Gérer les utilisateurs</a>
+                        <a href="" title=""><i class="fa  fa-users fa-fw"></i> Gérer les groupes</a>
+                        <a href="" title=""><i class="fa  fa-shield fa-fw"></i> Gérer les permissions</a>
+                    </div>
+                    <div class="page_lateral_profil_sep"></div>
+                    <div class="page_lateral_categorie">
+                        <div class="page_lateral_categorie_titre"><i class="fa  fa-database fa-fw"></i> Bases de données</div>
+                        <a href="" title=""><i class="fa  fa-wrench fa-fw"></i> Gérer</a>
+                    </div>
+                    <div class="page_lateral_profil_sep"></div>
+                    <div class="page_lateral_categorie">
+                        <div class="page_lateral_categorie_titre"><i class="fa  fa-cogs fa-fw"></i> Modules</div>
+                        <a href="" title=""><i class="fa  fa-bars fa-fw"></i> Modules installés</a>
+                        <a href="" title=""><i class="fa  fa-plus-square fa-fw"></i> Installer un module</a>
+                        <a href="" title=""><i class="fa  fa-minus-square fa-fw"></i> Supprimer un module</a>
+                    </div>
+                    <div class="page_lateral_profil_sep"></div>
+                    <div class="page_lateral_categorie">
+                        <div class="page_lateral_categorie_titre"><i class="fa  fa-wrench fa-fw"></i> Maintenance</div>
+                        <a href="incidents.html" title=""><i class="fa  fa-bug fa-fw"></i> Incidents</a>
+                        <a href="" title=""><i class="fa  fa-clock-o fa-fw"></i> Tâches planifiées</a>
+                        <a href="" title=""><i class="fa  fa-terminal fa-fw"></i> Terminal</a>
+                        <a href="" title=""><i class="fa  fa-file-text-o fa-fw"></i> Logs</a>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div id="page_contenu">
+                <div class="titre titre_page">Assistance</div>
+                <div class="page_contenu_sep"></div>
+
+                <!-- Message -->
+                <div class="messagerie">
+                    <div class="messagerie_avatar_area">
+                        <div class="messagerie_avatar">
+                            <a href="profil_gale_bertram.html"><img src="../images/gale_bertram_m.png" alt="" /></a>
+                        </div>
+                        <div class="messagerie_nom"><a href="profil_gale_bertram.html">Gale<br/>Bertram</a></div>
+                    </div>
+                    <div class="messagerie_bloc messagerie_bloc_new" onclick="window.location.href='assistance_gale_bertram.html'">
+                        <div class="messagerie_bloc_informations"><a href="#">Gale Bertram</a> : <div class="messagerie_bloc_informations_date"><i class="fa  fa-clock-o fa-fw"></i> 18:57</div></div>
+                        <div class="messagerie_bloc_texte">
+                            <div class="messagerie_bloc_texte_inside">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque at finibus dolor, ac fringilla arcu. Vivamus ipsum leo, interdum eu turpis vitae, porta tempor dolor. Vestibulum et augue quis nulla sagittis iaculis. Maecenas ac velit [...]</div>
+                        </div>
+                        <div class="messagerie_bloc_icone"><i class="fa  fa-envelope fa-fw" title="Message non lu"></i></div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+                <div class="messagerie">
+                    <div class="messagerie_avatar_area">
+                        <div class="messagerie_avatar">
+                            <a href="profil_teresa_lisbon.html"><img src="../images/teresa_lisbon_m.png" alt="" /></a>
+                        </div>
+                        <div class="messagerie_nom"><a href="profil_teresa_lisbon.html">Teresa<br/>Lisbon</a></div>
+                    </div>
+                    <div class="messagerie_bloc" onclick="window.location.href=''">
+                        <div class="messagerie_bloc_informations"><a href="#">Teresa Lisbon</a> : <div class="messagerie_bloc_informations_date"><i class="fa  fa-clock-o fa-fw"></i> 13:28</div></div>
+                        <div class="messagerie_bloc_texte">
+                            <div class="messagerie_bloc_texte_inside">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque at finibus dolor, ac fringilla arcu. Vivamus ipsum leo, interdum eu turpis vitae, porta tempor dolor. Vestibulum et augue quis nulla sagittis iaculis. Maecenas ac velit [...]</div>
+                        </div>
+                        <div class="messagerie_bloc_icone"><i class="fa  fa-envelope fa-fw" title="Message lu"></i></div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+                <div class="messagerie">
+                    <div class="messagerie_avatar_area">
+                        <div class="messagerie_avatar">
+                            <a href="profil_grace_vanpelt.html"><img src="../images/grace_vanpelt_m.png" alt="" /></a>
+                        </div>
+                        <div class="messagerie_nom"><a href="profil_grace_vanpelt.html">Grace<br/>Van Pelt</a></div>
+                    </div>
+                    <div class="messagerie_bloc" onclick="window.location.href=''">
+                        <div class="messagerie_bloc_informations"><a href="#">Moi</a> : <div class="messagerie_bloc_informations_date"><i class="fa  fa-clock-o fa-fw"></i> Hier à 11:44</div></div>
+                        <div class="messagerie_bloc_texte">
+                            <div class="messagerie_bloc_texte_inside">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque at finibus dolor, ac fringilla arcu. Vivamus ipsum leo, interdum eu turpis vitae, porta tempor dolor. Vestibulum et augue quis nulla sagittis iaculis. Maecenas ac velit [...]</div>
+                        </div>
+                        <div class="messagerie_bloc_icone"><i class="fa  fa-reply fa-fw" title="Réponse envoyée"></i></div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+                <div class="messagerie">
+                    <div class="messagerie_avatar_area">
+                        <div class="messagerie_avatar">
+                            <a href="profil_wayne_rigsby.html"><img src="../images/wayne_rigsby_m.png" alt="" /></a>
+                        </div>
+                        <div class="messagerie_nom"><a href="profil_wayne_rigsby.html">Wayne<br/>Rigsby</a></div>
+                    </div>
+                    <div class="messagerie_bloc" onclick="window.location.href=''">
+                        <div class="messagerie_bloc_informations"><a href="#">Moi</a> : <div class="messagerie_bloc_informations_date"><i class="fa  fa-clock-o fa-fw"></i> Hier à 10:29</div></div>
+                        <div class="messagerie_bloc_texte">
+                            <div class="messagerie_bloc_texte_inside">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque at finibus dolor, ac fringilla arcu. Vivamus ipsum leo, interdum eu turpis vitae, porta tempor dolor. Vestibulum et augue quis nulla sagittis iaculis. Maecenas ac velit [...]</div>
+                        </div>
+                        <div class="messagerie_bloc_icone"><i class="fa  fa-check fa-fw" title="Réponse envoyée et lu"></i></div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+    </body>
+</html>
