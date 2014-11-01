@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head lang="fr">
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <link type="text/css" rel="stylesheet" href="../styles/body_admin.css">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,600,700,400' rel='stylesheet' type='text/css'>
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+    <script type="text/javascript" src="../js/jquery.elastic.source.js"></script>
+    <script type="text/javascript">
+        $(window).resize(function() {
+            var width_lateral_left = ($(window).width()-$("#page").width())/2;
+            $("#lateral_left").width(width_lateral_left);
+
+            if($(window).height() > $("#page_contenu").height())
+                var height = $(window).height();
+            else
+                var height = $("#page_contenu").height();
+
+            $("#lateral_left").height(height);
+            $("#page_lateral_profil").height(height);
+        });
+        $(window).load(function(){
+            var width_lateral_left = ($(window).width()-$("#page").width())/2;
+            $("#lateral_left").width(width_lateral_left);
+
+            if($(window).height() > $("#page_contenu").height())
+                var height = $(window).height();
+            else
+                var height = $("#page_contenu").height();
+
+            $("#lateral_left").height(height);
+            $("#page_lateral_profil").height(height);
+
+            $('textarea').elastic();
+        });
+    </script>
+</head>
+<body>
+    <div id="lateral_left"></div>
+    <div id="page">
+        <div id="page_lateral_profil">
+            <div id="page_lateral_profil_avatar">
+                <img src="../images/florent_peysson_n.png" alt="" />
+            </div>
+            <div id="page_lateral_profil_nom"><a href="../profil_florent_peysson.html"><i class="fa  fa-gear fa-fw"></i> Florent Peysson</a></div>
+            <div class="page_lateral_profil_sep"></div>
+            <div id="page_lateral_liens">
+                <a href="accueil.html" class="page_lateral_icon" title="Dashboard"><i class="fa  fa-tachometer fa-fw"></i></a>
+                <a href="" class="page_lateral_icon" title=""><i class="fa  fa- fa-fw"></i></a>
+                <a href="" class="page_lateral_icon" title=""><i class="fa  fa- fa-fw"></i></a>
+                <a href="rechercher.html" class="page_lateral_icon" title="Rechercher"><i class="fa  fa-search fa-fw"></i></a>
+                <a href="connexion.html" class="page_lateral_icon" title="Déconnexion"><i class="fa  fa-power-off fa-fw"></i></a>
+            </div>
+            <div id="page_lateral_categories">
+                <div class="page_lateral_categorie">
+                    <div class="page_lateral_categorie_titre"><i class="fa  fa-users fa-fw"></i> Utilisateurs</div>
+                    <a href="" title=""><i class="fa  fa-user fa-fw"></i> Gérer les utilisateurs</a>
+                    <a href="" title=""><i class="fa  fa-users fa-fw"></i> Gérer les groupes</a>
+                    <a href="" title=""><i class="fa  fa-shield fa-fw"></i> Gérer les permissions</a>
+                </div>
+                <div class="page_lateral_profil_sep"></div>
+                <div class="page_lateral_categorie">
+                    <div class="page_lateral_categorie_titre"><i class="fa  fa-database fa-fw"></i> Bases de données</div>
+                    <a href="" title=""><i class="fa  fa-wrench fa-fw"></i> Gérer</a>
+                </div>
+                <div class="page_lateral_profil_sep"></div>
+                <div class="page_lateral_categorie">
+                    <div class="page_lateral_categorie_titre"><i class="fa  fa-wrench fa-fw"></i> Maintenance</div>
+                    <a href="" title=""><i class="fa  fa-bug fa-fw"></i> Problèmes</a>
+                    <a href="" title=""><i class="fa  fa-terminal fa-fw"></i> Terminal</a>
+                    <a href="" title=""><i class="fa  fa-file-text-o fa-fw"></i> Logs</a>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div id="page_contenu">
+            <div class="titre titre_page">Dashboard</div>
+            <div class="page_contenu_sep"></div>
+
+            <!-- Bandeau -->
+            <div class="bandeau_info">
+                <div class="bandeau_info_inside"><i class="fa  fa-wrench fa-fw"></i> Opération de maintenance terminée avec succès. <a href="">Voir détail</a> <a href="" class="bandeau_info_close" title="Fermer"><i class="fa fa-times"></i></a></div>
+            </div>
+
+            <!-- Informations -->
+            <div class="titre sous_titre_page"><i class="fa  fa-info fa-fw"></i> Informations</div>
+            <a href="" class="cube_150x150">
+                <div class="cube_150x150_num">0</div>
+                <div class="cube_150x150_desc"><i class="fa  fa-bug fa-fw"></i> Problèmes</div>
+            </a>
+            <a href="" class="cube_150x150 cube_150x150_new">
+                <div class="cube_150x150_num">2</div>
+                <div class="cube_150x150_desc"><i class="fa  fa-ticket fa-fw"></i> Notifications</div>
+            </a>
+            <a href="" class="cube_150x150 cube_150x150_new">
+                <div class="cube_150x150_num">4</div>
+                <div class="cube_150x150_desc"><i class="fa  fa-question fa-fw"></i> Questions</div>
+            </a>
+            <div class="clear"></div>
+
+
+            <!-- Statistiques -->
+            <div class="titre sous_titre_page sous_titre_page_margeTop"><i class="fa  fa-pie-chart fa-fw"></i> Statistiques</div>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+</body>
+</html>
