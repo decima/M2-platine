@@ -370,7 +370,7 @@ textarea.actualite_area_text {
     font-size: 14px;
 }
 .profil_bloc_contenu ul {
-    color: #CC0C39;
+    color: #4b556e;
 }
 .liste_contenu {
     color: #333;
@@ -635,7 +635,7 @@ a.rechercher_input_loupe {
     margin: auto;
     padding: 2px;
     line-height: 25px;
-    color: #CC0C39;
+    color: #202c4c;
     text-decoration: none;
     background-color: #FEFEFE;
     border: 1px solid #CCC;
