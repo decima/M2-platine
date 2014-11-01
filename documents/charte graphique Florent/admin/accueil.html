@@ -13,10 +13,10 @@
             var width_lateral_left = ($(window).width()-$("#page").width())/2;
             $("#lateral_left").width(width_lateral_left);
 
-            if($(window).height() > $("#page_contenu").height())
+            if($(window).height() > $("#page").height())
                 var height = $(window).height();
             else
-                var height = $("#page_contenu").height();
+                var height = $("#page").height();
 
             $("#lateral_left").height(height);
             $("#page_lateral_profil").height(height);
@@ -25,10 +25,10 @@
             var width_lateral_left = ($(window).width()-$("#page").width())/2;
             $("#lateral_left").width(width_lateral_left);
 
-            if($(window).height() > $("#page_contenu").height())
+            if($(window).height() > $("#page").height())
                 var height = $(window).height();
             else
-                var height = $("#page_contenu").height();
+                var height = $("#page").height();
 
             $("#lateral_left").height(height);
             $("#page_lateral_profil").height(height);
@@ -64,6 +64,13 @@
                 <div class="page_lateral_categorie">
                     <div class="page_lateral_categorie_titre"><i class="fa  fa-database fa-fw"></i> Bases de données</div>
                     <a href="" title=""><i class="fa  fa-wrench fa-fw"></i> Gérer</a>
+                </div>
+                <div class="page_lateral_profil_sep"></div>
+                <div class="page_lateral_categorie">
+                    <div class="page_lateral_categorie_titre"><i class="fa  fa-cogs fa-fw"></i> Modules</div>
+                    <a href="" title=""><i class="fa  fa-bars fa-fw"></i> Modules installés</a>
+                    <a href="" title=""><i class="fa  fa-plus-square fa-fw"></i> Installer un module</a>
+                    <a href="" title=""><i class="fa  fa-minus-square fa-fw"></i> Supprimer un module</a>
                 </div>
                 <div class="page_lateral_profil_sep"></div>
                 <div class="page_lateral_categorie">
