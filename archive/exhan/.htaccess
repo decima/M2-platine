@@ -1,0 +1,13 @@
+Options +Indexes
+RewriteEngine   On
+
+RewriteCond %{REQUEST_URI} !^(ajax.php|/view|/tools|/tests|/modules|/robots\.txt|/favicon\.ico)[L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php?page=$1 [L,QSA]
+
+#AuthName "En cours de developpement"
+#AuthType Basic
+#AuthUserFile "/var/www/sites/ohime.fr/www/.htpasswd"
+#Require valid-user

@@ -1,0 +1,47 @@
+
+
+.page_title{
+    /*    font-weight: 200;
+max-width:50%;
+    border:3px solid #428bca; 
+    border-radius: 8px;
+    padding:4px;
+    color:#428bca;*/
+    font-size: 40px;
+    text-transform: uppercase;
+    padding-bottom:5px;
+    color:rgba(0,0,0,0.2);
+    border-bottom: 2px solid rgba(0,0,0,0.2);
+}
+
+.icon-bar{
+    background-color:white;
+
+}
+.field{
+    padding:30px;
+    border-bottom: 1px solid rgba(120,120,120,0.1 );
+
+}
+.field_title{
+    font-weight: bolder;
+    width:100%;
+    background-color:rgba(0,0,0,0.2);
+    text-transform: uppercase;
+
+
+}
+.post{
+    /*border-bottom:2px solid rgba(0,0,0,0.2);
+    */padding:20px;
+}
+.post>.title{
+    font-size:36px;
+    
+
+}
+.post>.title>a{
+}
+.post>.author{
+    font-size:10px;
+}
