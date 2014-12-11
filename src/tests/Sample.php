@@ -8,7 +8,7 @@ class Test1 implements Plugin {
 
     public function info() {
 
-        return new _Plugin("Test1", "Test 1");
+        return array("Test1", "Test 1");
     }
 
 }
@@ -16,7 +16,7 @@ class Test1 implements Plugin {
 class Test2 implements Plugin {
 
     public function info() {
-        $p = new _Plugin("Test2", "Test 2");
+        $p = array("Test2", "Test 2");
         $p->add_required_plugins("Test1");
         return $p;
     }
