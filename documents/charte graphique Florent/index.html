@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head lang="fr">
+    <meta charset="UTF-8">
+    <title>Maquette de Jinn !</title>
+    <link type="text/css" rel="stylesheet" href="styles/body.css">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,600,700,400' rel='stylesheet' type='text/css'>
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+    <script type="text/javascript">
+        $(window).resize(function() {
+            var height = ($(window).height()-$("#connexion_area").height())/2;
+            $("#connexion_area").css("margin-top", height+"px");
+        });
+        $(window).load(function(){
+            var height = ($(window).height()-$("#connexion_area").height())/2;
+            $("#connexion_area").css("margin-top", height+"px");
+        });
+    </script>
+</head>
+<body>
+<div id="page">
+    <div id="connexion_area">
+        <div id="connexion_area_large">
+            <div class="titre">Maquette de Jinn !</div>
+            <div class="contenu" style="margin-bottom: 20px;">Ci-dessous se trouvent deux boutons, conduisant vers la partie membre et la partie admin de la plateforme.<br /><br />
+            Il n'est pas nécessaire de saisir une quelconque information dans les différents champs, que ce soit pour la connexion ou la recherche. En effet, les boutons
+            effecturont l'action demandée en allant récupérer une page pré-remplie. Si la même page est retournée, c'est que la page en question n'a pas été conçue et sera
+            simplement une modification d'une page déjà existante (cf. le menu de la partie admin).<br /><br />
+            Merci pour votre compréhension.<br /><br />
+            Florent PEYSSON &amp; Henri LARGET</div>
+            <a href="admin/connexion.html" class="btn" style="margin-left: 20px;">Partie admin</a> <a href="pages/connexion.html" class="btn">Partie membre</a>
+            <div class="clear"></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

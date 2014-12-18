@@ -27,6 +27,13 @@ textarea {
 
     border:1px #CCCCCC;
 }
+#connexion_area_large {
+    width: 660px;
+
+    margin: auto;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
 #connexion_area_left {
     width: 310px;
 
