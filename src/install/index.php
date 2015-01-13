@@ -1,6 +1,6 @@
 <?php
 if (file_exists("../config/settings.php")) {
-   // header("Location: ../");
+    // header("Location: ../");
 }
 ?>
 <!doctype HTML>
@@ -15,15 +15,12 @@ if (file_exists("../config/settings.php")) {
     <body>
         <form method="POST" action="config.php">
 
-<?php if (!is_writeable("../config/")): ?>
+            <?php if (!is_writeable("../config/")): ?>
                 <span style="color:red;">
                     Le dossier "config" n'est pas accessible, changez les permissions du dossier /config.
                 </span>
                 <input type='text' name='config_show_only' value='show'/>
-
-<?php else: ?>
-
-<?php endif; ?>
+            <?php endif; ?>
             <fieldset>
                 <legend>Base de données</legend>
                 Serveur : <input name="data[db][server]" placeholder="db server" value="localhost"/><br/>Utilisateur : 

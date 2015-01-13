@@ -23,7 +23,10 @@ class _Security {
     public static function jinn_error_handler($errno, $errstr, $errfile, $errline) {
         if (ini_get("display_errors") == true) {
             echo "<div style='background-color:#CCC;padding: 15px;margin:15px;' class='jinn_error'>$errstr</div>";
-        }return true;
+        }
+        if ($errno == 256)
+            exit();
+        return true;
     }
 
     public static function deprecated() {
@@ -64,15 +67,13 @@ class _Security {
         $res = self::generated_function_signature($callers[1]) . " " . $error . " in<br/>";
         $i = 0;
         $res.="<pre style='display:inline'>    " . $callers[$i]['file'] . ":" . $callers[$i]['line'] . "</pre><br/>";
+        /*
+          for ($i = 1; $i < count($callers); $i++) {
+          $res.="<pre style='display:inline'>    " . $callers[$i]['function'] . " - " . $callers[$i]['file'] . ":" . $callers[$i]['line'] . "</pre><br/>";
+          }
 
-        for ($i = 1; $i < count($callers); $i++) {
-            $res.="<pre style='display:inline'>    " . $callers[$i]['function'] . " - " . $callers[$i]['file'] . ":" . $callers[$i]['line'] . "</pre><br/>";
-        }
+         */
         return $res;
-    }
-
-    function error() {
-        
     }
 
 }

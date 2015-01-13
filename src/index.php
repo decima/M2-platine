@@ -7,21 +7,14 @@ if (!file_exists("config/settings.php")) {
 }
 
 require 'system/tools.php';
+require 'system/hooks.php';
+
 require 'config/settings.php';
+
+require 'system_modules/ModuleManager/module.php';
+
 
 _Security::enable_error_handling();
 
-function definition() {
-    _Security::deprecated();
-    _Security::version(0, 0.1);
-}
-
-function oti($a, $b) {
-    definition($a, $b);
-}
-
-function oh() {
-    oti(new stdClass(), 22);
-}
-
-oh();
+$mm = new ModuleManager();
+$mm->init_system_module();
