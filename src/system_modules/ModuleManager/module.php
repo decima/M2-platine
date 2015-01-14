@@ -24,17 +24,26 @@ class ModuleManager implements SystemModule {
     }
 
     public function system_init() {
-        $res = Database::getValue("select val from jn_parameters where 1");
-        print_r($res);
+        
     }
 
     public function priority() {
         return -99;
     }
 
+    public function install_module($moduleName,$path) {
+        /* to continue */
+        method_invoke($moduleName, "schema");
+    }
+
 }
 
 class Database implements SystemModule {
+
+    const FIELD_TYPE_INT = 1;
+    const FIELD_TYPE_FLOAT = 2;
+    const FIELD_TYPE_STRING = 3;
+    const FIELD_TYPE_DATE = 4;
 
     public static $connector = null;
 
