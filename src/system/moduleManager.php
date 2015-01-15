@@ -49,10 +49,12 @@ class ModuleManager implements SystemModule {
     }
 
     public function enable_module($moduleName, $path) {
-        $rust = file_get_contents("./cache.php");
-        print_r($rust);
-        $rust .= "// @module:$moduleName\nrequire_once('$path');\n";
-        file_put_contents("./cache.php", $rust);
+        $exists = method_invoke($moduleName, "info");
+        if ($exists == NULL) {
+            $rust = file_get_contents("./cache.php");
+            $rust .= "// @module:$moduleName\nrequire_once('$path');\n";
+            file_put_contents("./cache.php", $rust);
+        }
     }
 
     public function disable_module($moduleName) {
@@ -70,4 +72,3 @@ class ModuleManager implements SystemModule {
     }
 
 }
-

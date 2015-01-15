@@ -8,11 +8,11 @@ if (!file_exists("config/settings.php")) {
 
 require 'system/tools.php';
 require 'system/hooks.php';
-require 'cache.php';
 require 'config/settings.php';
 require 'system/Database.php';
 require 'system/moduleManager.php';
 
+require 'cache.php';
 
 _Security::enable_error_handling();
 
