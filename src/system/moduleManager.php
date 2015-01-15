@@ -24,12 +24,11 @@ class ModuleManager implements SystemModule {
     }
 
     public function system_init() {
-        $this->enable_module("HelloWorld", "./modules/helloWorld/module.php");
-        print_r(self::get_list_of_modules());
+
     }
 
     public function priority() {
-        return -99;
+        return 0;
     }
 
     public static function get_list_of_modules() {
@@ -51,14 +50,14 @@ class ModuleManager implements SystemModule {
     public function enable_module($moduleName, $path) {
         $exists = method_invoke($moduleName, "info");
         if ($exists == NULL) {
-            $rust = file_get_contents("./cache.php");
+            $rust = file_get_contents("./cache/classes.php");
             $rust .= "// @module:$moduleName\nrequire_once('$path');\n";
-            file_put_contents("./cache.php", $rust);
+            file_put_contents("./cache/classes.php", $rust);
         }
     }
 
     public function disable_module($moduleName) {
-        $rust = file_get_contents("./cache.php");
+        $rust = file_get_contents("./cache/classes.php");
 
         $file = explode("//", $rust);
 
@@ -68,7 +67,23 @@ class ModuleManager implements SystemModule {
             }
         }
         $rust = implode("//", $file);
-        file_put_contents("./cache.php", $rust);
+        file_put_contents("./cache/classes.php", $rust);
     }
+
+    public function menu($item = array()) {
+        $item['admin/modules'] = array(
+        );
+        $item['admin/modules/install/@'] = array(
+            "callback"=>array("ModuleManager","makemedream")
+        );
+        $item['admin/modules/enable/@'] = array(
+        );
+        $item['admin/modules/disable/@'] = array(
+        );
+        $item['admin/modules/uninstall/@'] = array(
+        );
+        return $item;
+    }
+
 
 }
