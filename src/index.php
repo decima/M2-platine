@@ -10,8 +10,8 @@ require 'system/tools.php';
 require 'system/hooks.php';
 require 'cache.php';
 require 'config/settings.php';
-
-require 'system_modules/ModuleManager/module.php';
+require 'system/Database.php';
+require 'system/moduleManager.php';
 
 
 _Security::enable_error_handling();
