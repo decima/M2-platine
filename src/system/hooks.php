@@ -9,11 +9,11 @@ function get_all_classes_implementing_interfaces($interface) {
         );
     }
     );
-    
+
     return $array;
 }
 
-function get_all_modules($interface="Module") {
+function get_all_modules($interface = "Module") {
     return (get_all_classes_implementing_interfaces($interface));
 }
 
@@ -23,13 +23,17 @@ function get_all_modules($interface="Module") {
  * @param mixed args...(Optionnal)
  * @return array of mixed results. 
  */
-function method_invoke_all($method, $parameters = array(),$interface="Module") {
+function method_invoke_all($method, $parameters = array(), $merge = false, $interface = "Module") {
     $r = array();
     $modules = get_all_modules($interface);
     foreach ($modules as $module) {
         $utils = array($module, $method, $parameters);
         if (method_exists($module, $method)) {
-            $r[] = call_user_func_array("method_invoke", $utils);
+            if ($merge) {
+                $r = array_merge($r, call_user_func_array("method_invoke", $utils));
+            } else {
+                $r[] = call_user_func_array("method_invoke", $utils);
+            }
         }
     }
     return $r;
@@ -50,10 +54,13 @@ function method_invoke($module, $method, $utils = array()) {
 }
 
 interface Module {
+
     public function info();
 }
 
 interface SystemModule extends Module {
+
     public function priority();
+
     public function system_init();
 }

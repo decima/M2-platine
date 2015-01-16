@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * @moduleName HelloWorld
+ * 
+ * 
+ **/
 class HelloWorld implements Module {
 
     public function info() {
@@ -8,6 +12,20 @@ class HelloWorld implements Module {
             "name" => "HelloWorld",
             "readablename" => "Hello World - Sample Module"
         );
+    }
+
+    public static function sayHelloToWorld() {
+        return "Hello the World!";
+    }
+
+    public static function sayHelloTo($name) {
+        return "HELLO $name, nice to meet you!";
+    }
+
+    public function menu($item = array()) {
+        $item["/hello/world"] = array("callback" => array("HelloWorld", "sayHelloToWorld"));
+        $item["/hello/@"] = array("callback" => array("HelloWorld", "sayHelloTo"));
+        return $item;
     }
 
     public function schema($schema = array()) {
