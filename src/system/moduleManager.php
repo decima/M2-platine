@@ -24,7 +24,7 @@ class ModuleManager implements SystemModule {
     }
 
     public function system_init() {
-
+        
     }
 
     public function priority() {
@@ -72,9 +72,10 @@ class ModuleManager implements SystemModule {
 
     public function menu($item = array()) {
         $item['admin/modules'] = array(
+                        "callback" => array("ModuleManager", "list_modules")
+
         );
         $item['admin/modules/install/@'] = array(
-            "callback"=>array("ModuleManager","makemedream")
         );
         $item['admin/modules/enable/@'] = array(
         );
@@ -84,6 +85,60 @@ class ModuleManager implements SystemModule {
         );
         return $item;
     }
+    public static function list_modules(){
+        
+        $modules = self::scan_all_modules();
+        $theme = new Theme();
+        $r = array_keys(end($modules));
+       $theme->add_to_body($theme->tabling($modules,$r));
+       $theme->process_theme();
+       return;
+    }
+    public static function scan_all_modules() {
+        $Directory = new RecursiveDirectoryIterator('./modules');
+        $Iterator = new RecursiveIteratorIterator($Directory);
+        $regex = new RegexIterator($Iterator, '/^.+\module.php$/i', RecursiveRegexIterator::GET_MATCH);
+        $systemModules = get_all_classes_implementing_interfaces("SystemModule");
+        $res = array();
+        $enabled = method_invoke_all("info");
+        $modules = array();
 
+
+        $available = array();
+
+        foreach ($enabled as $k => $e) {
+            $modules[$e['name']] = $e;
+                        $modules[$e['name']]["path"] = "";
+
+            $modules[$e['name']]["system_module"] = in_array($e["name"], $systemModules) ? "1" : "0";
+            $modules[$e['name']]["enabled"] = 1;
+
+        }
+
+        foreach ($regex as $item) {
+            $data = file_get_contents($item[0]);
+            if (preg_match("/@moduleName ([A-Za-z0-9_]+)/", $data, $matches)) {
+                include_once $item[0];
+                $res = method_invoke($matches[1], "info");
+                $res["path"] = $item[0];
+                $res["system_module"] = 0;
+                $res['enabled']=0;
+                $available[$matches[1]] = $res;
+            }
+        }
+        
+        foreach ($available as $k => $v) {
+            if(in_array($k, array_keys($modules))){
+                $modules[$k]['path'] = $v['path'];
+            }else{
+                $modules[$k] = $v;
+            }
+        }
+
+
+        return $modules;
+    }
+    
+    
 
 }

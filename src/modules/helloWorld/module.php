@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * @moduleName HelloWorld
+ * 
+ * 
+ **/
 class HelloWorld implements Module {
 
     public function info() {

@@ -30,24 +30,68 @@ class Page implements SystemModule {
                 $parameters[] = $p;
                 $res = $res['@'];
             } else {
-                header("HTTP/1.0 404 Not Found");
+                echo $this->E404();
                 return;
             }
         }
         $run = true;
-        /*if (isset($res["access"])) {
-            method_invoke_all("permissions", array($res["access"]));
-        }*/
+
+        if (isset($res["access"])) {
+            $r = method_invoke_all("permissions", array($res["access"]));
+            foreach ($r as $res) {
+                if ($res == false) {
+                    $run = false;
+                }
+            }
+        }
         if (isset($res["security"])) {
-            
-            $run = call_user_func_array($res["security"], $parameters);
-            
+            if (is_array($res['security']) && count($res['security']) > 1) {
+                if (method_exists($res['security'][0], $res['security'][1])) {
+                    $run = $run && call_user_func_array($res["security"], $parameters);
+                }
+            } elseif (function_exists($res['security'])) {
+                $run = $run && call_user_func_array($res["security"], $parameters);
+            } else {
+                $run = false;
+            }
         }
+        if (isset($res['headers'])) {
+            foreach ($res['headers'] as $k => $header) {
+                header($k . ": " . $header);
+            }
+        }
+        $executed = false;
+        $allowed = true;
         if (isset($res["callback"]) && $run) {
-            echo call_user_func_array($res["callback"], $parameters);
-        } else {
-            
+            if (is_array($res['callback']) && count($res['callback']) == 2) {
+                if (method_exists($res['callback'][0], $res['callback'][1])) {
+                    $executed = true;
+                    echo call_user_func_array($res["callback"], $parameters);
+                }
+            } elseif (function_exists($res['callback'])) {
+                $executed = true;
+                echo call_user_func_array($res["callback"], $parameters);
+            }
+        } elseif (!$run) {
+            $allowed = false;
         }
+
+        if (!$allowed) {
+            echo $this->E403();
+            return;
+        }
+        if (!$executed) {
+            echo $this->E404();
+            return;
+        }
+    }
+
+    public function E404() {
+        return 404;
+    }
+
+    public function E403() {
+        return 403;
     }
 
     public function get_declared_pages() {
