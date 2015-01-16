@@ -21,4 +21,6 @@ $(window).load(function(){
 
     $("#lateral_left").height(height);
     $("#page_lateral_profil").height(height);
+
+    $('textarea').elastic();
 });

@@ -57,6 +57,9 @@ textarea {
 .sous_titre_page_margeTop {
     margin-top: 50px;
 }
+.sous_titre_page i {
+    color: #202C4C;
+}
 .actualite {
     width: 100%;
     margin: 40px auto;
@@ -145,4 +148,14 @@ a.bandeau_info_close_lnk {
 }
 a.bandeau_info_close_lnk i {
     padding: 0;
+}
+
+
+textarea.codebloc {
+    width: 660px;
+
+    padding: 0px;
+    margin: auto;
+    border: 1px solid #CCC;
+    display: block;
 }
