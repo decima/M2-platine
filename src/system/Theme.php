@@ -6,7 +6,9 @@ abstract class Themed {
     private static $body = array();
 
     public abstract function process_theme();
-
+    public abstract function process_404();
+    public abstract function process_403();
+    
     public static function head() {
         foreach (self::$head as $s) {
             echo $s . "\n";

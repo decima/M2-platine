@@ -72,10 +72,10 @@ class ModuleManager implements SystemModule {
 
     public function menu($item = array()) {
         $item['admin/modules'] = array(
-                        "callback" => array("ModuleManager", "list_modules")
-
+            "callback" => array("ModuleManager", "list_modules")
         );
         $item['admin/modules/install/@'] = array(
+            "callback" => array("ModuleManager", "bonjour")
         );
         $item['admin/modules/enable/@'] = array(
         );
@@ -85,15 +85,22 @@ class ModuleManager implements SystemModule {
         );
         return $item;
     }
-    public static function list_modules(){
-        
+
+    public static function bonjour($ok) {
+        $m = new ModuleManager();
+        $m->enable_module("helloWorld", "./modules/helloWorld/module.php");
+    }
+
+    public static function list_modules() {
+
         $modules = self::scan_all_modules();
         $theme = new Theme();
         $r = array_keys(end($modules));
-       $theme->add_to_body($theme->tabling($modules,$r));
-       $theme->process_theme();
-       return;
+        $theme->add_to_body($theme->tabling($modules, $r));
+        $theme->process_theme();
+        return;
     }
+
     public static function scan_all_modules() {
         $Directory = new RecursiveDirectoryIterator('./modules');
         $Iterator = new RecursiveIteratorIterator($Directory);
@@ -108,11 +115,10 @@ class ModuleManager implements SystemModule {
 
         foreach ($enabled as $k => $e) {
             $modules[$e['name']] = $e;
-                        $modules[$e['name']]["path"] = "";
+            $modules[$e['name']]["path"] = "";
 
             $modules[$e['name']]["system_module"] = in_array($e["name"], $systemModules) ? "1" : "0";
             $modules[$e['name']]["enabled"] = 1;
-
         }
 
         foreach ($regex as $item) {
@@ -122,15 +128,15 @@ class ModuleManager implements SystemModule {
                 $res = method_invoke($matches[1], "info");
                 $res["path"] = $item[0];
                 $res["system_module"] = 0;
-                $res['enabled']=0;
+                $res['enabled'] = 0;
                 $available[$matches[1]] = $res;
             }
         }
-        
+
         foreach ($available as $k => $v) {
-            if(in_array($k, array_keys($modules))){
+            if (in_array($k, array_keys($modules))) {
                 $modules[$k]['path'] = $v['path'];
-            }else{
+            } else {
                 $modules[$k] = $v;
             }
         }
@@ -138,7 +144,5 @@ class ModuleManager implements SystemModule {
 
         return $modules;
     }
-    
-    
 
 }

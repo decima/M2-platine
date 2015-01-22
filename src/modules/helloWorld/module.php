@@ -23,7 +23,7 @@ class HelloWorld implements Module {
     }
 
     public function menu($item = array()) {
-        $item["/hello/world"] = array("callback" => array("HelloWorld", "sayHelloToWorld"));
+        $item["/hello"] = array("callback" => array("HelloWorld", "sayHelloToWorld"));
         $item["/hello/@"] = array("callback" => array("HelloWorld", "sayHelloTo"));
         return $item;
     }
@@ -34,6 +34,8 @@ class HelloWorld implements Module {
             "firstname" => Database::FIELD_TYPE_STRING,
             "lastname" => Database::FIELD_TYPE_STRING + Database::NOTNULLVAL,
         );
+
+        
         $schema["test2"] = array(
             "id" => Database::FIELD_TYPE_INT + Database::PRIMARY_KEY + Database::AUTOINCREMENT,
             "firstname" => Database::FIELD_TYPE_STRING,

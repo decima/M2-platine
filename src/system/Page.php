@@ -87,11 +87,16 @@ class Page implements SystemModule {
     }
 
     public function E404() {
-        return 404;
+        $t = new Theme();
+        $t->process_404();
+        return ; 
     }
 
     public function E403() {
-        return 403;
+        
+        $t = new Theme();
+        $t->process_403();
+        return ; 
     }
 
     public function get_declared_pages() {
@@ -118,10 +123,6 @@ class Page implements SystemModule {
         } else {
             return array($tmptab => $val);
         }
-    }
-
-    public function menu_process() {
-        
     }
 
 }
