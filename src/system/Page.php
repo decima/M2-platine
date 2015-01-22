@@ -89,14 +89,22 @@ class Page implements SystemModule {
     public function E404() {
         $t = new Theme();
         $t->process_404();
-        return ; 
+        return;
     }
 
     public function E403() {
-        
+
         $t = new Theme();
         $t->process_403();
-        return ; 
+        return;
+    }
+
+    public static function url($path = "/") {
+        $s = $_SERVER["REQUEST_SCHEME"];
+        $s .="://" . $_SERVER['SERVER_NAME'];
+        if ($_SERVER['SERVER_PORT'] != 443 && $_SERVER['SERVER_PORT'] != 80)
+            $s .=":" . $_SERVER['SERVER_PORT'];
+        return $s . $path;
     }
 
     public function get_declared_pages() {
