@@ -19,7 +19,7 @@ class Database implements SystemModule {
             }
         }
         foreach ($schema as $table => $attributes) {
-            $sql = "CREATE TABLE IF NOT EXISTS $table(";
+            $sql = "CREATE TABLE IF NOT EXISTS " . CONFIG_DB_PREFIX . "$table(";
             $i = 0;
             foreach ($attributes as $key => $infos) {
                 $i++;
@@ -49,7 +49,7 @@ class Database implements SystemModule {
     public static function schema_uninstaller($schema) {
 
         foreach ($schema as $table => $k) {
-            self::execute("DROP TABLE IF EXISTS $table CASCADE");
+            self::execute("DROP TABLE IF EXISTS " . CONFIG_DB_PREFIX . "$table CASCADE");
         }
         foreach ($schema as $table => $k) {
             if (self::table_exists($table)) {
@@ -60,7 +60,7 @@ class Database implements SystemModule {
 
     public static function table_exists($tablename) {
         $database = "jinn";
-        $sql = "SELECT * FROM information_schema.tables WHERE table_schema = '$database' AND table_name = '$tablename' LIMIT 1;";
+        $sql = "SELECT * FROM information_schema.tables WHERE table_schema = '$database' AND table_name = '" . CONFIG_DB_PREFIX . "$tablename' LIMIT 1;";
         return self::getAll($sql) != false;
     }
 
@@ -80,10 +80,10 @@ class Database implements SystemModule {
 
     public function system_init() {
         if (self::$connector == null) {
-            $servername = "localhost";
-            $dbname = "jinn";
-            $username = "jinn";
-            $password = "jAdNK23AHMmupzWE";
+            $servername = CONFIG_DB_SERVER;
+            $dbname = CONFIG_DB_DATABASE;
+            $username = CONFIG_DB_LOGIN;
+            $password = CONFIG_DB_PASSWORD;
             self::$connector = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
         }
     }
