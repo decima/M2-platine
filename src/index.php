@@ -10,7 +10,7 @@ require 'system/tools.php';
 require 'system/hooks.php';
 require 'config/settings.php';
 require 'system/Database.php';
-require 'system/Theme.php';
+require 'system/Themed.php';
 
 require 'system/Page.php';
 require 'system/moduleManager.php';
