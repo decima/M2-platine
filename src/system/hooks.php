@@ -51,6 +51,7 @@ function method_invoke($module, $method, $utils = array()) {
         $b = new $module();
         return call_user_func_array(array($b, $method), $utils);
     }
+    return null;
 }
 
 interface Module {
