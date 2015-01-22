@@ -1,3 +1,3 @@
 <?php
 
-require_once './Themes/default/Theme.php';
+require_once './themes/default/Theme.php';
