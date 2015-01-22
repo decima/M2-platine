@@ -104,6 +104,8 @@ class Page implements SystemModule {
         $s .="://" . $_SERVER['SERVER_NAME'];
         if ($_SERVER['SERVER_PORT'] != 443 && $_SERVER['SERVER_PORT'] != 80)
             $s .=":" . $_SERVER['SERVER_PORT'];
+        
+        $s .=str_replace("/index.php", "", $_SERVER['PHP_SELF']);
         return $s . $path;
     }
 
