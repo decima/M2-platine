@@ -16,16 +16,15 @@ if (file_exists("../config/settings.php")) {
             }
         }
 
+        $myfile = "<?php\n".$myfile."?>";
         $writingOK = true;
         if ((isset($_POST['config_show_only']) && $_POST['config_show_only'] == "show")) {
             //show only if folder is not writeable
-            $myfile = "<?php\n".$myfile."?>";
             $writingOK = false;
         }
         else {
             //write config file if folder is writeable
             if(!file_put_contents("../config/settings.php", $myfile)){
-                $myfile = "<?php\n".$myfile."?>";
                 $writingOK = false;
             }
         }
@@ -138,6 +137,23 @@ if (file_exists("../config/settings.php")) {
                             <tr>
                                 <td class="formulaire_item_name">Mot de passe administrateur : </td>
                                 <td><input type="password" name="data[admin][password]"/></td>
+                            </tr>
+                        </table>
+                        <div class="titre sous_titre_page sous_titre_page_margeTop"><i class="fa  fa-paint-brush fa-fw"></i> Personnalisation</div>
+                        <table>
+                            <tr>
+                                <td class="formulaire_item_name">Titre du site : </td>
+                                <td><input type="text" name="data[site][title]"/></td>
+                            </tr>
+                            <tr>
+                                <td class="formulaire_item_name">Encodage : </td>
+                                <td>
+                                    <select name="data[site][encode]">
+                                        <optgroup label="Unicode">
+                                            <option value="utf-8">UTF-8</option>
+                                        </optgroup>
+                                    </select>
+                                </td>
                             </tr>
                         </table>
                         <div class="page_contenu_sep"></div>

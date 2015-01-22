@@ -5,7 +5,11 @@ abstract class Themed {
     private static $head = array();
     private static $body = array();
 
-    public abstract function process_theme();
+    const STRUCT_DEFAULT = "default";
+    const STRUCT_BLANK = "blank";
+    const STRUCT_ADMIN = "admin";
+
+    public abstract function process_theme($structure = self::STRUCT_DEFAULT);
     public abstract function process_404();
     public abstract function process_403();
     
@@ -13,6 +17,10 @@ abstract class Themed {
         foreach (self::$head as $s) {
             echo $s . "\n";
         }
+    }
+
+    public static function menu() {
+
     }
 
     public static function body() {
