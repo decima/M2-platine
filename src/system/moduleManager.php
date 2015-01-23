@@ -38,13 +38,18 @@ class ModuleManager implements SystemModule {
     public function install_module($moduleName, $path) {
         require_once($path);
         $schema = method_invoke($moduleName, "schema");
+
         Database::schema_installer($schema);
+        $res = method_invoke($moduleName, "install");
+        return $res == null ? true : $res;
     }
 
     public function uninstall_module($moduleName, $path) {
         require_once($path);
         $schema = method_invoke($moduleName, "schema");
         Database::schema_installer($schema);
+         $res = method_invoke($moduleName, "uninstall");
+        return $res == null ? true : $res;
     }
 
     public function enable_module($moduleName, $path) {
@@ -54,6 +59,8 @@ class ModuleManager implements SystemModule {
             $rust .= "// @module:$moduleName\nrequire_once('$path');\n";
             file_put_contents("./cache/classes.php", $rust);
         }
+         $res = method_invoke($moduleName, "enable");
+        return $res == null ? true : $res;
     }
 
     public function disable_module($moduleName) {
@@ -68,28 +75,34 @@ class ModuleManager implements SystemModule {
         }
         $rust = implode("//", $file);
         file_put_contents("./cache/classes.php", $rust);
+         $res = method_invoke($moduleName, "disable");
+        return $res == null ? true : $res;
     }
 
     public function menu($item = array()) {
         $item['admin/modules'] = array(
+            "access" => "administration",
             "callback" => array("ModuleManager", "list_modules")
         );
         $item['admin/modules/install/@'] = array(
-            "callback" => array("ModuleManager", "bonjour")
+            "access" => "administration",
+            "callback" => array("ModuleManager", "installModule")
         );
         $item['admin/modules/enable/@'] = array(
+            "access" => "administration",
+            "callback" => array("ModuleManager", "enableModule")
         );
         $item['admin/modules/disable/@'] = array(
+            "access" => "administration",
+            "callback" => array("ModuleManager", "disableModule")
         );
         $item['admin/modules/uninstall/@'] = array(
+            "access" => "administration",
+            "callback" => array("ModuleManager", "uninstallModule")
         );
         return $item;
     }
 
-    public static function bonjour($ok) {
-        $m = new ModuleManager();
-        $m->enable_module("helloWorld", "./modules/helloWorld/module.php");
-    }
 
     public static function list_modules() {
 
@@ -98,6 +111,17 @@ class ModuleManager implements SystemModule {
         $r = array_keys(end($modules));
         $theme->add_to_body($theme->tabling($modules, $r));
         $theme->process_theme();
+        return;
+    }
+
+    public static function installModule($moduleName) {
+
+        $modules = self::scan_all_modules();
+        if (isset($modules[$moduleName])) {
+            
+        }
+        echo Page::url("/");
+        header("location: " . Page::url("/admin/modules/"));
         return;
     }
 
