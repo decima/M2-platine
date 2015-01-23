@@ -3,6 +3,7 @@
 abstract class Themed {
 
     private static $head = array();
+    private static $menu = array();
     private static $body = array();
 
     static $title = null;
@@ -26,7 +27,9 @@ abstract class Themed {
     }
 
     public static function menu() {
-
+        foreach (self::$menu as $m) {
+            echo $m . "\n";
+        }
     }
 
     public static function body() {
@@ -41,6 +44,14 @@ abstract class Themed {
 
     public static function add_to_head($element) {
         self::$head[] = $element;
+    }
+
+    public static function linking($link, $value, $out = false){
+        $output = "<a href='".$link."'";
+        if($out)
+            $output .= " target='_blank'";
+        $output .= ">".$value."</a>";
+        return $output;
     }
 
     public static function listing($list = array()) {
