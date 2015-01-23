@@ -48,7 +48,7 @@ class ModuleManager implements SystemModule {
         require_once($path);
         $schema = method_invoke($moduleName, "schema");
         Database::schema_installer($schema);
-         $res = method_invoke($moduleName, "uninstall");
+        $res = method_invoke($moduleName, "uninstall");
         return $res == null ? true : $res;
     }
 
@@ -59,7 +59,7 @@ class ModuleManager implements SystemModule {
             $rust .= "// @module:$moduleName\nrequire_once('$path');\n";
             file_put_contents("./cache/classes.php", $rust);
         }
-         $res = method_invoke($moduleName, "enable");
+        $res = method_invoke($moduleName, "enable");
         return $res == null ? true : $res;
     }
 
@@ -75,7 +75,7 @@ class ModuleManager implements SystemModule {
         }
         $rust = implode("//", $file);
         file_put_contents("./cache/classes.php", $rust);
-         $res = method_invoke($moduleName, "disable");
+        $res = method_invoke($moduleName, "disable");
         return $res == null ? true : $res;
     }
 
@@ -103,13 +103,42 @@ class ModuleManager implements SystemModule {
         return $item;
     }
 
-
     public static function list_modules() {
 
         $modules = self::scan_all_modules();
         $theme = new Theme();
-        $r = array_keys(end($modules));
-        $theme->add_to_body($theme->tabling($modules, $r));
+
+        $theme->set_title(t("Liste des modules disponibles (%ct modules disponibles)", array("%ct" => count($modules))));
+        $r = array(t("Nom du module"), t("Type de module"), t("Actions"),"","","");
+        $array = array();
+        foreach ($modules as $m) {
+
+            $enabled = $m["enabled"] ? $m["system_module"] ? t("système") : t("activé") : t("désactivé");
+            $install = $theme->linking(Page::url("/admin/modules/install/" . $m['name']), t("installer"));
+            $uninstall = $theme->linking(Page::url("/admin/modules/uninstall/" . $m['name']), t("désinstaller"));
+            $disable = "";
+            $enable = $theme->linking(Page::url("/admin/modules/enable/" . $m['name']), t("activer"));
+            if ($m['enabled']) {
+                $disable = $theme->linking(Page::url("/admin/modules/disable/" . $m['name']), t("désactiver"));
+                $enable = "";
+            }
+
+            if ($m['system_module'] == 1) {
+                $disable = "";
+                $enable = "";
+                $install="";
+                $uninstall="";
+            }
+
+            $array[] = array($m["readablename"], $enabled, $enable ,$disable, $install, $uninstall);
+        }
+
+
+
+        usort($array, function($a, $b) {
+            return strcmp($a[0], $b[0]);
+        });
+        $theme->add_to_body($theme->tabling($array, $r));
         $theme->process_theme();
         return;
     }
@@ -133,15 +162,14 @@ class ModuleManager implements SystemModule {
         $res = array();
         $enabled = method_invoke_all("info");
         $modules = array();
-
-
+        $systemModules = array_map('strtolower', $systemModules);
         $available = array();
 
         foreach ($enabled as $k => $e) {
             $modules[$e['name']] = $e;
             $modules[$e['name']]["path"] = "";
 
-            $modules[$e['name']]["system_module"] = in_array($e["name"], $systemModules) ? "1" : "0";
+            $modules[$e['name']]["system_module"] = in_array(strtolower($e["name"]), $systemModules) ? "1" : "0";
             $modules[$e['name']]["enabled"] = 1;
         }
 
@@ -168,5 +196,7 @@ class ModuleManager implements SystemModule {
 
         return $modules;
     }
+    
+    
 
 }
