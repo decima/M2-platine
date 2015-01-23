@@ -23,6 +23,11 @@
                 <div class="titre titre_page"><?php echo Theme::$title; ?></div>
                 <div class="page_contenu_sep"></div>
                 <?php endif; ?>
+                <?php
+                    foreach(Notification::getStatusNotifications() as $n){
+                        print_r($n);
+                    }
+                ?>
                 <?php Theme::body(); ?>
             </div>
         </div>

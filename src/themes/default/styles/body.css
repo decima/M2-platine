@@ -699,5 +699,24 @@ a.btn:hover {
 
 
 table.tableau {
-    width: 100%;
+    margin-left: 10px;
+    margin-right: 10px;
+    border-collapse: collapse;
+}
+table.tableau th {
+    color: #CC0C39;
+    height: 36px;
+}
+table.tableau td {
+    border-top: 1px solid #CCC;
+    border-bottom: 1px solid #CCC;
+    padding-left: 5px;
+    padding-right: 5px;
+    font-size: 12px;
+}
+table.tableau td.variant1 {
+    background-color: rgba(254,254,254,0.8);
+}
+table.tableau td.variant2 {
+    background-color: rgba(254,254,254,0.6);
 }

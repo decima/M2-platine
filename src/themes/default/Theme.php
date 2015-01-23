@@ -32,6 +32,8 @@ class Theme extends Themed {
             $output .="</tr>\n</thead>\n";
         }
         $output .="<tbody>\n";
+        $variant1 = "variant1";
+        $variant2 = "variant2";
         foreach ($rows as $r) {
             $output .="<tr>\n";
             if($a = array_shift($hcol) != null) {
