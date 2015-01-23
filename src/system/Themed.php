@@ -5,6 +5,8 @@ abstract class Themed {
     private static $head = array();
     private static $body = array();
 
+    static $title = null;
+
     const STRUCT_DEFAULT = "default";
     const STRUCT_BLANK = "blank";
     const STRUCT_ADMIN = "admin";
@@ -17,6 +19,10 @@ abstract class Themed {
         foreach (self::$head as $s) {
             echo $s . "\n";
         }
+    }
+
+    public static function set_title($title){
+        self::$title =  $title;
     }
 
     public static function menu() {

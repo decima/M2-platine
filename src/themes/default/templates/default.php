@@ -17,7 +17,13 @@
         <div id="lateral_left"></div>
         <div id="page">
             <?php Theme::menu(); ?>
-            <?php Theme::body(); ?>
+            <div id="page_contenu">
+                <?php if(Theme::$title != null): ?>
+                <div class="titre titre_page"><?php echo Theme::$title; ?></div>
+                <div class="page_contenu_sep"></div>
+                <?php endif; ?>
+                <?php Theme::body(); ?>
+            </div>
         </div>
         <div class="clear"></div>
     </body>
