@@ -38,10 +38,13 @@ class ModuleManager implements SystemModule {
     public function install_module($moduleName, $path) {
         require_once($path);
         $schema = method_invoke($moduleName, "schema");
-
-        Database::schema_installer($schema);
-        $res = method_invoke($moduleName, "install");
-        return $res == null ? true : $res;
+        try {
+            Database::schema_installer($schema);
+            $res = method_invoke($moduleName, "install");
+            return $res == null ? true : $res;
+        } catch (Exception_Database $e) {
+            return false;
+        }
     }
 
     public function uninstall_module($moduleName, $path) {
@@ -109,28 +112,30 @@ class ModuleManager implements SystemModule {
         $theme = new Theme();
 
         $theme->set_title(t("Liste des modules disponibles (%ct modules disponibles)", array("%ct" => count($modules))));
-        $r = array(t("Nom du module"), t("Type de module"), t("Actions"),"","","");
+        $r = array(t("Nom du module"), t("Type de module"), t("Actions"), "", "", "");
         $array = array();
         foreach ($modules as $m) {
 
             $enabled = $m["enabled"] ? $m["system_module"] ? t("système") : t("activé") : t("désactivé");
             $install = $theme->linking(Page::url("/admin/modules/install/" . $m['name']), t("installer"));
             $uninstall = $theme->linking(Page::url("/admin/modules/uninstall/" . $m['name']), t("désinstaller"));
-            $disable = "";
+            $disable = t("non desactivable");
             $enable = $theme->linking(Page::url("/admin/modules/enable/" . $m['name']), t("activer"));
+
             if ($m['enabled']) {
                 $disable = $theme->linking(Page::url("/admin/modules/disable/" . $m['name']), t("désactiver"));
-                $enable = "";
+                $enable = t("activé");
             }
 
             if ($m['system_module'] == 1) {
-                $disable = "";
-                $enable = "";
-                $install="";
-                $uninstall="";
-            }
+                $disable = t("non-désactivable");
+                $enable = t("activé");
+                $install = t("installé");
+                $uninstall = t("non-désinstallable");
+            };
+            $rtm = ($enable . " " . $install . " " . $disable . " " . $uninstall);
 
-            $array[] = array($m["readablename"], $enabled, $enable ,$disable, $install, $uninstall);
+            $array[] = array($m["readablename"], $enabled, $rtm);
         }
 
 
@@ -196,7 +201,5 @@ class ModuleManager implements SystemModule {
 
         return $modules;
     }
-    
-    
 
 }
