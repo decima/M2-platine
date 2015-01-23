@@ -699,24 +699,30 @@ a.btn:hover {
 
 
 table.tableau {
-    margin-left: 10px;
-    margin-right: 10px;
+    width: 100%;
     border-collapse: collapse;
+    margin-left: 1px;
 }
 table.tableau th {
     color: #CC0C39;
-    height: 36px;
+    height: 30px;
+    padding-left: 5px;
+    padding-right: 5px;
+    font-size: 14px;
+    text-align: left;
 }
 table.tableau td {
-    border-top: 1px solid #CCC;
-    border-bottom: 1px solid #CCC;
+    height: 25px;
     padding-left: 5px;
     padding-right: 5px;
     font-size: 12px;
 }
-table.tableau td.variant1 {
+table.tableau tr.values {
+    border: 1px solid #CCC;
+}
+table.tableau tr.variant1 {
     background-color: rgba(254,254,254,0.8);
 }
-table.tableau td.variant2 {
+table.tableau tr.variant2 {
     background-color: rgba(254,254,254,0.6);
 }
