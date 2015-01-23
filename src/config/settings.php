@@ -9,4 +9,5 @@ define("CONFIG_SITE_TITLE", "Jinn Sample");
 define("CONFIG_SITE_ENCODE", "utf-8");
 define("CONFIG_ADMIN_LOGIN", "h.larget@gmail.com");
 define("CONFIG_ADMIN_PASSWORD", "30121991");
+
 ?>
