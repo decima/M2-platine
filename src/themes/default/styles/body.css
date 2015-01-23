@@ -696,3 +696,8 @@ a.btn:hover {
     margin: auto;
     padding: 20px;
 }
+
+
+table.tableau {
+    width: 100%;
+}

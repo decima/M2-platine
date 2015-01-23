@@ -63,22 +63,25 @@ abstract class Themed {
         return $output;
     }
 
-    public static function tabling($rows, $headers = array()) {
-        $output = "<table>";
+    public static function tabling($rows, $headers = array(), $hcol = array()) {
+        $output = "<table>\n";
         if (count($headers) > 0) {
-            $output .="<tr>\n";
+            $output .="<thead>\n<tr>\n";
             foreach ($headers as $h)
                 $output .="<th>" . $h . "</th>\n";
+            $output .="</tr>\n</thead>\n";
+        }
+        $output .="<tbody>\n";
+        foreach ($rows as $k => $r) {
+            $output .="<tr>\n";
+            if($a = array_shift($hcol) != null) {
+                $output .= "<th>".$hcol."</th>\n";
+            }
+            foreach ($r as $r2)
+                $output.="<td>$r2</td>\n";
             $output .="</tr>\n";
         }
-
-        foreach ($rows as $r) {
-            $output .="<tr>";
-            foreach ($r as $r2)
-                $output.="<td>$r2</td>";
-            $output .="</tr>";
-        }
-
+        $output .="</tbody>\n";
         $output .= "</table>";
 
         return $output;
