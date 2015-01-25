@@ -14,6 +14,7 @@ class Theme extends Themed {
     }
 
     public function process_404() {
+        $this->set_title("Erreur 404");
         $this->add_to_body(file_get_contents("./themes/default/pages/404.php"));
         $this->process_theme(self::STRUCT_BLANK);
         //$this->process_theme(self::STRUCT_404);

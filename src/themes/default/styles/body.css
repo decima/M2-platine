@@ -726,3 +726,11 @@ table.tableau tr.variant1 {
 table.tableau tr.variant2 {
     background-color: rgba(254,254,254,0.6);
 }
+td a {
+    color: #333;
+    text-decoration: none;
+    font-weight: 800;
+}
+td a:hover {
+    text-decoration: underline;
+}

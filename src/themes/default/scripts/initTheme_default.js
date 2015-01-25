@@ -1,25 +1,37 @@
 $(window).resize(function() {
-    var width_lateral_left = ($(window).width()-$("#page").width())/2;
-    $("#lateral_left").width(width_lateral_left);
+    var height = 0;
+    var w = $(window);
+    var p = $('#page');
+    var cp = $('#page_contenu');
+    var ll = $('#lateral_left');
 
-    if($(window).height() > $("#page_contenu").height())
-        var height = $(window).height();
+    var width_lateral_left = (w.width()-p.width())/2;
+    ll.width(width_lateral_left);
+
+    if(w.height() > cp.outerHeight(true))
+        height = w.outerHeight(true);
     else
-        var height = $("#page_contenu").height();
+        height = cp.outerHeight(true);
 
-    $("#lateral_left").height(height);
+    ll.height(height);
     $("#page_lateral_profil").height(height);
 });
 $(window).load(function(){
-    var width_lateral_left = ($(window).width()-$("#page").width())/2;
-    $("#lateral_left").width(width_lateral_left);
+    var height = 0;
+    var w = $(window);
+    var p = $('#page');
+    var cp = $('#page_contenu');
+    var ll = $('#lateral_left');
 
-    if($(window).height() > $("#page_contenu").height())
-        var height = $(window).height();
+    var width_lateral_left = (w.width()-p.width())/2;
+    ll.width(width_lateral_left);
+
+    if(w.height() > cp.height())
+        height = w.height();
     else
-        var height = $("#page_contenu").height();
+        height = cp.height();
 
-    $("#lateral_left").height(height);
+    ll.height(height);
     $("#page_lateral_profil").height(height);
 
     $('textarea').elastic();
