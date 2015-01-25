@@ -202,8 +202,9 @@ class ModuleManager implements SystemModule {
         $modules = self::scan_all_modules();
         $theme = new Theme();
 
-        $theme->set_title(t("Liste des modules disponibles (%ct modules disponibles)", array("%ct" => count($modules))));
-        $r = array(t("Nom du module"), t("Type de module"), t("Actions"));
+        $theme->set_title(t("Liste des modules disponibles"));
+        Notification::statusNotify(t("%cnt modules disponibles",array("%cnt"=>count($modules))), Notification::STATUS_INFO);
+        $r = array(t("Nom du module"), t("Etat du module"), t("Actions"));
         $array = array();
         foreach ($modules as $m) {
 
@@ -240,7 +241,7 @@ class ModuleManager implements SystemModule {
             return strcmp($a[0], $b[0]);
         });
         $theme->add_to_body($theme->tabling($array, $r));
-        $theme->process_theme();
+        $theme->process_theme(Theme::STRUCT_ADMIN);
         return;
     }
 
