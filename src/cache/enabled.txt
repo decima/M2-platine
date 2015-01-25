@@ -1,1 +1,1 @@
-,LightNotification,HelloWorld
+,HelloWorld

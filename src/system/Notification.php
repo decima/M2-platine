@@ -1,6 +1,9 @@
 <?php
 
-class Notification implements SystemModule{
+class Notification implements SystemModule {
+
+    static $notifications = array();
+
     public function info() {
         return array(
             "name" => "Notification",
@@ -13,18 +16,22 @@ class Notification implements SystemModule{
     }
 
     public function system_init() {
-  }
+        
+    }
 
     const STATUS_INFO = 1;
     const STATUS_WARNING = 2;
     const STATUS_ERROR = 4;
     const STATUS_SUCCESS = 8;
 
-    public static function statusNotify($message, $type){
+    public static function statusNotify($message, $type) {
+        self::$notifications[] = array("message" => $message, "type" => $type);
         method_invoke_all("statusNotifier", func_get_args());
     }
 
-    public static function getStatusNotifications(){
-        return method_invoke_all("getStatusNotifier", array(), true);
+    public static function getStatusNotifications() {
+        method_invoke_all("getStatusNotifier", array(), true);
+        return self::$notifications;
     }
+
 }
