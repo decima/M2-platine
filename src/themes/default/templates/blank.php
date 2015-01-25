@@ -6,6 +6,7 @@
     <!-- CSS -->
     <link type="text/css" rel="stylesheet" href="<?php echo Page::url("/themes/default/styles/body.css"); ?>">
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,600,700,400' rel='stylesheet' type='text/css'>
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <!-- Scripts -->
     <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
     <script type="text/javascript" src="<?php echo Page::url("/themes/default/scripts/jquery.elastic.source.js"); ?>"></script>
@@ -15,7 +16,15 @@
 </head>
 <body>
     <div id="page">
-        <?php Theme::body(); ?>
+        <div id="bloc_central">
+            <div id="bloc_central_inside">
+                <?php if(Theme::$title != null): ?>
+                    <div class="titre"><?php echo Theme::$title; ?></div>
+                <?php endif; ?>
+                <div class="contenu"><?php Theme::body(); ?></div>
+            </div>
+            <div class="clear"></div>
+        </div>
     </div>
     <div class="clear"></div>
 </body>
