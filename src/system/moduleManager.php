@@ -203,7 +203,7 @@ class ModuleManager implements SystemModule {
         $theme = new Theme();
 
         $theme->set_title(t("Liste des modules disponibles (%ct modules disponibles)", array("%ct" => count($modules))));
-        $r = array(t("Nom du module"), t("Type de module"), t("Actions"), "", "", "");
+        $r = array(t("Nom du module"), t("Type de module"), t("Actions"));
         $array = array();
         foreach ($modules as $m) {
 
