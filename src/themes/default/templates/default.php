@@ -31,6 +31,6 @@
                 <?php Theme::body(); ?>
             </div>
         </div>
-        <div class="clear"></div>
+        <div class="clear" id="clear_page"></div>
     </body>
 </html>
