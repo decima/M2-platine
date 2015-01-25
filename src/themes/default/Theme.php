@@ -24,7 +24,8 @@ class Theme extends Themed {
     }
 
     public static function tabling($rows, $headers = array(), $hcol = array()) {
-        $output = "<table class=\"tableau\">\n";
+        $output = "<div style='padding-left: 20px; padding-right: 20px;'>";
+        $output .= "<table class=\"tableau\">\n";
         if (count($headers) > 0) {
             $output .="<thead>\n<tr>\n";
             foreach ($headers as $h)
@@ -32,8 +33,15 @@ class Theme extends Themed {
             $output .="</tr>\n</thead>\n";
         }
         $output .="<tbody>\n";
-        foreach ($rows as $r) {
-            $output .="<tr>\n";
+        $variant1 = "variant1";
+        $variant2 = "variant2";
+        foreach ($rows as $k => $r) {
+            $output .="<tr class='values ";
+                if($k % 2 == 0)
+                    $output .= $variant1;
+                else
+                    $output .= $variant2;
+            $output .= "'>\n";
             if($a = array_shift($hcol) != null) {
                 $output .= "<th>".$hcol."</th>\n";
             }
@@ -43,6 +51,7 @@ class Theme extends Themed {
         }
         $output .="</tbody>\n";
         $output .= "</table>";
+        $output .= "</div>";
 
         return $output;
     }
