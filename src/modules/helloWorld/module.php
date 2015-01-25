@@ -1,9 +1,10 @@
 <?php
+
 /**
  * @moduleName HelloWorld
  * 
  * 
- **/
+ * */
 class HelloWorld implements Module {
 
     public function info() {
@@ -15,11 +16,19 @@ class HelloWorld implements Module {
     }
 
     public static function sayHelloToWorld() {
-        return "Hello the World!";
+
+        Theme::add_to_body("hello the World!");
+        $theme = new Theme();
+        $theme->set_title("Hello world sample module");
+        $theme->process_theme(Theme::STRUCT_DEFAULT);
+        return;
     }
 
     public static function sayHelloTo($name) {
-        return "HELLO $name, nice to meet you!";
+        Theme::add_to_body("HELLO $name, nice to meet you!");
+        $theme = new Theme();
+        $theme->process_theme(Theme::STRUCT_BLANK);
+        return;
     }
 
     public function menu($item = array()) {
@@ -35,7 +44,7 @@ class HelloWorld implements Module {
             "lastname" => Database::FIELD_TYPE_STRING + Database::NOTNULLVAL,
         );
 
-        
+
         $schema["test2"] = array(
             "id" => Database::FIELD_TYPE_INT + Database::PRIMARY_KEY + Database::AUTOINCREMENT,
             "firstname" => Database::FIELD_TYPE_STRING,
