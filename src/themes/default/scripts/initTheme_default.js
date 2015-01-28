@@ -3,15 +3,28 @@ $(window).resize(function() {
     var w = $(window);
     var p = $('#page');
     var cp = $('#page_contenu');
+    var plpc = $('#page_lateral_profil_contenu');
     var ll = $('#lateral_left');
     var hasVerticalScrollbar = false;
 
-    if(w.height() > cp.outerHeight(true)){
-        height = w.outerHeight(true);
+    var w_height = w.height();
+    var cp_height = cp.height();
+
+    // TODO
+    // Corriger la valeur
+    // Faussée à cause du margin-top de la zone avatar
+    var plpc_height = plpc.height();
+
+    if(w_height > cp_height && w_height > plpc_height){
+        height = w_height;
         hasVerticalScrollbar = false;
     }
-    else {
-        height = cp.outerHeight(true);
+    else if(cp_height > plpc_height){
+        height = cp_height;
+        hasVerticalScrollbar = true;
+    }
+    else{
+        height = plpc_height;
         hasVerticalScrollbar = true;
     }
 
@@ -34,6 +47,7 @@ $(window).resize(function() {
         var diff = window_innerwidth-window_width;
         diff = diff/2;
         ll.width(width_lateral_left+diff);
+        console.log(hasVerticalScrollbar);
     }
 });
 $(window).load(function(){
@@ -45,6 +59,9 @@ $(window).load(function(){
 
     var width_lateral_left = (w.width()-p.width())/2;
     ll.width(width_lateral_left);
+
+    // TODO
+    // Prendre en compte la possibilité que le contenu du menu peut être supérieur au contenu de la page dans la hauteur
 
     if(w.height() > cp.height())
         height = w.height();
