@@ -11,11 +11,11 @@ $(window).resize(function() {
     var cp_height = cp.height();
     var plpc_height = plpc.height();
 
-    if(w_height > cp_height && w_height > plpc_height){
+    if(w_height >= cp_height && w_height >= plpc_height){
         height = w_height;
         hasVerticalScrollbar = false;
     }
-    else if(cp_height > plpc_height){
+    else if(cp_height >= plpc_height){
         height = cp_height;
         hasVerticalScrollbar = true;
     }
@@ -61,9 +61,9 @@ $(window).load(function(){
     var cp_height = cp.height();
     var plpc_height = plpc.height();
 
-    if(w_height > cp_height && w_height > plpc_height)
+    if(w_height >= cp_height && w_height >= plpc_height)
         height = w_height;
-    else if(cp_height > plpc_height)
+    else if(cp_height >= plpc_height)
         height = cp_height;
     else
         height = plpc_height;
