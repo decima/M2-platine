@@ -228,7 +228,9 @@ class ModuleManager implements SystemModule {
 
 
             if ($m["system_module"] == 1) {
-                $rtm = "système";
+                $rtm = t("système");
+                                $statement = t("");
+
             } else {
                 $rtm = ($link_1).($link_2==null?"":"- ").$link_2;
             }

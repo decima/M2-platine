@@ -93,7 +93,17 @@ class Database implements SystemModule {
     }
 
     public static function insert($table, $fields) {
-        
+        $imploding = implode(",", array_keys($fields));
+        $values = "'" . implode("','", array_values($fields)) . "'";
+        $sql = "INSERT INTO " . CONFIG_DB_PREFIX . $table . " ($imploding) VALUES($values);";
+        self::execute($sql);
+    }
+    
+    public static function update($table, $fields,$references) {
+        $imploding = implode(",", array_keys($fields));
+        $values = "'" . implode("','", array_values($fields)) . "'";
+        $sql = "UPDATE " . CONFIG_DB_PREFIX . $table . " ($imploding) VALUES($values);";
+        self::execute($sql);
     }
 
     public static function getAll($sql) {

@@ -25,7 +25,11 @@ class Notification implements SystemModule {
     const STATUS_SUCCESS = 8;
 
     public static function statusNotify($message, $type) {
-        self::$notifications[] = array("message" => $message, "type" => $type);
+        $t = new stdClass();
+        $t->message = $message;
+        $t->type = $type;
+        
+        self::$notifications[] = $t;
         method_invoke_all("statusNotifier", func_get_args());
     }
 

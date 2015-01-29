@@ -12,7 +12,7 @@ abstract class DataObject {
 
     public abstract function index();
 
-    public function load($keyload = array()) {
+    public function load($keyload) {
         $conditions = array();
         if (is_array($keyload)) {
             foreach ($keyload as $k => $v) {
@@ -28,6 +28,21 @@ abstract class DataObject {
             return true;
         }
         return false;
+    }
+
+    public function save() {
+        $keys = $this->index();
+        $exists = true;
+        foreach ($keys as $k) {
+            if (!isset($this->{$keys})) {
+                $exists = false;
+            }
+        }
+        if ($exists) {
+            Database::insert($table, $fields);
+        } else {
+            
+        }
     }
 
     public function __get($param) {
