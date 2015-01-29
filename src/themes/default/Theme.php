@@ -25,7 +25,7 @@ class Theme extends Themed {
     }
 
     public static function tabling($rows, $headers = array(), $hcol = array()) {
-        $output = "<div style='padding-left: 20px; padding-right: 20px;'>";
+        $output = "<div style='padding-left: 20px; padding-right: 20px; padding-bottom: 20px;'>";
         $output .= "<table class=\"tableau\">\n";
         if (count($headers) > 0) {
             $output .="<thead>\n<tr>\n";
@@ -54,6 +54,37 @@ class Theme extends Themed {
         $output .= "</table>";
         $output .= "</div>";
 
+        return $output;
+    }
+
+
+    public static function displayNotification(){
+        $output = "";
+        foreach(Notification::getStatusNotifications() as $n){
+            $output .= "<table class=\"bandeau_info\">";
+                $output .= "<tr class=\"bandeau_info_inside\">";
+                    $output .= "<td>";
+                    switch($n->type){
+                        case Notification::STATUS_INFO:
+                            $output .= "<i class=\"fa fa-info fa-lg bandeau_info_inside_td\"></i>";
+                            break;
+                        case Notification::STATUS_ERROR:
+                            $output .= "<i class=\"fa fa-remove fa-lg bandeau_info_inside_td\"></i>";
+                            break;
+                        case Notification::STATUS_WARNING:
+                            $output .= "<i class=\"fa fa-warning fa-lg bandeau_info_inside_td\"></i>";
+                            break;
+                        case Notification::STATUS_SUCCESS:
+                            $output .= "<i class=\"fa fa-check fa-lg bandeau_info_inside_td\"></i>";
+                            break;
+                    }
+                    $output .= "</td>";
+                    $output .= "<td class=\"bandeau_info_inside_td\">";
+                        $output .= $n->message;
+                    $output .= "</td>";
+                $output .= "</tr>";
+            $output .= "</table>";
+        }
         return $output;
     }
 }
