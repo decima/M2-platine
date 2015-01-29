@@ -4,8 +4,8 @@
  * @moduleName User
  * 
  * 
- **/
-require_once("./UserObject.php");
+ * */
+require_once("UserObject.php");
 
 class User implements Module {
 
