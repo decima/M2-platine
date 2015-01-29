@@ -32,17 +32,10 @@ abstract class DataObject {
 
     public function save() {
         $keys = $this->index();
-        $exists = true;
-        foreach ($keys as $k) {
-            if (!isset($this->{$keys})) {
-                $exists = false;
-            }
-        }
-        if ($exists) {
-            Database::insert($table, $fields);
-        } else {
-            
-        }
+        Database::insert($this->tableName(), $this->_data, true);
+        $t = Database::lastID();
+        $this->{$keys[0]} = $r;
+        
     }
 
     public function __get($param) {

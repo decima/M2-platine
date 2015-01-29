@@ -18,21 +18,28 @@ class User implements Module {
 
     public function install() {
         
+       $ret = UserObject::create(CONFIG_ADMIN_LOGIN, CONFIG_ADMIN_PASSWORD, "Admin", "Administrator");
+       $ret = $ret && UserObject::create(CONFIG_ADMIN_LOGIN, CONFIG_ADMIN_PASSWORD, "Admin", "Administrator");
+       
+       return $ret;
     }
 
     public function schema($schema = array()) {
-        $schema["user"] = array(
-            "uid" => Database::FIELD_TYPE_INT + Database::PRIMARY_KEY + Database::AUTOINCREMENT,
-            "email" => Database::FIELD_TYPE_STRING + Database::NOTNULLVAL,
-            "password" => Database::FIELD_TYPE_STRING + Database::NOTNULLVAL,
-            "firstname" => Database::FIELD_TYPE_STRING,
-            "lastname" => Database::FIELD_TYPE_STRING
-        );
+        UserObject::schema($schema);
         return $schema;
     }
 
-    public function create($email, $password, $firstname, $lastname) {
-        Database::execute($sql);
+    public function create($email, $password, $firstname = "", $lastname = "") {
+        $user = new UserObject();
+        try {
+            $user->email = $email;
+            $user->password = $password;
+            $user->firstname = $firstname;
+            $user->lastname = $lastname;
+        } catch (Exception_Database_Exists $e) {
+            return false;
+        }
+        return true;
     }
 
     public function menu($item = array()) {

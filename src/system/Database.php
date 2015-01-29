@@ -11,6 +11,8 @@ class Database implements SystemModule {
     const AUTOINCREMENT = 2;
     const NOTNULLVAL = 1;
 
+    public static $connector = null;
+
     public static function schema_installer($schema) {
         $keywords = array("INT", "FLOAT", "VARCHAR(255)", "TEXT", "DATETIME", "PRIMARY KEY", "AUTO_INCREMENT", "NOT NULL");
         foreach ($schema as $table => $attributes) {
@@ -64,8 +66,6 @@ class Database implements SystemModule {
         return self::getAll($sql) != false;
     }
 
-    public static $connector = null;
-
     public function info() {
         _Security::version(0, 1);
         return array(
@@ -91,19 +91,55 @@ class Database implements SystemModule {
     public static function execute($sql) {
         return self::$connector->query($sql);
     }
+    public static function lastID() {
+        return self::$connector->lastInsertId();
+    }
 
-    public static function insert($table, $fields) {
+    public static function insert($table, $fields, $duplicate = false) {
         $imploding = implode(",", array_keys($fields));
         $values = "'" . implode("','", array_values($fields)) . "'";
-        $sql = "INSERT INTO " . CONFIG_DB_PREFIX . $table . " ($imploding) VALUES($values);";
+        $vals = array();
+        foreach ($fields as $k => $v) {
+            $vals[] = "$k='$v'";
+        }
+        $sql = "INSERT INTO " . CONFIG_DB_PREFIX . $table . " ($imploding) VALUES($values)";
+        if ($duplicate) {
+            $imploding = implode(" , ", $vals);
+            $sql .=" ON DUPLICATE KEY UPDATE " . $imploding;
+        }
         self::execute($sql);
     }
-    
-    public static function update($table, $fields,$references) {
-        $imploding = implode(",", array_keys($fields));
-        $values = "'" . implode("','", array_values($fields)) . "'";
-        $sql = "UPDATE " . CONFIG_DB_PREFIX . $table . " ($imploding) VALUES($values);";
+
+    public static function update($table, $fields, $references = array()) {
+        $vals = array();
+        $conditions = array("1");
+        if (count($references) > 0) {
+            $conditions = array();
+        }
+        foreach ($fields as $k => $v) {
+            $vals[] = "$k='$v'";
+        }
+        foreach ($references as $k => $v) {
+            $conditions[] = "$k='$v'";
+        }
+        $imploding = implode(" , ", $vals);
+        $imploding2 = implode(" AND ", $conditions);
+
+        $sql = "UPDATE " . CONFIG_DB_PREFIX . $table . " set $imploding where $imploding2;";
         self::execute($sql);
+    }
+
+    public static function delete($table, $references) {
+        $vals = array();
+        if (count($references) > 0) {
+            $conditions = array();
+            foreach ($references as $k => $v) {
+                $conditions[] = "$k='$v'";
+            }
+            $imploding2 = implode(" AND ", $conditions);
+            $sql = "DELETE FROM " . CONFIG_DB_PREFIX . $table . " where $imploding2;";
+            self::execute($sql);
+        }
     }
 
     public static function getAll($sql) {
@@ -131,5 +167,8 @@ class Database implements SystemModule {
 }
 
 class Exception_Database extends Exception {
-    
+
+}
+class Exception_Database_Exists extends Exception {
+
 }

@@ -12,6 +12,19 @@ class UserObject extends DataObject {
         );
     }
 
+    public function __set($param, $value) {
+        if ($param == "password") {
+            $value = self::encrypt_password($value);
+        }
+        if ($param == "email") {
+            $user = new UserObject();
+            if($user->load_by_email($value)){
+                throw new Exception_Database_Exists();
+            }
+        }
+        parent::__set($param, $value);
+    }
+
     public function index() {
         return array("uid");
     }
@@ -23,7 +36,6 @@ class UserObject extends DataObject {
     public function load($uid) {
         return parent::load(array("uid" => $uid));
     }
-    
 
     public function load_by_email($email) {
         return parent::load(array("email" => $email));
