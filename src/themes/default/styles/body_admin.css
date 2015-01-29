@@ -111,7 +111,7 @@ textarea {
     margin: auto;
     text-align: center;
     text-decoration: none;
-    color: #CC0C39;
+    color: #071438;
     font-size: 16px;
     font-weight: 600;
     display: inline-block;
@@ -150,16 +150,16 @@ textarea {
     width: 100%;
 }
 .page_lateral_icon > i.fa-power-off {
-    color: #CC0C39;
+    color: #071438;
 }
 .page_lateral_icon > i.fa-power-off:hover {
-    color: #D63B5F;
+    color: #4b556e;
 }
 .bille_notification {
     width: 18px;
     height: 18px;
     line-height: 18px;
-    background-color: #CC0C39;
+    background-color: #071438;
     color: #FEFEFE;
     font-size: 10px;
     display: inline-block;
@@ -207,7 +207,7 @@ textarea {
     margin: 10px auto;
     text-align: center;
     text-decoration: none;
-    color: #CC0C39;
+    color: #071438;
     font-size: 12px;
     font-weight: 600;
     display: inline-block;
@@ -236,7 +236,7 @@ textarea {
     z-index: 150;
     width: 100%;
     height: 35px;
-    background-color: #CC0C39;
+    background-color: #071438;
     position: relative;
     margin-top: -5px;
     border-bottom-left-radius: 2px;
@@ -341,7 +341,7 @@ textarea.actualite_area_text {
     margin: auto;
     text-align: center;
     text-decoration: none;
-    color: #CC0C39;
+    color: #071438;
     font-size: 24px;
     font-weight: 600;
     display: inline-block;
@@ -361,7 +361,7 @@ textarea.actualite_area_text {
     font-size: 14px;
 }
 .profil_bloc_contenu ul {
-    color: #CC0C39;
+    color: #071438;
 }
 .liste_contenu {
     color: #333;
@@ -399,7 +399,7 @@ textarea.actualite_area_text {
     overflow: hidden;
 }
 .notification_bloc.notification_bloc_new {
-    background-color: #CC0C39;
+    background-color: #071438;
 }
 .notification_bloc_texte {
     margin-left: 20px;
@@ -411,12 +411,12 @@ textarea.actualite_area_text {
     color: #FEFEFE;
 }
 .notification_bloc_texte a {
-    color: #CC0C39;
+    color: #071438;
     text-decoration: none;
     font-weight: 600;
 }
 .notification_bloc_texte a:hover {
-    color: #D63B5F;
+    color: #4b556e;
 }
 .notification_bloc.notification_bloc_new .notification_bloc_texte a,
 .notification_bloc.notification_bloc_new .notification_bloc_texte a:hover {
@@ -428,7 +428,7 @@ textarea.actualite_area_text {
     line-height: 50px;
     font-size: 14px;
     float: right;
-    color: #CC0C39;
+    color: #071438;
     text-align: center;
     display: inline-block;
 }
@@ -469,7 +469,7 @@ textarea.actualite_area_text {
     margin: 10px auto;
     text-align: center;
     text-decoration: none;
-    color: #CC0C39;
+    color: #071438;
     font-size: 12px;
     font-weight: 600;
     display: inline-block;
@@ -501,7 +501,7 @@ textarea.actualite_area_text {
 }
 .messagerie_bloc.messagerie_bloc_new,
 .messagerie_bloc_message.messagerie_bloc_new {
-    background-color: #CC0C39;
+    background-color: #071438;
 }
 .messagerie_bloc_informations {
     height: 20px;
@@ -514,7 +514,7 @@ textarea.actualite_area_text {
 }
 .messagerie_bloc_informations a {
     text-decoration: none;
-    color: #CC0C39;
+    color: #071438;
     font-size: 12px;
     font-weight: 600;
 }
@@ -565,12 +565,12 @@ textarea.actualite_area_text {
     margin: 10px auto;
 }
 .messagerie_bloc_texte a {
-    color: #CC0C39;
+    color: #071438;
     text-decoration: none;
     font-weight: 600;
 }
 .messagerie_bloc_texte a:hover {
-    color: #D63B5F;
+    color: #4b556e;
 }
 .messagerie_bloc.messagerie_bloc_new .messagerie_bloc_texte a,
 .messagerie_bloc.messagerie_bloc_new .messagerie_bloc_texte a:hover {
@@ -582,7 +582,7 @@ textarea.actualite_area_text {
     text-align: center;
     height: 70px;
     line-height: 70px;
-    color: #CC0C39;
+    color: #071438;
 }
 .messagerie_bloc.messagerie_bloc_new > .messagerie_bloc_informations a,
 .messagerie_bloc.messagerie_bloc_new > .messagerie_bloc_informations,
@@ -626,7 +626,7 @@ a.rechercher_input_loupe {
     margin: auto;
     padding: 2px;
     line-height: 25px;
-    color: #CC0C39;
+    color: #071438;
     text-decoration: none;
     background-color: #FEFEFE;
     border: 1px solid #CCC;
@@ -644,7 +644,7 @@ a.rechercher_input_loupe {
 .titre {
     font-size: 24px;
     font-weight: 600;
-    color: #CC0C39;
+    color: #071438;
     margin-bottom: 10px;
 }
 .titre_page {
@@ -657,7 +657,7 @@ a.rechercher_input_loupe {
     color: #333;
 }
 .sous_titre_page i {
-    color: #CC0C39;
+    color: #071438;
 }
 .sous_titre_page_margeTop {
     margin-top: 50px;
@@ -681,14 +681,14 @@ a.btn {
     text-decoration: none;
     font-size: 13px;
 
-    background-color: #CC0C39;
+    background-color: #071438;
     border-radius: 2px;
     color: #E8E8E8;
     position: relative;
     right: 0;
 }
 a.btn:hover {
-    background-color: #D63B5F;
+    background-color: #4b556e;
 }
 
 
@@ -716,7 +716,7 @@ table.tableau {
     margin-left: 1px;
 }
 table.tableau th {
-    color: #CC0C39;
+    color: #071438;
     height: 30px;
     padding-left: 5px;
     padding-right: 5px;
@@ -751,7 +751,7 @@ td a:hover {
 .bandeau_info {
     width: 660px;
     margin: 20px auto;
-    background-color: #CC0C39;
+    background-color: #4b556e;
     border-radius: 2px;
     box-shadow: 0px 0px 2px #CCCCCC;
     overflow: hidden;
@@ -776,7 +776,7 @@ td a:hover {
 }
 a.bandeau_info_close {
     float: right;
-    color: #D63B5F;
+    color: #071438;
     padding: 0;
     text-decoration: none;
 }

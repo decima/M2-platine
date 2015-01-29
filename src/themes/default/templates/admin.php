@@ -4,9 +4,9 @@
         <meta http-equiv="Content-Type" content="text/html; charset=<?php echo CONFIG_SITE_ENCODE; ?>">
         <title><?php echo CONFIG_SITE_TITLE;?></title>
         <!-- CSS -->
-        <link type="text/css" rel="stylesheet" href="<?php echo Page::url("/themes/default/styles/body.css"); ?>">
-        <link href='<?php echo Page::url("/themes/default/styles/font-opensans.css"); ?>' rel='stylesheet' type='text/css'>
-        <link href="<?php echo Page::url("/themes/default/styles/font-awesome.min.css"); ?>" rel='stylesheet' type='text/css'>
+        <link href="<?php echo Page::url("/themes/default/styles/body_admin.css"); ?>" rel="stylesheet" type="text/css">
+        <link href="<?php echo Page::url("/themes/default/styles/font-opensans.css"); ?>" rel="stylesheet" type="text/css">
+        <link href="<?php echo Page::url("/themes/default/styles/font-awesome.min.css"); ?>" rel="stylesheet" type="text/css">
         <!-- Scripts -->
         <script type="text/javascript" src="<?php echo Page::url("/themes/default/scripts/jquery-1.11.2.min.js"); ?>"></script>
         <script type="text/javascript" src="<?php echo Page::url("/themes/default/scripts/jquery.elastic.source.js"); ?>"></script>
@@ -23,11 +23,7 @@
                 <div class="titre titre_page"><?php echo Theme::$title; ?></div>
                 <div class="page_contenu_sep"></div>
                 <?php endif; ?>
-                <?php
-                    foreach(Notification::getStatusNotifications() as $n){
-                        print_r($n);
-                    }
-                ?>
+                <?php echo Theme::displayNotification(); ?>
                 <?php Theme::body(); ?>
             </div>
         </div>
