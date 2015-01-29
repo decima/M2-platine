@@ -232,7 +232,7 @@ class ModuleManager implements SystemModule {
                                 $statement = t("");
 
             } else {
-                $rtm = ($link_1).($link_2==null?"":"- ").$link_2;
+                $rtm = ($link_1).($link_2==null?"":" - ").$link_2;
             }
             $array[] = array($m["readablename"], $statement, $rtm);
         }
