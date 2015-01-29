@@ -4,6 +4,18 @@ class _Security {
 
     private static $err = null;
 
+    static function addSlahesLoop($array) {
+        return is_array($array) ?
+                array_map(self::addSlahesLoop, $array) :
+                addslashes($array);
+    }
+
+    static function stripSlashesLoop($array) {
+        return is_array($array) ?
+                array_map(self::stripSlashesLoop, $array) :
+                stripSlashes($array);
+    }
+
     public static function enable_debug($enable = true) {
         if ($enable) {
             ini_set("display_startup_errors", true);
@@ -22,7 +34,7 @@ class _Security {
 
     public static function jinn_error_handler($errno, $errstr, $errfile, $errline) {
         if (ini_get("display_errors") == true) {
-            echo "<div style='background-color:#CCC;padding: 15px;margin:15px;' class='jinn_error'>$errstr</div>";
+            echo $errstr;
         }
         if ($errno == 256)
             exit();
