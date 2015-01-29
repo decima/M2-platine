@@ -4,8 +4,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=<?php echo CONFIG_SITE_ENCODE; ?>">
         <title><?php echo CONFIG_SITE_TITLE;?></title>
         <!-- CSS -->
-        <link href="<?php echo Page::url("/themes/default/styles/body_admin.css"); ?>" rel="stylesheet" type="text/css">
         <link href="<?php echo Page::url("/themes/default/styles/font-opensans.css"); ?>" rel="stylesheet" type="text/css">
+        <link href="<?php echo Page::url("/themes/default/styles/body_admin.css"); ?>" rel="stylesheet" type="text/css">
         <link href="<?php echo Page::url("/themes/default/styles/font-awesome.min.css"); ?>" rel="stylesheet" type="text/css">
         <!-- Scripts -->
         <script type="text/javascript" src="<?php echo Page::url("/themes/default/scripts/jquery-1.11.2.min.js"); ?>"></script>
