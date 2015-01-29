@@ -28,7 +28,7 @@ class Notification implements SystemModule {
         $t = new stdClass();
         $t->message = $message;
         $t->type = $type;
-        
+
         self::$notifications[] = $t;
         method_invoke_all("statusNotifier", func_get_args());
     }
