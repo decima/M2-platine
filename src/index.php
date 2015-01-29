@@ -8,6 +8,8 @@ if (!file_exists("config/settings.php")) {
 
 require 'system/tools.php';
 require 'system/hooks.php';
+require 'system/DataObject.php';
+
 require 'config/settings.php';
 require 'system/Database.php';
 require 'system/Themed.php';

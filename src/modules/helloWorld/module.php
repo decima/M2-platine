@@ -24,9 +24,13 @@ class HelloWorld implements Module {
         return;
     }
 
-    public static function sayHelloTo($name) {
+    public static function sayHelloTo($name, $surname = null) {
         Theme::add_to_body("HELLO $name, nice to meet you!");
+        if ($surname != null) {
+            Theme::add_to_body("May I call you $surname?");
+        }
         $theme = new Theme();
+        $theme->set_title("Hello World");
         $theme->process_theme(Theme::STRUCT_BLANK);
         return;
     }
@@ -34,6 +38,8 @@ class HelloWorld implements Module {
     public function menu($item = array()) {
         $item["/hello"] = array("callback" => array("HelloWorld", "sayHelloToWorld"));
         $item["/hello/@"] = array("callback" => array("HelloWorld", "sayHelloTo"));
+        $item["/hello/@/@"] = array("callback" => array("HelloWorld", "sayHelloTo"));
+
         return $item;
     }
 

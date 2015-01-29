@@ -92,6 +92,10 @@ class Database implements SystemModule {
         return self::$connector->query($sql);
     }
 
+    public static function insert($table, $fields) {
+        
+    }
+
     public static function getAll($sql) {
         $exec = self::$connector->query($sql);
         if ($exec != false) {
