@@ -4,7 +4,9 @@
             <img src="" alt="" />
         </div>
         <div id="page_lateral_profil_nom"><a href="profil_patrick_jane.html"><i class="fa  fa-gear fa-fw"></i> Patrick Jane</a></div>
-        <div class="page_lateral_profil_sep"></div>
+        <div class="page_lateral_profil_sep">
+            <div class="page_lateral_profil_sep_barre"></div>
+        </div>
         <div id="page_lateral_liens">
             <!--
             <a href="accueil.html" class="page_lateral_icon" title="Accueil"><i class="fa  fa-home fa-fw"></i></a>
@@ -21,8 +23,11 @@
                 <a href="" title=""><i class="fa  fa-users fa-fw"></i> Gérer les groupes</a>
                 <a href="" title=""><i class="fa  fa-shield fa-fw"></i> Gérer les permissions</a>
             </div>
-            <div class="page_lateral_profil_sep"></div>
+            <div class="page_lateral_profil_sep">
+                <div class="page_lateral_profil_sep_barre"></div>
+            </div>
         </div>
         <div class="clear"></div>
     </div>
+    <div class="clear"></div>
 </div>

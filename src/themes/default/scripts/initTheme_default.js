@@ -9,10 +9,6 @@ $(window).resize(function() {
 
     var w_height = w.height();
     var cp_height = cp.height();
-
-    // TODO
-    // Corriger la valeur
-    // Faussée à cause du margin-top de la zone avatar
     var plpc_height = plpc.height();
 
     if(w_height > cp_height && w_height > plpc_height){
@@ -56,17 +52,22 @@ $(window).load(function(){
     var p = $('#page');
     var cp = $('#page_contenu');
     var ll = $('#lateral_left');
+    var plpc = $('#page_lateral_profil_contenu');
 
     var width_lateral_left = (w.width()-p.width())/2;
     ll.width(width_lateral_left);
 
-    // TODO
-    // Prendre en compte la possibilité que le contenu du menu peut être supérieur au contenu de la page dans la hauteur
+    var w_height = w.height();
+    var cp_height = cp.height();
+    var plpc_height = plpc.height();
 
-    if(w.height() > cp.height())
-        height = w.height();
+    if(w_height > cp_height && w_height > plpc_height)
+        height = w_height;
+    else if(cp_height > plpc_height)
+        height = cp_height;
     else
-        height = cp.height();
+        height = plpc_height;
+
 
     ll.height(height);
     $("#page_lateral_profil").height(height);
