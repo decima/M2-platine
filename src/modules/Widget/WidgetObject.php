@@ -45,10 +45,12 @@ class WidgetObject extends DataObject {
         $request = "SELECT widget_name FROM " . CONFIG_DB_PREFIX . $d->tableName() . " WHERE position = " . $position . " AND activate = 1 ORDER BY priority ASC";
         $results = Database::getAll($request);
         $return = array();
-        foreach ($results as $v) {
-            $n = new WidgetObject();
-            $n->load($v->widget_name);
-            $return[] = $n;
+        if(is_array($results)) {
+            foreach ($results as $v) {
+                $n = new WidgetObject();
+                $n->load($v->widget_name);
+                $return[] = $n;
+            }
         }
         return $return;
     }
