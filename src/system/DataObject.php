@@ -35,19 +35,18 @@ abstract class DataObject {
         Database::insert($this->tableName(), $this->_data, true);
         $t = Database::lastID();
         $this->{$keys[0]} = $r;
-        
     }
 
     public function __get($param) {
         if (isset($this->_data->{$param})) {
-            return $this->_data->{$param};
+            return _Security::stripSlashesLoop($this->_data->{$param});
         } else {
             return null;
         }
     }
 
     public function __set($param, $value) {
-        $this->_data->{$param} = $value;
+        $this->_data->{$param} = _Security::addSlahesLoop($value);
     }
 
     public function __isset($name) {

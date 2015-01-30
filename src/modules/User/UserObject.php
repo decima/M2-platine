@@ -17,8 +17,9 @@ class UserObject extends DataObject {
             $value = self::encrypt_password($value);
         }
         if ($param == "email") {
-            $user = new UserObject();
-            if($user->load_by_email($value)){
+            $user = new UserObject();          
+            if ($user->load_by_email($value)) {
+
                 throw new Exception_Database_Exists();
             }
         }

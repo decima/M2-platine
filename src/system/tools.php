@@ -89,3 +89,11 @@ class _Security {
     }
 
 }
+function arrayToObject($d) {
+    return is_array($d)?(object) array_map(__FUNCTION__, $d):$d;
+}
+
+function objectToArray($d) {
+    $d=is_object($d)?get_object_vars($d):$d;
+    return is_array($d)?array_map(__FUNCTION__, $d):$d;
+}

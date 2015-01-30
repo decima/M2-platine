@@ -91,22 +91,24 @@ class Database implements SystemModule {
     public static function execute($sql) {
         return self::$connector->query($sql);
     }
+
     public static function lastID() {
         return self::$connector->lastInsertId();
     }
 
     public static function insert($table, $fields, $duplicate = false) {
-        $imploding = implode(",", array_keys($fields));
-        $values = "'" . implode("','", array_values($fields)) . "'";
+        $imploding = implode(",", array_keys(objectToArray($fields)));
+        $values = "'" . implode("','", array_values(objectToArray($fields))) . "'";
         $vals = array();
-        foreach ($fields as $k => $v) {
+        foreach (objectToArray($fields) as $k => $v) {
             $vals[] = "$k='$v'";
         }
         $sql = "INSERT INTO " . CONFIG_DB_PREFIX . $table . " ($imploding) VALUES($values)";
         if ($duplicate) {
-            $imploding = implode(" , ", $vals);
-            $sql .=" ON DUPLICATE KEY UPDATE " . $imploding;
+            $im = implode(" , ", $vals);
+            $sql .=" ON DUPLICATE KEY UPDATE " . $im;
         }
+        
         self::execute($sql);
     }
 
@@ -144,31 +146,31 @@ class Database implements SystemModule {
 
     public static function getAll($sql) {
         $exec = self::$connector->query($sql);
-        if ($exec != false) {
+        if ($exec != false)
             return $exec->fetchAll(PDO::FETCH_OBJ);
-        }
         return false;
     }
 
     public static function getRow($sql) {
-        if ($exec != false) {
+        $exec = self::$connector->query($sql);
+        if ($exec != false)
             return $exec->fetch(PDO::FETCH_OBJ);
-        }
         return false;
     }
 
     public static function getValue($sql) {
-        if ($exec != false) {
+        $exec = self::$connector->query($sql);
+        if ($exec != false)
             return $exec->fetch(PDO::FETCH_COLUMN);
-        }
         return false;
     }
 
 }
 
 class Exception_Database extends Exception {
-
+    
 }
-class Exception_Database_Exists extends Exception {
 
+class Exception_Database_Exists extends Exception {
+    
 }

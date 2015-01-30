@@ -254,6 +254,7 @@ class ModuleManager implements SystemModule {
             if (self::install_module($modules[$moduleName]["name"], $modules[$moduleName]["path"])) {
                 header("location: " . Page::url("/admin/modules/"));
             } else {
+                self::uninstall_module($modules[$moduleName]["name"], $modules[$moduleName]["path"]);
                 header("location: " . Page::url("/admin/modules/?err=install"));
             }
         } else {
