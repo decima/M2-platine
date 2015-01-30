@@ -17,7 +17,7 @@
     <body>
         <div id="lateral_left"></div>
         <div id="page">
-            <?php Theme::menu(); ?>
+            <?php Theme::showMenu(); ?>
             <div id="page_contenu">
                 <?php if(Theme::$title != null): ?>
                 <div class="titre titre_page"><?php echo Theme::$title; ?></div>

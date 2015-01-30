@@ -15,6 +15,17 @@ class HelloWorld implements Module {
         );
     }
 
+    public function widget($item=array()){
+        $item["hello"] = array("permissions" => "access content", "callback" => array("HelloWorld", "widgetHello"));
+        return $item;
+    }
+
+
+    public static function widgetHello(){
+        return Theme::listing(array(1,2,3,4,5));
+    }
+
+
     public static function sayHelloToWorld() {
 
         Theme::add_to_body("hello the World!");

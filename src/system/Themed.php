@@ -31,6 +31,9 @@ abstract class Themed {
             echo $m . "\n";
         }
     }
+    public static function add_to_menu($element) {
+        self::$menu[] = $element;
+    }
 
     public static function body() {
         foreach (self::$body as $s) {

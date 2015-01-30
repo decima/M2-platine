@@ -38,7 +38,7 @@ class _Security {
         }
         if ($errno == 256)
             exit();
-        return true;
+        return false;
     }
 
     public static function deprecated() {

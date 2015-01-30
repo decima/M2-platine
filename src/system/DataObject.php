@@ -34,7 +34,7 @@ abstract class DataObject {
         $keys = $this->index();
         Database::insert($this->tableName(), $this->_data, true);
         $t = Database::lastID();
-        $this->{$keys[0]} = $r;
+        $this->{$keys[0]} = $t;
     }
 
     public function __get($param) {

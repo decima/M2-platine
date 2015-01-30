@@ -20,7 +20,7 @@ class Theme extends Themed {
         //$this->process_theme(self::STRUCT_404);
     }
 
-    public static function menu(){
+    public static function showMenu(){
         require_once './themes/default/templates/menu.php';
     }
 
