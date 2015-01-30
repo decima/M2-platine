@@ -30,29 +30,30 @@ class Widget implements Module {
 
     public static function page_config() {
         $w = new Widget();
-        $w -> scanForWidget();
+        $w->scanForWidget();
         return "welcome";
     }
 
-    public function scanForWidget(){
+    public function scanForWidget() {
         $a = method_invoke_all("widget", array(), true);
-        foreach($a as $k => $v){
+        foreach ($a as $k => $v) {
             $wo = new WidgetObject();
-            $wo -> load($k);
-            $wo -> widget_name = $k;
-            $wo -> module_name = "";
-            $wo -> callback = implode("::", $v["callback"]);
-            $wo -> permissions = $v["permissions"];
-            $wo -> save();
+            $wo->load($k);
+            $wo->widget_name = $k;
+            $wo->module_name = "";
+            $wo->callback = implode("::", $v["callback"]);
+            $wo->permissions = $v["permissions"];
+            $wo->save();
         }
     }
 
-    public function runWidgets($position = WidgetObject::WIDGET_LATERAL_LEFT, callable $callable = null){
+    public function runWidgets($position = WidgetObject::WIDGET_LATERAL_LEFT, callable $callable = null) {
         $w = WidgetObject::loadByPosition($position);
-        if($callable != null){
-            foreach($w as $k => $v){
-                $callable(call_user_func($v -> callback));
+        if ($callable != null) {
+            foreach ($w as $k => $v) {
+                $callable(call_user_func($v->callback));
             }
         }
     }
+
 }
