@@ -1,7 +1,7 @@
 <?php
 
 require_once 'FormElement.php';
-require_once 'FormElementInterface.php';
+require_once 'AbstractFormElement.php';
 
 class Form {
 
@@ -15,7 +15,7 @@ class Form {
         $this->_method = $_method;
     }
 
-    public function addElement(FormElementInterface $feElement) {
+    public function addElement(AbstractFormElement $feElement) {
         $this->_elements[] = $feElement;
     }
 
