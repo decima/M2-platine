@@ -27,7 +27,6 @@ class HelloWorld implements Module {
 
 
     public static function sayHelloToWorld() {
-
         Theme::add_to_body("hello the World!");
         $theme = new Theme();
         $theme->set_title("Hello world sample module");

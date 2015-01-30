@@ -2,6 +2,7 @@
 
 class WidgetObject extends DataObject {
 
+    const WIDGET_NO_POSITION = -1;
     const WIDGET_LATERAL_LEFT = 0;
 
     public static function schema(&$schema) {
@@ -19,7 +20,7 @@ class WidgetObject extends DataObject {
     public function __construct(){
         parent::__construct();
         $this -> priority = 0;
-        $this -> position = self::WIDGET_LATERAL_LEFT;
+        $this -> position = self::WIDGET_NO_POSITION;
         $this -> activate = 0;
     }
 
@@ -39,6 +40,12 @@ class WidgetObject extends DataObject {
         return parent::load(array("widget_name" => $bloc_name));
     }
 
+    public static function loadAll() {
+        $d = new WidgetObject();
+        $request = "SELECT * FROM " . CONFIG_DB_PREFIX . $d->tableName() . " ORDER BY position ASC, activate DESC, priority ASC";
+        $results = Database::getAll($request);
+        return $results == null ? array() : $results;
+    }
 
     public static function loadByPosition($position) {
         $d = new WidgetObject();
