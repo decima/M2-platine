@@ -22,7 +22,7 @@ class HelloWorld implements Module {
 
 
     public static function widgetHello(){
-        return Theme::listing(array(1,2,3,4,5));
+        return Theme::tabling(array(array(1,2,3,4,5)),array(1,2,3,4,5));
     }
 
 
