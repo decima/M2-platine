@@ -7,7 +7,7 @@
  * */
 require_once("WidgetObject.php");
 
-class Widget implements Module {
+class Widget implements SystemModule {
 
     public function info() {
         return array(
@@ -77,7 +77,8 @@ class Widget implements Module {
         $theme = new Theme();
 
         $theme->set_title(t("Liste des widgets disponibles"));
-        Notification::statusNotify(t("%cnt widgets disponibles",array("%cnt"=>count($widgets))), Notification::STATUS_INFO);
+        $c = count($widgets);
+        $c > 1 ? Notification::statusNotify(t("%cnt widgets disponibles", array("%cnt"=>$c)), Notification::STATUS_INFO) : $c == 1 ? Notification::statusNotify(t("%cnt widget disponible", array("%cnt"=>$c)), Notification::STATUS_INFO) : Notification::statusNotify(t("Aucun widget disponible"), Notification::STATUS_INFO);
         $r = array(t("Nom du widget"), t("Etat du widget"), t("Actions"));
         $array = array();
         foreach ($widgets as $w) {
@@ -109,7 +110,7 @@ class Widget implements Module {
                 $rtm = ($link_1).($link_2==null?"":" - ").$link_2;
             }
             */
-            $array[] = array($w -> widget_name, $w -> activate ? t("Activé") : t("Désactivé"), t("Pomme"));
+            $array[] = array($w -> widget_name, $w -> activate ? t("Activé") : t("Désactivé"), t("Pomme"), t("<a href=''><i class='fa fa-arrow-up fa-fw'></i></a>"), t("<a href=''><i class='fa fa-arrow-down fa-fw'></i></a>"));
         }
 
         $theme->add_to_body($theme->tabling($array, $r));
@@ -117,4 +118,13 @@ class Widget implements Module {
         return;
     }
 
+    public function priority()
+    {
+        return 100;
+    }
+
+    public function system_init()
+    {
+        // TODO: Implement system_init() method.
+    }
 }
