@@ -90,6 +90,11 @@ abstract class Themed {
         return $output;
     }
 
+
+    public static function process_form(FormElement $form){
+
+    }
+
 }
 
 class View implements SystemModule {
