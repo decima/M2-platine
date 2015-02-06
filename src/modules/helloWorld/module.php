@@ -44,12 +44,13 @@ class HelloWorld implements Module {
     }
 
     public static function forming() {
-        $form = new Form("POST", Page::url("forms"));
+        $form = new Form("POST", Page::url("/forms"));
         $input = new FormElement("input", "login", "identifiant", "Pierre");
-        $input->setAttribute("type", "input");
+        $input->setAttribute("type", "text");
 
         $form->addElement($input);
 
+        // Balise, Name, Label, Value
         $input = new FormElement("select", "age", "Age", 10);
         $input->addElement(new FormElement("option", "", "0-10", 0));
 

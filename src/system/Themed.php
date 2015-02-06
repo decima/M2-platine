@@ -91,8 +91,58 @@ abstract class Themed {
     }
 
 
-    public static function process_form(FormElement $form){
+    public static function process_form(Form $form){
+        $output = "";
+        $output .= "<".$form -> getBalise();
+        foreach($form->getAttributes() as $k=>$v){
+            $output .= " $k=\"$v\"";
+        }
+        $output .=">";
+        foreach($form->getElements() as $v){
+            $output .= self::process_form_elements($v);
+        }
 
+        $output .="</".$form -> getBalise().">";
+
+        self::add_to_body($output);
+    }
+
+    private static function process_form_elements(FormElement $element){
+        $output = "";
+        switch(strtolower($element -> getBalise())){
+            case "input":
+                $output .= "<".$element -> getBalise();
+                $output .= " name=\"".$element -> getName()."\"";
+                if($element -> getLabel() != null){
+                    $output .= "  label=\"".$element -> getLabel()."\"";
+                }
+                $output .= " value=\"".$element -> getValue()."\"";
+                foreach($element->getAttributes() as $k=>$v){
+                    $output .= " $k=\"$v\"";
+                }
+                $output .="/>";
+                break;
+            case "select":
+                break;
+            default :
+                $output .= "<".$element -> getBalise();
+                $output .= " name=\"".$element -> getName()."\"";
+                if($element -> getLabel() != null){
+                    $output .= "  label=\"".$element -> getLabel()."\"";
+                }
+                $output .= " value=\"".$element -> getValue()."\"";
+                foreach($element->getAttributes() as $k=>$v){
+                    $output .= " $k=\"$v\"";
+                }
+                $output .=">";
+                foreach($element->getElements() as $v){
+                    $output .= self::process_form_elements($v);
+                }
+
+                $output .="</".$element -> getBalise().">";
+                break;
+        }
+        return $output;
     }
 
 }
@@ -112,7 +162,7 @@ class View implements SystemModule {
     }
 
     public function system_init() {
-        
+
     }
 
 }

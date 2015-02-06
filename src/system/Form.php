@@ -48,7 +48,7 @@ class FormElement {
         $this->value = $value;
     }
 
-        public function setAttribute($attribute, $value) {
+    public function setAttribute($attribute, $value) {
         $this->attributes[$attribute] = $value;
     }
 
@@ -69,7 +69,9 @@ class FormElement {
     }
 
     public function getAttributes() {
-        return array_merge($this->attributes, array("class" => $this->classes));
+        $b = $this->attributes;
+        $b["class"] = $this->getClasses();
+        return ($b);
     }
 
 }
