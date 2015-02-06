@@ -15,16 +15,14 @@ class HelloWorld implements Module {
         );
     }
 
-    public function widget($item=array()){
+    public function widget($item = array()) {
         $item["hello"] = array("permissions" => "access content", "callback" => array("HelloWorld", "widgetHello"));
         return $item;
     }
 
-
-    public static function widgetHello(){
-        return Theme::tabling(array(array(1,2,3,4,5)),array(1,2,3,4,5));
+    public static function widgetHello() {
+        return Theme::tabling(array(array(1, 2, 3, 4, 5)), array(1, 2, 3, 4, 5));
     }
-
 
     public static function sayHelloToWorld() {
         Theme::add_to_body("hello the World!");
@@ -45,10 +43,32 @@ class HelloWorld implements Module {
         return;
     }
 
+    public static function forming() {
+        $form = new Form("POST", Page::url("forms"));
+        $input = new FormElement("input", "login", "identifiant", "Pierre");
+        $input->setAttribute("type", "input");
+
+        $form->addElement($input);
+
+        $input = new FormElement("select", "age", "Age", 10);
+        $input->addElement(new FormElement("option", "", "0-10", 0));
+
+        $input->addElement(new FormElement("option", "", "10-20", 10));
+        $input->addElement(new FormElement("option", "", "20-30", 20));
+        $input->addElement(new FormElement("option", "", "30-40", 30));
+        $input->addElement(new FormElement("option", "", "40-50", 40));
+        $form->addElement($input);
+
+        $theme = new Theme();
+        $theme->process_form($form);
+        $theme->process_theme();
+    }
+
     public function menu($item = array()) {
         $item["/hello"] = array("callback" => array("HelloWorld", "sayHelloToWorld"));
         $item["/hello/@"] = array("callback" => array("HelloWorld", "sayHelloTo"));
         $item["/hello/@/@"] = array("callback" => array("HelloWorld", "sayHelloTo"));
+        $item["/forms"] = array("callback" => array("HelloWorld", "forming"));
 
         return $item;
     }
