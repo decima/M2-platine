@@ -14,6 +14,7 @@ require 'config/settings.php';
 require 'system/Database.php';
 require 'system/Themed.php';
 require 'system/Translator.php';
+require 'system/Form.php';
 
 require 'system/Page.php';
 require 'system/moduleManager.php';
