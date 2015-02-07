@@ -43,7 +43,6 @@ $(window).resize(function() {
         var diff = window_innerwidth-window_width;
         diff = diff/2;
         ll.width(width_lateral_left+diff);
-        console.log(hasVerticalScrollbar);
     }
 });
 $(window).load(function(){
