@@ -123,6 +123,35 @@ abstract class Themed {
                 $output .="/>";
                 break;
             case "select":
+                $output .= "<".$element -> getBalise();
+                $output .= " name=\"".$element -> getName()."\"";
+                if($element -> getLabel() != null){
+                    $output .= "  label=\"".$element -> getLabel()."\"";
+                }
+                $output .= " value=\"".$element -> getValue()."\"";
+                foreach($element->getAttributes() as $k=>$v){
+                    $output .= " $k=\"$v\"";
+                }
+                $output .=">";
+                foreach($element->getElements() as $v){
+                    $output .= self::process_form_elements($v);
+                }
+
+                $output .="</".$element -> getBalise().">";
+                break;
+            case "option":
+                $output .= "<".$element -> getBalise();
+                $output .= " name=\"".$element -> getName()."\"";
+                if($element -> getLabel() != null){
+                    $output .= "  label=\"".$element -> getLabel()."\"";
+                }
+                foreach($element->getAttributes() as $k=>$v){
+                    $output .= " $k=\"$v\"";
+                }
+                $output .=">";
+                $output .= $element -> getValue();
+
+                $output .="</".$element -> getBalise().">";
                 break;
             default :
                 $output .= "<".$element -> getBalise();
