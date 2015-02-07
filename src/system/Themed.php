@@ -142,15 +142,12 @@ abstract class Themed {
             case "option":
                 $output .= "<".$element -> getBalise();
                 $output .= " name=\"".$element -> getName()."\"";
-                if($element -> getLabel() != null){
-                    $output .= "  label=\"".$element -> getLabel()."\"";
-                }
+                $output .= " value=\"".$element -> getValue()."\"";
                 foreach($element->getAttributes() as $k=>$v){
                     $output .= " $k=\"$v\"";
                 }
                 $output .=">";
-                $output .= $element -> getValue();
-
+                $output .= $element -> getLabel();
                 $output .="</".$element -> getBalise().">";
                 break;
             default :
