@@ -111,6 +111,9 @@ abstract class Themed {
         $output = "";
         switch(strtolower($element -> getBalise())){
             case "input":
+                if($element -> getLabel() != null AND ($element->getAttributes()['type'] != 'radio' AND $element->getAttributes()['type'] != 'checkbox')){
+                    $output .= "<label for=\"".$element -> getName()."\">".$element -> getLabel()."</label>";
+                }
                 $output .= "<".$element -> getBalise();
                 $output .= " name=\"".$element -> getName()."\"";
                 if($element -> getLabel() != null){
@@ -121,8 +124,14 @@ abstract class Themed {
                     $output .= " $k=\"$v\"";
                 }
                 $output .="/>";
+                if($element -> getLabel() != null AND ($element->getAttributes()['type'] == 'radio' OR $element->getAttributes()['type'] == 'checkbox')){
+                    $output .= "<label for=\"".$element -> getName()."\">".$element -> getLabel()."</label>";
+                }
                 break;
             case "select":
+                if($element -> getLabel() != null){
+                    $output .= "<label for=\"".$element -> getName()."\">".$element -> getLabel()."</label>";
+                }
                 $output .= "<".$element -> getBalise();
                 $output .= " name=\"".$element -> getName()."\"";
                 if($element -> getLabel() != null){
@@ -139,6 +148,9 @@ abstract class Themed {
                 $output .="</".$element -> getBalise().">";
                 break;
             case "option":
+                if($element -> getLabel() != null){
+                    $output .= "<label for=\"".$element -> getName()."\">".$element -> getLabel()."</label>";
+                }
                 $output .= "<".$element -> getBalise();
                 $output .= " name=\"".$element -> getName()."\"";
                 $output .= " value=\"".$element -> getValue()."\"";
@@ -150,6 +162,9 @@ abstract class Themed {
                 $output .="</".$element -> getBalise().">";
                 break;
             default :
+                if($element -> getLabel() != null){
+                    $output .= "<label for=\"".$element -> getName()."\">".$element -> getLabel()."</label>";
+                }
                 $output .= "<".$element -> getBalise();
                 $output .= " name=\"".$element -> getName()."\"";
                 if($element -> getLabel() != null){
