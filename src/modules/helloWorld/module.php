@@ -100,9 +100,9 @@ class HelloWorld implements Module {
         $form->addElement($input);
 
 
-        $input = new FormElement("input", "monbutton", "Test JS", null);
+        $input = new FormElement("input", "monbutton", null, "Test JS");
         $input->setAttribute("type", "button");
-        $input->setAttribute("onclick", "function(){alert('Test JS OK');}");
+        $input->setAttribute("onclick", "alert('Test JS OK');");
         $form->addElement($input);
 
         $theme = new Theme();
