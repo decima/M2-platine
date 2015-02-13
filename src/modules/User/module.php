@@ -52,16 +52,42 @@ class User implements Module {
     }
 
     public static function page_home() {
-        return "welcome";
+        if (isset($_POST['submit-login'])) {
+
+            $user = new UserObject();
+            if (!$user->load_by_email_and_password($_POST['login'], $_POST['password'])) {
+              
+        Notification::statusNotify(t("les identifants de connexion sont invalides"), Notification::STATUS_ERROR);
+            } 
+        }
+        if (isset($_SESSION['logged']) && $_SESSION['logged'] > 0) {
+            self::page_main();
+        } else {
+            self::page_login();
+        }
     }
 
     public static function page_login() {
+
         $theme = new Theme();
-        $theme->process_theme(Theme::STRUCT_BLANK);
+        $theme->set_title(t("connexion"));
+        
+        $f = new Form("POST", Page::url("/"));
+        $t = (new InputElement("login", t("identifiant"), ""));
+        $f->addElement($t);
+        $t = (new InputElement("password", t("mot de passe"), "", "password"));
+        $f->addElement($t);
+
+        $t = (new InputElement("submit-login", "", t("Envoyer"), "submit"));
+        $f->addElement($t);
+        $theme->process_form($f);
+        $theme->add_to_body(print_r($_POST, true));
+        $theme->process_theme(Theme::STRUCT_ADMIN);
     }
 
     public static function page_main() {
         $theme = new Theme();
+        $theme->add_to_body("hello world");
         $theme->process_theme(Theme::STRUCT_DEFAULT);
     }
 
