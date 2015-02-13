@@ -16,6 +16,9 @@ class FormElement {
         $this->label = $label;
         $this->value = $value;
     }
+    function is_closed(){
+        return false;
+    }
     function getBalise() {
         return $this->balise;
     }
@@ -76,6 +79,19 @@ class FormElement {
 
 }
 
+class InputElement extends ClosedElement {
+
+    public function __construct($name, $label, $value, $type = "text") {
+        parent::__construct("input", $name, $label, $value);
+        $this->setAttribute("type", $type);
+    }
+}
+class ClosedElement extends FormElement{
+    function is_closed() {
+        return true;
+    }
+}
+
 class Form extends FormElement {
 
     public function __construct($method = "POST", $action = "/404") {
@@ -83,7 +99,5 @@ class Form extends FormElement {
         $this->setAttribute("method", $method);
         $this->setAttribute("action", $action);
     }
-    
-    
 
 }
