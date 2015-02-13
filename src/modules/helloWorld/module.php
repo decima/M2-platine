@@ -53,11 +53,56 @@ class HelloWorld implements Module {
         // Balise, Name, Label, Value
         $input = new FormElement("select", "age", "Age", 10);
         $input->addElement(new FormElement("option", "", "0-10", 0));
-
         $input->addElement(new FormElement("option", "", "10-20", 10));
         $input->addElement(new FormElement("option", "", "20-30", 20));
         $input->addElement(new FormElement("option", "", "30-40", 30));
         $input->addElement(new FormElement("option", "", "40-50", 40));
+        $form->addElement($input);
+
+        $input = new FormElement("input", "mabox1", "0-10", 0);
+        $input->setAttribute("type", "checkbox");
+        $input->setAttribute("checked", "checked");
+        $form->addElement($input);
+        $input = new FormElement("input", "mabox2", "10-20", 10);
+        $input->setAttribute("type", "checkbox");
+        $input->setAttribute("checked", "checked");
+        $form->addElement($input);
+        $input = new FormElement("input", "mabox3", "20-30", 20);
+        $input->setAttribute("type", "checkbox");
+        $form->addElement($input);
+        $input = new FormElement("input", "mabox4", "30-40", 30);
+        $input->setAttribute("type", "checkbox");
+        $form->addElement($input);
+        $input = new FormElement("input", "mabox5", "40-50", 40);
+        $input->setAttribute("type", "checkbox");
+        $form->addElement($input);
+
+        $input = new FormElement("input", "mabox", "0-10", 0);
+        $input->setAttribute("type", "radio");
+        $input->setAttribute("checked", "checked");
+        $form->addElement($input);
+        $input = new FormElement("input", "mabox", "10-20", 10);
+        $input->setAttribute("type", "radio");
+        $form->addElement($input);
+        $input = new FormElement("input", "mabox", "20-30", 20);
+        $input->setAttribute("type", "radio");
+        $form->addElement($input);
+        $input = new FormElement("input", "mabox", "30-40", 30);
+        $input->setAttribute("type", "radio");
+        $form->addElement($input);
+        $input = new FormElement("input", "mabox", "40-50", 40);
+        $input->setAttribute("type", "radio");
+        $form->addElement($input);
+
+        $input = new FormElement("textarea", "description", "description", "Test");
+        $input -> setAttribute("row", 6);
+        $input -> setAttribute("col", 18);
+        $form->addElement($input);
+
+
+        $input = new FormElement("input", "monbutton", "Test JS", null);
+        $input->setAttribute("type", "button");
+        $input->setAttribute("onclick", "function(){alert('Test JS OK');}");
         $form->addElement($input);
 
         $theme = new Theme();

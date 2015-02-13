@@ -136,7 +136,6 @@ abstract class Themed {
                 foreach($element->getElements() as $v){
                     $output .= self::process_form_elements($v);
                 }
-
                 $output .="</".$element -> getBalise().">";
                 break;
             case "option":
@@ -164,7 +163,6 @@ abstract class Themed {
                 foreach($element->getElements() as $v){
                     $output .= self::process_form_elements($v);
                 }
-
                 $output .="</".$element -> getBalise().">";
                 break;
         }
