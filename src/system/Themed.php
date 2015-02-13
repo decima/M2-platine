@@ -109,77 +109,45 @@ abstract class Themed {
 
     private static function process_form_elements(FormElement $element){
         $output = "";
-        switch(strtolower($element -> getBalise())){
-            case "input":
-                if($element -> getLabel() != null AND ($element->getAttributes()['type'] != 'radio' AND $element->getAttributes()['type'] != 'checkbox')){
-                    $output .= "<label for=\"".$element -> getName()."\">".$element -> getLabel()."</label>";
-                }
-                $output .= "<".$element -> getBalise();
-                $output .= " name=\"".$element -> getName()."\"";
-                if($element -> getLabel() != null){
-                    $output .= "  label=\"".$element -> getLabel()."\"";
-                }
-                $output .= " value=\"".$element -> getValue()."\"";
-                foreach($element->getAttributes() as $k=>$v){
-                    $output .= " $k=\"$v\"";
-                }
-                $output .="/>";
-                if($element -> getLabel() != null AND ($element->getAttributes()['type'] == 'radio' OR $element->getAttributes()['type'] == 'checkbox')){
-                    $output .= "<label for=\"".$element -> getName()."\">".$element -> getLabel()."</label>";
-                }
-                break;
-            case "select":
-                if($element -> getLabel() != null){
-                    $output .= "<label for=\"".$element -> getName()."\">".$element -> getLabel()."</label>";
-                }
-                $output .= "<".$element -> getBalise();
-                $output .= " name=\"".$element -> getName()."\"";
-                if($element -> getLabel() != null){
-                    $output .= "  label=\"".$element -> getLabel()."\"";
-                }
-                $output .= " value=\"".$element -> getValue()."\"";
-                foreach($element->getAttributes() as $k=>$v){
-                    $output .= " $k=\"$v\"";
-                }
-                $output .=">";
+        // Element auto-fermable
+        if($element -> is_closed()){
+            if (($element->getLabel() != null AND $element->getLabel() != "") AND ($element->getAttributes()['type'] != 'radio' AND $element->getAttributes()['type'] != 'checkbox')) {
+                $output .= "<label for=\"".$element->getName()."\">".$element->getLabel()."</label>";
+            }
+            $output .= "<" . $element->getBalise();
+            $output .= " name=\"" . $element->getName() . "\"";
+            $output .= " value=\"" . $element->getValue() . "\"";
+            foreach ($element->getAttributes() as $k => $v) {
+                $output .= " $k=\"$v\"";
+            }
+            $output .= "/>";
+            if (($element->getLabel() != null AND $element->getLabel() != "") AND ($element->getAttributes()['type'] == 'radio' OR $element->getAttributes()['type'] == 'checkbox')) {
+                $output .= "<label for=\"" . $element->getName() . "\">" . $element->getLabel() . "</label>";
+            }
+        }
+        else {
+            if($element -> getLabel() != null AND $element->getLabel() != "" AND (strtolower($element -> getBalise()) == "select" OR strtolower($element -> getBalise()) == "textarea")){
+                $output .= "<label for=\"".$element -> getName()."\">".$element -> getLabel()."</label>";
+            }
+            $output .= "<".$element -> getBalise();
+            $output .= " name=\"".$element -> getName()."\"";
+            $output .= " value=\"".$element -> getValue()."\"";
+            foreach($element->getAttributes() as $k=>$v){
+                $output .= " $k=\"$v\"";
+            }
+            $output .=">";
+            if(sizeof($element->getElements()) > 0){
                 foreach($element->getElements() as $v){
                     $output .= self::process_form_elements($v);
                 }
-                $output .="</".$element -> getBalise().">";
-                break;
-            case "option":
-                if($element -> getLabel() != null){
-                    $output .= "<label for=\"".$element -> getName()."\">".$element -> getLabel()."</label>";
-                }
-                $output .= "<".$element -> getBalise();
-                $output .= " name=\"".$element -> getName()."\"";
-                $output .= " value=\"".$element -> getValue()."\"";
-                foreach($element->getAttributes() as $k=>$v){
-                    $output .= " $k=\"$v\"";
-                }
-                $output .=">";
-                $output .= $element -> getLabel();
-                $output .="</".$element -> getBalise().">";
-                break;
-            default :
-                if($element -> getLabel() != null){
-                    $output .= "<label for=\"".$element -> getName()."\">".$element -> getLabel()."</label>";
-                }
-                $output .= "<".$element -> getBalise();
-                $output .= " name=\"".$element -> getName()."\"";
-                if($element -> getLabel() != null){
-                    $output .= "  label=\"".$element -> getLabel()."\"";
-                }
-                $output .= " value=\"".$element -> getValue()."\"";
-                foreach($element->getAttributes() as $k=>$v){
-                    $output .= " $k=\"$v\"";
-                }
-                $output .=">";
-                foreach($element->getElements() as $v){
-                    $output .= self::process_form_elements($v);
-                }
-                $output .="</".$element -> getBalise().">";
-                break;
+            }
+            else if(strtolower($element -> getBalise()) != "textarea") {
+                $output .= $element->getLabel();
+            }
+            else {
+                $output .= $element->getValue();
+            }
+            $output .="</".$element -> getBalise().">";
         }
         return $output;
     }

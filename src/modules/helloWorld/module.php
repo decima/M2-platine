@@ -45,9 +45,7 @@ class HelloWorld implements Module {
 
     public static function forming() {
         $form = new Form("POST", Page::url("/forms"));
-        $input = new FormElement("input", "login", "identifiant", "Pierre");
-        $input->setAttribute("type", "text");
-
+        $input = new InputElement("login", "identifiant", "Pierre");
         $form->addElement($input);
 
         // Balise, Name, Label, Value
@@ -59,39 +57,29 @@ class HelloWorld implements Module {
         $input->addElement(new FormElement("option", "", "40-50", 40));
         $form->addElement($input);
 
-        $input = new FormElement("input", "mabox1", "0-10", 0);
-        $input->setAttribute("type", "checkbox");
+        $input = new InputElement("mabox1", "0-10", 0, "checkbox");
         $input->setAttribute("checked", "checked");
         $form->addElement($input);
-        $input = new FormElement("input", "mabox2", "10-20", 10);
-        $input->setAttribute("type", "checkbox");
+        $input = new InputElement("mabox2", "10-20", 10, "checkbox");
         $input->setAttribute("checked", "checked");
         $form->addElement($input);
-        $input = new FormElement("input", "mabox3", "20-30", 20);
-        $input->setAttribute("type", "checkbox");
+        $input = new InputElement("mabox3", "20-30", 20, "checkbox");
         $form->addElement($input);
-        $input = new FormElement("input", "mabox4", "30-40", 30);
-        $input->setAttribute("type", "checkbox");
+        $input = new InputElement("mabox4", "30-40", 30, "checkbox");
         $form->addElement($input);
-        $input = new FormElement("input", "mabox5", "40-50", 40);
-        $input->setAttribute("type", "checkbox");
+        $input = new InputElement("mabox5", "40-50", 40, "checkbox");
         $form->addElement($input);
 
-        $input = new FormElement("input", "mabox", "0-10", 0);
-        $input->setAttribute("type", "radio");
+        $input = new InputElement("mabox", "0-10", 0, "radio");
         $input->setAttribute("checked", "checked");
         $form->addElement($input);
-        $input = new FormElement("input", "mabox", "10-20", 10);
-        $input->setAttribute("type", "radio");
+        $input = new InputElement("mabox", "10-20", 10, "radio");
         $form->addElement($input);
-        $input = new FormElement("input", "mabox", "20-30", 20);
-        $input->setAttribute("type", "radio");
+        $input = new InputElement("mabox", "20-30", 20, "radio");
         $form->addElement($input);
-        $input = new FormElement("input", "mabox", "30-40", 30);
-        $input->setAttribute("type", "radio");
+        $input = new InputElement("mabox", "30-40", 30, "radio");
         $form->addElement($input);
-        $input = new FormElement("input", "mabox", "40-50", 40);
-        $input->setAttribute("type", "radio");
+        $input = new InputElement("mabox", "40-50", 40, "radio");
         $form->addElement($input);
 
         $input = new FormElement("textarea", "description", "description", "Test");
@@ -100,8 +88,7 @@ class HelloWorld implements Module {
         $form->addElement($input);
 
 
-        $input = new FormElement("input", "monbutton", null, "Test JS");
-        $input->setAttribute("type", "button");
+        $input = new InputElement("monbutton", null, "Test JS", "button");
         $input->setAttribute("onclick", "alert('Test JS OK');");
         $form->addElement($input);
 
