@@ -11,6 +11,26 @@ textarea {
     resize: none;
 }
 
+
+label {
+    width: 100px;
+    text-align: right;
+    font-size: 12px;
+    display: inline-block;
+    margin-right: 8px;
+}
+input {
+    width: 190px;
+    padding: 5px;
+    margin: 0;
+    background-color: #FEFEFE;
+    border-radius: 2px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -o-border-radius: 2px;
+    border: 1px solid #CCC;
+}
+
 #page {
     width: 1000px;
 
@@ -674,7 +694,11 @@ a.rechercher_input_loupe {
 }
 
 
+input[type=button],
+input[type=submit],
+input[type=reset],
 a.btn {
+    width: auto;
     float: right;
     display: inline-block;
     padding: 5px 10px;
@@ -682,13 +706,31 @@ a.btn {
     font-size: 13px;
 
     background-color: #071438;
+    border: 0;
     border-radius: 2px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -o-border-radius: 2px;
     color: #E8E8E8;
     position: relative;
     right: 0;
+    cursor: pointer;
 }
+input[type=button]:hover,
+input[type=submit]:hover,
+input[type=reset]:hover,
 a.btn:hover {
     background-color: #4b556e;
+}
+input[type=button]:active,
+input[type=submit]:active,
+input[type=reset]:active,
+a.btn:active {
+    background-color: #4b556e;
+    box-shadow: inset 0 0 6px #111;
+    -moz-box-shadow: inset 0 0 6px #111;
+    -webkit-box-shadow: inset 0 0 6px #111;
+    -o-box-shadow: inset 0 0 6px #111;
 }
 
 
@@ -783,3 +825,18 @@ a.bandeau_info_close {
 a.bandeau_info_close i {
     padding: 0;
 }
+
+
+
+textarea.actualite_area_text {
+    width: 510px;
+    min-height: 50px;
+    margin: auto;
+    border: 0px none;
+    padding: 10px;
+    background-color: #FEFEFE;
+    box-shadow: 0px 0px 2px #AAA;
+    border-radius: 2px;
+}
+
+
