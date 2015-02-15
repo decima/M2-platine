@@ -32,9 +32,10 @@ input {
 }
 
 #page {
-    width: 1000px;
+    /*width: 1000px;*/
 
     margin: auto;
+    float: left;
 }
 
 
@@ -755,7 +756,6 @@ a.btn:active {
 table.tableau {
     width: 100%;
     border-collapse: collapse;
-    margin-left: 1px;
 }
 table.tableau th {
     color: #071438;
