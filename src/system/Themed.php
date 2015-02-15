@@ -101,9 +101,7 @@ abstract class Themed {
         foreach($form->getElements() as $v){
             $output .= self::process_form_elements($v);
         }
-
         $output .="</".$form -> getBalise().">";
-
         self::add_to_body($output);
     }
 
@@ -116,6 +114,7 @@ abstract class Themed {
             }
             $output .= "<" . $element->getBalise();
             $output .= " name=\"" . $element->getName() . "\"";
+            $output .= " id=\"" . $element->getName() . "\"";
             $output .= " value=\"" . $element->getValue() . "\"";
             foreach ($element->getAttributes() as $k => $v) {
                 $output .= " $k=\"$v\"";
@@ -131,6 +130,7 @@ abstract class Themed {
             }
             $output .= "<".$element -> getBalise();
             $output .= " name=\"".$element -> getName()."\"";
+            $output .= " id=\"" . $element->getName() . "\"";
             $output .= " value=\"".$element -> getValue()."\"";
             foreach($element->getAttributes() as $k=>$v){
                 $output .= " $k=\"$v\"";

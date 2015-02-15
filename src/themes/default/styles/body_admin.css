@@ -841,3 +841,120 @@ textarea.actualite_area_text {
 }
 
 
+
+
+
+
+[type="checkbox"]:not(:checked),
+[type="checkbox"]:checked
+{
+    position: absolute;
+    left: -9999px;
+}
+[type="checkbox"]:not(:checked) + label,
+[type="checkbox"]:checked + label
+{
+    position: relative;
+    padding-left: 45px;
+    cursor: pointer;
+    font-weight: 600;
+}
+[type="checkbox"]:not(:checked) + label > .connexion_champ_libelle,
+[type="checkbox"]:checked + label > .connexion_champ_libelle
+{
+    position: relative;
+    top: -2px;
+    cursor: pointer;
+}
+[type="checkbox"]:not(:checked) + label:before,
+[type="checkbox"]:checked + label:before,
+[type="checkbox"]:not(:checked) + label:after,
+[type="checkbox"]:checked + label:after
+{
+    content: '';
+    position: absolute;
+}
+[type="checkbox"]:not(:checked) + label:before,
+[type="checkbox"]:checked + label:before
+{
+    left:0; top: -4px;
+    width: 40px; height: 20px;
+    background-color: rgba(30,30,30,0.2);
+    border: 1px solid #CCCCCC;
+    -webkit-transition: background-color .2s;
+    -moz-transition: background-color .2s;
+    -o-transition: background-color .2s;
+    transition: background-color .2s;
+
+    -webkit-box-shadow: inset 0px 1px 1px rgba(0,0,0,0.5), 0px 1px 0px rgba(255,255,255,0.2);
+    -moz-box-shadow: inset 0px 1px 1px rgba(0,0,0,0.5), 0px 1px 0px rgba(255,255,255,0.2);
+    -o-box-shadow: inset 0px 1px 1px rgba(0,0,0,0.5), 0px 1px 0px rgba(255,255,255,0.2);
+    box-shadow: inset 0px 1px 1px rgba(0,0,0,0.5), 0px 1px 0px rgba(255,255,255,0.2);
+}
+[type="checkbox"]:not(:checked) + label:after,
+[type="checkbox"]:checked + label:after
+{
+    width: 14px; height: 20px;
+    -webkit-transition: all .2s;
+    -moz-transition: all .2s;
+    -o-transition: all .2s;
+    transition: all .2s;
+    background-color: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    top: -4px;
+    left: 0;
+}
+
+/* on checked */
+[type="checkbox"]:checked + label:before
+{
+    background-color: #FFFFFF;
+    -webkit-box-shadow: inset 0px 1px 1px rgba(0,0,0,0.5), 0px 1px 0px rgba(255,255,255,0.2);
+    -moz-box-shadow: inset 0px 1px 1px rgba(0,0,0,0.5), 0px 1px 0px rgba(255,255,255,0.2);
+    -o-box-shadow: inset 0px 1px 1px rgba(0,0,0,0.5), 0px 1px 0px rgba(255,255,255,0.2);
+    box-shadow: inset 0px 1px 1px rgba(0,0,0,0.5), 0px 1px 0px rgba(255,255,255,0.2);
+}
+[type="checkbox"]:checked + label:after
+{
+    top: -4px; left: 26px;
+}
+
+[type="checkbox"]:checked + label .ui,
+[type="checkbox"]:not(:checked) + label .ui:before,
+[type="checkbox"]:checked + label .ui:after
+{
+    position: absolute;
+    left: 6px;
+    height: 16px;
+    width: 14px;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 16px;
+    -webkit-transition: all .2s;
+    -moz-transition: all .2s;
+    -o-transition: all .2s;
+    transition: all .2s;
+    text-align: center;
+    margin-top: -1px;
+}
+[type="checkbox"]:not(:checked) + label .ui:before
+{
+    content: "✘";
+    content: "O";
+    left: 22px;
+    color: rgba(30,30,30,0.6);
+    font-weight: 700;
+}
+[type="checkbox"]:checked + label .ui:after
+{
+    content: "✔";
+    content: "I";
+    left: 1px;
+    margin-top: 0px;
+    color: rgba(30,30,30,0.6);
+    font-weight: 700;
+}
+[type="checkbox"]:focus + label:before
+{
+
+}
