@@ -3,6 +3,7 @@ $(window).resize(function() {
     var w = $(window);
     var p = $('#page');
     var cp = $('#page_contenu');
+    var plp = $('#page_lateral_profil');
     var plpc = $('#page_lateral_profil_contenu');
     var ll = $('#lateral_left');
     var hasVerticalScrollbar = false;
@@ -25,7 +26,7 @@ $(window).resize(function() {
     }
 
     ll.height(height);
-    $("#page_lateral_profil").height(height);
+    plp.height(height);
 
     var window_width = w.width();
     var page_width = p.width();
@@ -44,12 +45,15 @@ $(window).resize(function() {
         diff = diff/2;
         ll.width(width_lateral_left+diff);
     }
+
+    p.width(plp.width()+cp.width());
 });
 $(window).load(function(){
     var height = 0;
     var w = $(window);
     var p = $('#page');
     var cp = $('#page_contenu');
+    var plp = $('#page_lateral_profil');
     var plpc = $('#page_lateral_profil_contenu');
     var ll = $('#lateral_left');
     var hasVerticalScrollbar = false;
@@ -72,7 +76,7 @@ $(window).load(function(){
     }
 
     ll.height(height);
-    $("#page_lateral_profil").height(height);
+    plp.height(height);
 
     var window_width = w.width();
     var page_width = p.width();
@@ -91,6 +95,8 @@ $(window).load(function(){
         diff = diff/2;
         ll.width(width_lateral_left+diff);
     }
+
+    p.width(plp.width()+cp.width());
     /*
     var height = 0;
     var w = $(window);
