@@ -833,10 +833,10 @@ textarea.actualite_area_text {
     width: 510px;
     min-height: 50px;
     margin: auto;
-    border: 0px none;
+    border: 0 none;
     padding: 10px;
     background-color: #FEFEFE;
-    box-shadow: 0px 0px 2px #AAA;
+    box-shadow: 0 0 2px #AAA;
     border-radius: 2px;
 }
 
@@ -855,15 +855,16 @@ textarea.actualite_area_text {
 [type="checkbox"]:checked + label
 {
     position: relative;
-    padding-left: 45px;
+    padding-left: 50px;
     cursor: pointer;
-    font-weight: 600;
+    text-align: left;
+    width: auto;
 }
-[type="checkbox"]:not(:checked) + label > .connexion_champ_libelle,
-[type="checkbox"]:checked + label > .connexion_champ_libelle
+[type="checkbox"]:not(:checked) + label > .label,
+[type="checkbox"]:checked + label > .label
 {
     position: relative;
-    top: -2px;
+    top: -1px;
     cursor: pointer;
 }
 [type="checkbox"]:not(:checked) + label:before,
@@ -886,10 +887,10 @@ textarea.actualite_area_text {
     -o-transition: background-color .2s;
     transition: background-color .2s;
 
-    -webkit-box-shadow: inset 0px 1px 1px rgba(0,0,0,0.5), 0px 1px 0px rgba(255,255,255,0.2);
-    -moz-box-shadow: inset 0px 1px 1px rgba(0,0,0,0.5), 0px 1px 0px rgba(255,255,255,0.2);
-    -o-box-shadow: inset 0px 1px 1px rgba(0,0,0,0.5), 0px 1px 0px rgba(255,255,255,0.2);
-    box-shadow: inset 0px 1px 1px rgba(0,0,0,0.5), 0px 1px 0px rgba(255,255,255,0.2);
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.5), 0 1px 0 rgba(255,255,255,0.2);
+    -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,0.5), 0 1px 0 rgba(255,255,255,0.2);
+    -o-box-shadow: inset 0 1px 1px rgba(0,0,0,0.5), 0 1px 0 rgba(255,255,255,0.2);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,0.5), 0 1px 0 rgba(255,255,255,0.2);
 }
 [type="checkbox"]:not(:checked) + label:after,
 [type="checkbox"]:checked + label:after
@@ -909,10 +910,10 @@ textarea.actualite_area_text {
 [type="checkbox"]:checked + label:before
 {
     background-color: #FFFFFF;
-    -webkit-box-shadow: inset 0px 1px 1px rgba(0,0,0,0.5), 0px 1px 0px rgba(255,255,255,0.2);
-    -moz-box-shadow: inset 0px 1px 1px rgba(0,0,0,0.5), 0px 1px 0px rgba(255,255,255,0.2);
-    -o-box-shadow: inset 0px 1px 1px rgba(0,0,0,0.5), 0px 1px 0px rgba(255,255,255,0.2);
-    box-shadow: inset 0px 1px 1px rgba(0,0,0,0.5), 0px 1px 0px rgba(255,255,255,0.2);
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.5), 0 1px 0 rgba(255,255,255,0.2);
+    -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,0.5), 0 1px 0 rgba(255,255,255,0.2);
+    -o-box-shadow: inset 0 1px 1px rgba(0,0,0,0.5), 0 1px 0 rgba(255,255,255,0.2);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,0.5), 0 1px 0 rgba(255,255,255,0.2);
 }
 [type="checkbox"]:checked + label:after
 {
@@ -939,7 +940,6 @@ textarea.actualite_area_text {
 }
 [type="checkbox"]:not(:checked) + label .ui:before
 {
-    content: "✘";
     content: "O";
     left: 22px;
     color: rgba(30,30,30,0.6);
@@ -947,14 +947,66 @@ textarea.actualite_area_text {
 }
 [type="checkbox"]:checked + label .ui:after
 {
-    content: "✔";
     content: "I";
     left: 1px;
-    margin-top: 0px;
+    margin-top: 0;
     color: rgba(30,30,30,0.6);
     font-weight: 700;
 }
 [type="checkbox"]:focus + label:before
+{  }
+[type="checkbox"]:disabled:not(:checked) + label:before,
+[type="checkbox"]:disabled:checked + label:before
 {
+    box-shadow: none;
+    border-color: #bbb;
+    background-color: #ddd;
+}
+/* styles de la coche (si cochée/désactivée) */
+[type="checkbox"]:disabled:checked + label .ui:after
+{
+    color: #aaa;
+}
+/* on style aussi le label quand désactivé */
+[type="checkbox"]:disabled + label .label,
+[type="checkbox"]:disabled + label .ui:before
+{
+    color: #aaa;
+}
 
+
+.radio
+{
+    display: inline-block;
+    cursor: pointer;
+    font-size: 13px;
+    margin-right:10px;
+    line-height:18px;
+    text-align: left;
+}
+input[type=radio]:checked,
+input[type=radio]:not(:checked)
+{
+    position: absolute;
+    left: -9999px;
+}
+.radio:before
+{
+    width: 16px;
+    height: 16px;
+    content: "";
+    display: inline-block;
+    vertical-align: middle;
+    background-color: rgba(30,30,30,0.2);
+    border: 1px solid #CCCCCC;
+    color: rgba(30,30,30,0.6);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,0.5), 0 1px 0 rgba(255,255,255,0.2);
+    border-radius: 10px;
+}
+input[type=radio]:checked + .radio:before
+{
+    content: "\2022";
+    text-align: center;
+    line-height: 18px;
+    font-size: 30px;
 }

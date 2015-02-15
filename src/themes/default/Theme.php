@@ -90,32 +90,43 @@ class Theme extends Themed {
 
 
 
-    private static function process_form_elements(FormElement $element){
+    protected static function process_form_elements(FormElement $element){
+        ($element->getLabel() != null AND $element->getLabel() != "") ? $isLabel = true : $isLabel = false;
         $output = "";
+
         // Element auto-fermable
         if($element -> is_closed()){
-            if (($element->getLabel() != null AND $element->getLabel() != "") AND ($element->getAttributes()['type'] != 'radio' AND $element->getAttributes()['type'] != 'checkbox')) {
-                $output .= "<label for=\"".$element->getName()."\">".$element->getLabel()."</label>";
+            if ($isLabel AND ($element->getAttributes()['type'] != 'radio' AND $element->getAttributes()['type'] != 'checkbox')) {
+                $output .= "<label for=\"".$element->getId()."\">".$element->getLabel()."</label>";
             }
             $output .= "<" . $element->getBalise();
-            $output .= " name=\"" . $element->getName() . "\"";
-            $output .= " id=\"" . $element->getName() . "\"";
+            if($element->getId() != null AND $element->getId() != "")
+                $output .= " id=\"" . $element->getId() . "\"";
+            if($element->getName() != null AND $element->getName() != "")
+                $output .= " name=\"" . $element->getName() . "\"";
             $output .= " value=\"" . $element->getValue() . "\"";
             foreach ($element->getAttributes() as $k => $v) {
                 $output .= " $k=\"$v\"";
+                if($k == 'type' AND $v == 'radio')
+                    $output .= " class=\"radio\"";
             }
             $output .= "/>";
-            if (($element->getLabel() != null AND $element->getLabel() != "") AND ($element->getAttributes()['type'] == 'radio' OR $element->getAttributes()['type'] == 'checkbox')) {
-                $output .= "<label for=\"" . $element->getName() . "\"><span class=\"ui\"></span>" . $element->getLabel() . "</label>";
+            if ($isLabel AND $element->getAttributes()['type'] == 'checkbox') {
+                $output .= "<label for=\"" . $element->getId() . "\"><span class=\"ui\"></span><span class=\"label\">" . $element->getLabel() . "</span></label>";
+            }
+            else if ($isLabel AND $element->getAttributes()['type'] == 'radio') {
+                $output .= "<label for=\"" . $element->getId() . "\" class=\"radio\"><span class=\"label\">" . $element->getLabel() . "</span></label>";
             }
         }
         else {
-            if($element -> getLabel() != null AND $element->getLabel() != "" AND (strtolower($element -> getBalise()) == "select" OR strtolower($element -> getBalise()) == "textarea")){
-                $output .= "<label for=\"".$element -> getName()."\">".$element -> getLabel()."</label>";
+            if($isLabel AND (strtolower($element -> getBalise()) == "select" OR strtolower($element -> getBalise()) == "textarea")){
+                $output .= "<label for=\"".$element -> getId()."\">".$element -> getLabel()."</label>";
             }
             $output .= "<".$element -> getBalise();
-            $output .= " name=\"".$element -> getName()."\"";
-            $output .= " id=\"" . $element->getName() . "\"";
+            if($element->getId() != null AND $element->getId() != "")
+                $output .= " id=\"" . $element->getId() . "\"";
+            if($element->getName() != null AND $element->getName() != "")
+                $output .= " name=\"" . $element->getName() . "\"";
             $output .= " value=\"".$element -> getValue()."\"";
             foreach($element->getAttributes() as $k=>$v){
                 $output .= " $k=\"$v\"";
