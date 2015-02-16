@@ -72,6 +72,8 @@ class FormElement {
     }
 
     public function addElement(FormElement $element) {
+        if ($element->getId() == "" || $element->getId() == NULL)
+            $element->setId($this->getId() . "_" . count($this->subelement));
         $this->subelement[] = $element;
     }
 
@@ -108,11 +110,13 @@ class ClosedElement extends FormElement {
 
 }
 
-
 class Form extends FormElement {
 
-    public function __construct($method = "POST", $action = "/404", $name = "") {
-        parent::__construct("form", $name);
+    public function __construct($method = "POST", $action = "/404", $name = "", $id = null) {
+        if ($id == null) {
+            $id = $name;
+        }
+        parent::__construct("form", $name, null, "", $id);
         $this->setAttribute("method", $method);
         $this->setAttribute("action", $action);
     }
