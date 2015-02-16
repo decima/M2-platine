@@ -60,44 +60,38 @@ class HelloWorld implements Module {
         $form->addElement(new ClosedElement("br"));
 
         $input = new FormElement("label", null, "Age : ");
+        $input->addClasses("label_input_checkbox_radio");
         $form->addElement($input);
         $input = new InputElement("mabox1", "0-10", 0, "checkbox", "mabox1");
         $input->setAttribute("checked", "checked");
         $form->addElement($input);
-        $form->addElement(new ClosedElement("br"));
         $input = new InputElement("mabox2", "10-20", 10, "checkbox", "mabox2");
         $input->setAttribute("checked", "checked");
         $form->addElement($input);
-        $form->addElement(new ClosedElement("br"));
         $input = new InputElement("mabox3", "20-30", 20, "checkbox", "mabox3");
         $form->addElement($input);
-        $form->addElement(new ClosedElement("br"));
         $input = new InputElement("mabox4", "30-40", 30, "checkbox", "mabox4");
         $input->setAttribute("checked", "checked");
         $input->setAttribute("disabled", "disabled");
         $form->addElement($input);
-        $form->addElement(new ClosedElement("br"));
         $input = new InputElement("mabox5", "40-50", 40, "checkbox", "mabox5");
         $input->setAttribute("disabled", "disabled");
         $form->addElement($input);
-        $form->addElement(new ClosedElement("br"));
 
+        $input = new FormElement("label", null, "Age : ");
+        $input->addClasses("label_input_checkbox_radio");
+        $form->addElement($input);
         $input = new InputElement("monradio", "0-10", 0, "radio", "monradio1");
         $input->setAttribute("checked", "checked");
         $form->addElement($input);
-        $form->addElement(new ClosedElement("br"));
         $input = new InputElement("monradio", "10-20", 10, "radio", "monradio2");
         $form->addElement($input);
-        $form->addElement(new ClosedElement("br"));
         $input = new InputElement("monradio", "20-30", 20, "radio", "monradio3");
         $form->addElement($input);
-        $form->addElement(new ClosedElement("br"));
         $input = new InputElement("monradio", "30-40", 30, "radio", "monradio4");
         $form->addElement($input);
-        $form->addElement(new ClosedElement("br"));
         $input = new InputElement("monradio", "40-50", 40, "radio", "monradio5");
         $form->addElement($input);
-        $form->addElement(new ClosedElement("br"));
 
         $input = new FormElement("textarea", "description", t("Description : "), "Test");
         $input -> setAttribute("row", 6);

@@ -101,28 +101,41 @@ class Theme extends Themed {
         $output = "";
 
         // On case les checkbox / radio dans une div chez nous :)
-        if(!self::$flag_process_form_elements_checkbox_list_open AND $element->getAttributes()['type'] == 'checkbox'){
-            self::$flag_process_form_elements_checkbox_list_open = true;
-            $output .= "<div>";
+        if(isset($element->getAttributes()['type'])) {
+            if(!self::$flag_process_form_elements_radio_list_open){
+                if (!self::$flag_process_form_elements_checkbox_list_open AND $element->getAttributes()['type'] == 'checkbox') {
+                    self::$flag_process_form_elements_checkbox_list_open = true;
+                    $output .= "<div style=\"float:left;\">";
+                } else if (self::$flag_process_form_elements_checkbox_list_open AND $element->getAttributes()['type'] != 'checkbox') {
+                    self::$flag_process_form_elements_checkbox_list_open = false;
+                    $output .= "</div><div style=\"clear:both;\"></div>";
+                }
+            }
+            if(!self::$flag_process_form_elements_checkbox_list_open) {
+                if (!self::$flag_process_form_elements_radio_list_open AND $element->getAttributes()['type'] == 'radio') {
+                    self::$flag_process_form_elements_radio_list_open = true;
+                    $output .= "<div style=\"float:left;\">";
+                } else if (self::$flag_process_form_elements_radio_list_open AND $element->getAttributes()['type'] != 'radio') {
+                    self::$flag_process_form_elements_radio_list_open = false;
+                    $output .= "</div><div style=\"clear:both;\"></div>";
+                }
+            }
         }
-        else if(self::$flag_process_form_elements_checkbox_list_open  AND $element->getAttributes()['type'] != 'checkbox'){
+        else if(self::$flag_process_form_elements_radio_list_open OR self::$flag_process_form_elements_checkbox_list_open){
             self::$flag_process_form_elements_checkbox_list_open = false;
-            $output .= "</div>";
-        }
-        else if(!self::$flag_process_form_elements_radio_list_open AND $element->getAttributes()['type'] == 'radio'){
-            self::$flag_process_form_elements_radio_list_open = true;
-            $output .= "<div>";
-        }
-        else if(self::$flag_process_form_elements_radio_list_open  AND $element->getAttributes()['type'] != 'radio'){
             self::$flag_process_form_elements_radio_list_open = false;
-            $output .= "</div>";
+            $output .= "</div><div style=\"clear:both;\"></div>";
         }
 
         // Element auto-fermable
         if($element -> is_closed()){
-            if ($isLabel AND ($element->getAttributes()['type'] != 'radio' AND $element->getAttributes()['type'] != 'checkbox')) {
+            if ($isLabel AND isset($element->getAttributes()['type']) AND ($element->getAttributes()['type'] != 'radio' AND $element->getAttributes()['type'] != 'checkbox')) {
                 $output .= "<label for=\"".$label."\">".$element->getLabel()."</label>";
             }
+            if (isset($element->getAttributes()['type']) AND ($element->getAttributes()['type'] == 'checkbox' OR $element->getAttributes()['type'] == 'radio')){
+                $output .= "<div>";
+            }
+
             $output .= "<" . $element->getBalise();
             if($element->getId() != null AND $element->getId() != "")
                 $output .= " id=\"" . $element->getId() . "\"";
@@ -135,11 +148,13 @@ class Theme extends Themed {
                     $output .= " class=\"radio\"";
             }
             $output .= "/>";
-            if ($isLabel AND $element->getAttributes()['type'] == 'checkbox') {
+            if ($isLabel AND isset($element->getAttributes()['type']) AND $element->getAttributes()['type'] == 'checkbox') {
                 $output .= "<label for=\"".$label."\"><span class=\"ui\"></span><span class=\"label\">" . $element->getLabel() . "</span></label>";
+                $output .= "</div>";
             }
-            else if ($isLabel AND $element->getAttributes()['type'] == 'radio') {
+            else if ($isLabel AND isset($element->getAttributes()['type']) AND $element->getAttributes()['type'] == 'radio') {
                 $output .= "<label for=\"".$label."\"><span class=\"ui\"></span><span class=\"label\">" . $element->getLabel() . "</span></label>";
+                $output .= "</div>";
             }
         }
         else {

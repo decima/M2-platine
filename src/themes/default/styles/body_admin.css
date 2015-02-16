@@ -839,7 +839,9 @@ textarea.actualite_area_text {
     box-shadow: 0 0 2px #AAA;
     border-radius: 2px;
 }
-
+label.label_input_checkbox_radio {
+    float: left;
+}
 
 
 
