@@ -5,8 +5,8 @@ class Theme extends Themed {
     const STRUCT_404 = "404";
 
     /* Flags */
-    protected $flag_process_form_elements_checkbox_list_open = false;
-    protected $flag_process_form_elements_radio_list_open = false;
+    protected static $flag_process_form_elements_checkbox_list_open = false;
+    protected static $flag_process_form_elements_radio_list_open = false;
 
 
     public function process_theme($structure = self::STRUCT_DEFAULT) {
@@ -101,11 +101,22 @@ class Theme extends Themed {
         $output = "";
 
         // On case les checkbox / radio dans une div chez nous :)
-        /*
-        if(!self::$flag_process_form_elements_checkbox_list_open){
-
+        if(!self::$flag_process_form_elements_checkbox_list_open AND $element->getAttributes()['type'] == 'checkbox'){
+            self::$flag_process_form_elements_checkbox_list_open = true;
+            $output .= "<div>";
         }
-        */
+        else if(self::$flag_process_form_elements_checkbox_list_open  AND $element->getAttributes()['type'] != 'checkbox'){
+            self::$flag_process_form_elements_checkbox_list_open = false;
+            $output .= "</div>";
+        }
+        else if(!self::$flag_process_form_elements_radio_list_open AND $element->getAttributes()['type'] == 'radio'){
+            self::$flag_process_form_elements_radio_list_open = true;
+            $output .= "<div>";
+        }
+        else if(self::$flag_process_form_elements_radio_list_open  AND $element->getAttributes()['type'] != 'radio'){
+            self::$flag_process_form_elements_radio_list_open = false;
+            $output .= "</div>";
+        }
 
         // Element auto-fermable
         if($element -> is_closed()){
