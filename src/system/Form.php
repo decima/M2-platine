@@ -11,15 +11,12 @@ class FormElement {
     private $classes = array();
     private $subelement = array();
 
-    public function __construct($balise = "div", $id = null, $name = null, $label = null, $value = "") {
+    public function __construct($balise = "div", $name = null, $label = null, $value = "", $id = "") {
         $this->balise = $balise;
-        $this->id = $id;
         $this->name = $name;
-        if($id != null AND $name == null){
-            $this->name = $id;
-        }
         $this->label = $label;
         $this->value = $value;
+        $this->id = $id;
     }
 
     function is_closed() {
@@ -28,10 +25,6 @@ class FormElement {
 
     function getBalise() {
         return $this->balise;
-    }
-
-    function getId() {
-        return $this->id;
     }
 
     function getName() {
@@ -46,12 +39,12 @@ class FormElement {
         return $this->value;
     }
 
-    function setBalise($balise) {
-        $this->balise = $balise;
+    function getId() {
+        return $this->id;
     }
 
-    function setId($id) {
-        $this->id = $id;
+    function setBalise($balise) {
+        $this->balise = $balise;
     }
 
     function setName($name) {
@@ -64,6 +57,10 @@ class FormElement {
 
     function setValue($value) {
         $this->value = $value;
+    }
+
+    function setId($id) {
+        $this->id = $id;
     }
 
     public function setAttribute($attribute, $value) {
@@ -96,8 +93,8 @@ class FormElement {
 
 class InputElement extends ClosedElement {
 
-    public function __construct($id, $name, $label, $value, $type = "text") {
-        parent::__construct("input", $id, $name, $label, $value);
+    public function __construct($name, $label, $value, $type = "text", $id = "") {
+        parent::__construct("input", $name, $label, $value, $id);
         $this->setAttribute("type", $type);
     }
 
@@ -114,8 +111,8 @@ class ClosedElement extends FormElement {
 
 class Form extends FormElement {
 
-    public function __construct($method = "POST", $action = "/404") {
-        parent::__construct("form");
+    public function __construct($method = "POST", $action = "/404", $name = "") {
+        parent::__construct("form", $name);
         $this->setAttribute("method", $method);
         $this->setAttribute("action", $action);
     }

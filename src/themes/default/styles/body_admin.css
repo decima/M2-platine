@@ -846,13 +846,17 @@ textarea.actualite_area_text {
 
 
 [type="checkbox"]:not(:checked),
-[type="checkbox"]:checked
+[type="checkbox"]:checked,
+[type="radio"]:not(:checked),
+[type="radio"]:checked
 {
     position: absolute;
     left: -9999px;
 }
 [type="checkbox"]:not(:checked) + label,
-[type="checkbox"]:checked + label
+[type="checkbox"]:checked + label,
+[type="radio"]:not(:checked) + label,
+[type="radio"]:checked + label
 {
     position: relative;
     padding-left: 50px;
@@ -861,7 +865,9 @@ textarea.actualite_area_text {
     width: auto;
 }
 [type="checkbox"]:not(:checked) + label > .label,
-[type="checkbox"]:checked + label > .label
+[type="checkbox"]:checked + label > .label,
+[type="radio"]:not(:checked) + label > .label,
+[type="radio"]:checked + label > .label
 {
     position: relative;
     top: -1px;
@@ -870,13 +876,19 @@ textarea.actualite_area_text {
 [type="checkbox"]:not(:checked) + label:before,
 [type="checkbox"]:checked + label:before,
 [type="checkbox"]:not(:checked) + label:after,
-[type="checkbox"]:checked + label:after
+[type="checkbox"]:checked + label:after,
+[type="radio"]:not(:checked) + label:before,
+[type="radio"]:checked + label:before,
+[type="radio"]:not(:checked) + label:after,
+[type="radio"]:checked + label:after
 {
     content: '';
     position: absolute;
 }
 [type="checkbox"]:not(:checked) + label:before,
-[type="checkbox"]:checked + label:before
+[type="checkbox"]:checked + label:before,
+[type="radio"]:not(:checked) + label:before,
+[type="radio"]:checked + label:before
 {
     left:0; top: -4px;
     width: 40px; height: 20px;
@@ -893,7 +905,9 @@ textarea.actualite_area_text {
     box-shadow: inset 0 1px 1px rgba(0,0,0,0.5), 0 1px 0 rgba(255,255,255,0.2);
 }
 [type="checkbox"]:not(:checked) + label:after,
-[type="checkbox"]:checked + label:after
+[type="checkbox"]:checked + label:after,
+[type="radio"]:not(:checked) + label:after,
+[type="radio"]:checked + label:after
 {
     width: 14px; height: 20px;
     -webkit-transition: all .2s;
@@ -907,7 +921,8 @@ textarea.actualite_area_text {
 }
 
 /* on checked */
-[type="checkbox"]:checked + label:before
+[type="checkbox"]:checked + label:before,
+[type="radio"]:checked + label:before
 {
     background-color: #FFFFFF;
     -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.5), 0 1px 0 rgba(255,255,255,0.2);
@@ -915,14 +930,18 @@ textarea.actualite_area_text {
     -o-box-shadow: inset 0 1px 1px rgba(0,0,0,0.5), 0 1px 0 rgba(255,255,255,0.2);
     box-shadow: inset 0 1px 1px rgba(0,0,0,0.5), 0 1px 0 rgba(255,255,255,0.2);
 }
-[type="checkbox"]:checked + label:after
+[type="checkbox"]:checked + label:after,
+[type="radio"]:checked + label:after
 {
     top: -4px; left: 26px;
 }
 
 [type="checkbox"]:checked + label .ui,
 [type="checkbox"]:not(:checked) + label .ui:before,
-[type="checkbox"]:checked + label .ui:after
+[type="checkbox"]:checked + label .ui:after,
+[type="radio"]:checked + label .ui,
+[type="radio"]:not(:checked) + label .ui:before,
+[type="radio"]:checked + label .ui:after
 {
     position: absolute;
     left: 6px;
@@ -938,14 +957,16 @@ textarea.actualite_area_text {
     text-align: center;
     margin-top: -1px;
 }
-[type="checkbox"]:not(:checked) + label .ui:before
+[type="checkbox"]:not(:checked) + label .ui:before,
+[type="radio"]:not(:checked) + label .ui:before
 {
     content: "O";
     left: 22px;
     color: rgba(30,30,30,0.6);
     font-weight: 700;
 }
-[type="checkbox"]:checked + label .ui:after
+[type="checkbox"]:checked + label .ui:after,
+[type="radio"]:checked + label .ui:after
 {
     content: "I";
     left: 1px;
@@ -953,60 +974,29 @@ textarea.actualite_area_text {
     color: rgba(30,30,30,0.6);
     font-weight: 700;
 }
-[type="checkbox"]:focus + label:before
+[type="checkbox"]:focus + label:before,
+[type="radio"]:focus + label:before
 {  }
 [type="checkbox"]:disabled:not(:checked) + label:before,
-[type="checkbox"]:disabled:checked + label:before
+[type="checkbox"]:disabled:checked + label:before,
+[type="radio"]:disabled:not(:checked) + label:before,
+[type="radio"]:disabled:checked + label:before
 {
     box-shadow: none;
     border-color: #bbb;
     background-color: #ddd;
 }
 /* styles de la coche (si cochée/désactivée) */
-[type="checkbox"]:disabled:checked + label .ui:after
+[type="checkbox"]:disabled:checked + label .ui:after,
+[type="radio"]:disabled:checked + label .ui:after
 {
     color: #aaa;
 }
 /* on style aussi le label quand désactivé */
 [type="checkbox"]:disabled + label .label,
-[type="checkbox"]:disabled + label .ui:before
+[type="checkbox"]:disabled + label .ui:before,
+[type="radio"]:disabled + label .label,
+[type="radio"]:disabled + label .ui:before
 {
     color: #aaa;
-}
-
-
-.radio
-{
-    display: inline-block;
-    cursor: pointer;
-    font-size: 13px;
-    margin-right:10px;
-    line-height:18px;
-    text-align: left;
-}
-input[type=radio]:checked,
-input[type=radio]:not(:checked)
-{
-    position: absolute;
-    left: -9999px;
-}
-.radio:before
-{
-    width: 16px;
-    height: 16px;
-    content: "";
-    display: inline-block;
-    vertical-align: middle;
-    background-color: rgba(30,30,30,0.2);
-    border: 1px solid #CCCCCC;
-    color: rgba(30,30,30,0.6);
-    box-shadow: inset 0 1px 1px rgba(0,0,0,0.5), 0 1px 0 rgba(255,255,255,0.2);
-    border-radius: 10px;
-}
-input[type=radio]:checked + .radio:before
-{
-    content: "\2022";
-    text-align: center;
-    line-height: 18px;
-    font-size: 30px;
 }

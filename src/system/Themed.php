@@ -107,12 +107,13 @@ abstract class Themed {
 
     protected static function process_form_elements(FormElement $element){
         ($element->getLabel() != null AND $element->getLabel() != "") ? $isLabel = true : $isLabel = false;
+        ($element->getId() != null AND $element->getId() != "") ? $label = $element->getId() : $label = $element->getName();
         $output = "";
 
         // Element auto-fermable
         if($element -> is_closed()){
             if ($isLabel AND ($element->getAttributes()['type'] != 'radio' AND $element->getAttributes()['type'] != 'checkbox')) {
-                $output .= "<label for=\"".$element->getId()."\">".$element->getLabel()."</label>";
+                $output .= "<label for=\"".$label."\">".$element->getLabel()."</label>";
             }
             $output .= "<" . $element->getBalise();
             if($element->getId() != null AND $element->getId() != "")
@@ -125,12 +126,12 @@ abstract class Themed {
             }
             $output .= "/>";
             if ($isLabel AND ($element->getAttributes()['type'] == 'radio' OR $element->getAttributes()['type'] == 'checkbox')) {
-                $output .= "<label for=\"" . $element->getId() . "\">" . $element->getLabel() . "</label>";
+                $output .= "<label for=\"".$label."\">" . $element->getLabel() . "</label>";
             }
         }
         else {
             if($isLabel AND (strtolower($element -> getBalise()) == "select" OR strtolower($element -> getBalise()) == "textarea")){
-                $output .= "<label for=\"".$element -> getId()."\">".$element -> getLabel()."</label>";
+                $output .= "<label for=\"".$label."\">".$element -> getLabel()."</label>";
             }
             $output .= "<".$element -> getBalise();
             if($element->getId() != null AND $element->getId() != "")

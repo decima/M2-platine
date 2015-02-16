@@ -4,6 +4,11 @@ class Theme extends Themed {
 
     const STRUCT_404 = "404";
 
+    /* Flags */
+    protected $flag_process_form_elements_checkbox_list_open = false;
+    protected $flag_process_form_elements_radio_list_open = false;
+
+
     public function process_theme($structure = self::STRUCT_DEFAULT) {
         require_once './themes/default/templates/' . $structure . '.php';
     }
@@ -92,12 +97,20 @@ class Theme extends Themed {
 
     protected static function process_form_elements(FormElement $element){
         ($element->getLabel() != null AND $element->getLabel() != "") ? $isLabel = true : $isLabel = false;
+        ($element->getId() != null AND $element->getId() != "") ? $label = $element->getId() : $label = $element->getName();
         $output = "";
+
+        // On case les checkbox / radio dans une div chez nous :)
+        /*
+        if(!self::$flag_process_form_elements_checkbox_list_open){
+
+        }
+        */
 
         // Element auto-fermable
         if($element -> is_closed()){
             if ($isLabel AND ($element->getAttributes()['type'] != 'radio' AND $element->getAttributes()['type'] != 'checkbox')) {
-                $output .= "<label for=\"".$element->getId()."\">".$element->getLabel()."</label>";
+                $output .= "<label for=\"".$label."\">".$element->getLabel()."</label>";
             }
             $output .= "<" . $element->getBalise();
             if($element->getId() != null AND $element->getId() != "")
@@ -112,15 +125,15 @@ class Theme extends Themed {
             }
             $output .= "/>";
             if ($isLabel AND $element->getAttributes()['type'] == 'checkbox') {
-                $output .= "<label for=\"" . $element->getId() . "\"><span class=\"ui\"></span><span class=\"label\">" . $element->getLabel() . "</span></label>";
+                $output .= "<label for=\"".$label."\"><span class=\"ui\"></span><span class=\"label\">" . $element->getLabel() . "</span></label>";
             }
             else if ($isLabel AND $element->getAttributes()['type'] == 'radio') {
-                $output .= "<label for=\"" . $element->getId() . "\" class=\"radio\"><span class=\"label\">" . $element->getLabel() . "</span></label>";
+                $output .= "<label for=\"".$label."\"><span class=\"ui\"></span><span class=\"label\">" . $element->getLabel() . "</span></label>";
             }
         }
         else {
             if($isLabel AND (strtolower($element -> getBalise()) == "select" OR strtolower($element -> getBalise()) == "textarea")){
-                $output .= "<label for=\"".$element -> getId()."\">".$element -> getLabel()."</label>";
+                $output .= "<label for=\"".$label."\">".$element -> getLabel()."</label>";
             }
             $output .= "<".$element -> getBalise();
             if($element->getId() != null AND $element->getId() != "")
