@@ -37,10 +37,12 @@ class Page implements SystemModule {
         $run = true;
 
         if (isset($res["access"])) {
+
             $r = method_invoke_all("permissions", array($res["access"]));
-            foreach ($r as $res) {
-                if ($res == false) {
+            foreach ($r as $tt) {
+                if ($tt == false) {
                     $run = false;
+                    
                 }
             }
         }
@@ -62,13 +64,16 @@ class Page implements SystemModule {
         }
         $executed = false;
         $allowed = true;
+        
         if (isset($res["callback"]) && $run) {
+
             if (is_array($res['callback']) && count($res['callback']) == 2) {
                 if (method_exists($res['callback'][0], $res['callback'][1])) {
                     $executed = true;
                     echo call_user_func_array($res["callback"], $parameters);
                 }
             } elseif (function_exists($res['callback'])) {
+
                 $executed = true;
                 echo call_user_func_array($res["callback"], $parameters);
             }
