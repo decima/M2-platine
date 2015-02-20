@@ -1,6 +1,7 @@
 <?php
 
 define("CURRENT_VERSION", 0.3);
+session_start();
 ini_set("display_errors", TRUE);
 if (!file_exists("config/settings.php")) {
     header("Location: ./install");
@@ -25,6 +26,7 @@ require 'cache/classes.php';
 require 'cache/theme.php';
 
 _Security::enable_error_handling();
+error_reporting(E_ALL ^ E_STRICT);
 
 $mm = new ModuleManager();
 $mm->init_system_module();

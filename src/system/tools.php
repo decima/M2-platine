@@ -29,7 +29,7 @@ class _Security {
 
     public static function enable_error_handling() {
         self::enable_debug(true);
-        set_error_handler(array(__CLASS__, "jinn_error_handler"), E_ALL);
+        set_error_handler(array(__CLASS__, "jinn_error_handler"), E_ALL ^ E_STRICT);
     }
 
     public static function jinn_error_handler($errno, $errstr, $errfile, $errline) {
@@ -89,11 +89,12 @@ class _Security {
     }
 
 }
+
 function arrayToObject($d) {
-    return is_array($d)?(object) array_map(__FUNCTION__, $d):$d;
+    return is_array($d) ? (object) array_map(__FUNCTION__, $d) : $d;
 }
 
 function objectToArray($d) {
-    $d=is_object($d)?get_object_vars($d):$d;
-    return is_array($d)?array_map(__FUNCTION__, $d):$d;
+    $d = is_object($d) ? get_object_vars($d) : $d;
+    return is_array($d) ? array_map(__FUNCTION__, $d) : $d;
 }

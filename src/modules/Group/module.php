@@ -1,18 +1,18 @@
 <?php
 
 /**
- * @moduleName User
+ * @moduleName Group
  * 
  * 
  * */
-require_once("UserObject.php");
+require_once("GroupObject.php");
 
-class User implements Module {
+class Group implements Module {
 
     public function info() {
         return array(
-            "name" => "User",
-            "readablename" => "User Manager"
+            "name" => "Group",
+            "readablename" => "Groups"
         );
     }
 
@@ -24,18 +24,6 @@ class User implements Module {
     public function schema($schema = array()) {
         UserObject::schema($schema);
         return $schema;
-    }
-
-    public function widget($item = array()) {
-        $item["user_logged"] = array("permissions" => "logged", "callback" => array("User", "widget_user_logged"));
-        return $item;
-    }
-
-    public function widget_user_logged() {
-        return Theme::listing(array(
-                    Theme::linking(Page::url("/profile"), "Profil"),
-                    Theme::linking(Page::url("/logout"), "deconnexion"),
-        ));
     }
 
     public static function create($email, $password, $firstname = "", $lastname = "") {
@@ -111,8 +99,9 @@ class User implements Module {
     }
 
     public static function page_logout() {
-        session_destroy();
-        header("location:" . Page::url("/"));
+        $theme = new Theme();
+        $theme->add_to_body("hello world");
+        $theme->process_theme(Theme::STRUCT_BLANK);
     }
 
     public static function page_profile() {
@@ -125,3 +114,4 @@ class User implements Module {
     }
 
 }
+

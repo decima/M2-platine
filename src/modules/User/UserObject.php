@@ -17,7 +17,7 @@ class UserObject extends DataObject {
             $value = self::encrypt_password($value);
         }
         if ($param == "email") {
-            $user = new UserObject();          
+            $user = new UserObject();
             if ($user->load_by_email($value)) {
 
                 throw new Exception_Database_Exists();
@@ -28,6 +28,10 @@ class UserObject extends DataObject {
 
     public function index() {
         return array("uid");
+    }
+
+    public function user_is_logged() {
+    return isset($_SESSION['logged'])?$_SESSION['logged']:null;    
     }
 
     public function tableName() {
