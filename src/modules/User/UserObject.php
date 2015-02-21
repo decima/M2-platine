@@ -18,8 +18,10 @@ class UserObject extends DataObject {
         }
         if ($param == "email") {
             $user = new UserObject();
-            if ($user->load_by_email($value)) {
-
+            if(!filter_var($value, FILTER_VALIDATE_EMAIL)) {
+                throw new Exception_Database_Format();
+            }
+            if($user->load_by_email($value)) {
                 throw new Exception_Database_Exists();
             }
         }
@@ -28,10 +30,6 @@ class UserObject extends DataObject {
 
     public function index() {
         return array("uid");
-    }
-
-    public function user_is_logged() {
-    return isset($_SESSION['logged'])?$_SESSION['logged']:null;    
     }
 
     public function tableName() {
@@ -53,5 +51,7 @@ class UserObject extends DataObject {
     private static function encrypt_password($password) {
         return md5($password . CONFIG_SITE_COOKIE);
     }
+
+
 
 }

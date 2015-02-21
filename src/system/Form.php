@@ -112,7 +112,7 @@ class ClosedElement extends FormElement {
 
 class Form extends FormElement {
 
-    public function __construct($method = "POST", $action = "/404", $name = "", $id = null) {
+    public function __construct($method = "POST", $action = "", $name = "", $id = null) {
         if ($id == null) {
             $id = $name;
         }

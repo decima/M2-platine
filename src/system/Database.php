@@ -174,3 +174,7 @@ class Exception_Database extends Exception {
 class Exception_Database_Exists extends Exception {
     
 }
+
+class Exception_Database_Format extends Exception {
+
+}
