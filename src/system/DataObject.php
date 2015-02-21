@@ -35,6 +35,7 @@ abstract class DataObject {
         Database::insert($this->tableName(), $this->_data, true);
         $t = Database::lastID();
         $this->{$keys[0]} = $t;
+        return true;
     }
 
     public function __get($param) {
