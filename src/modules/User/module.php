@@ -29,6 +29,18 @@ class User implements Module {
         return $schema;
     }
 
+    public function widget($item = array()) {
+        $item["user_logged"] = array("permissions" => "logged", "callback" => array("User", "widget_user_logged"));
+        return $item;
+    }
+
+    public function widget_user_logged() {
+        return Theme::listing(array(
+            Theme::linking(Page::url("/profile"), "Profil"),
+            Theme::linking(Page::url("/logout"), "deconnexion"),
+        ));
+    }
+
     public static function create($email, $password, $firstname = "", $lastname = "") {
         $user = new UserObject();
         $user->email = $email;
@@ -159,4 +171,7 @@ class User implements Module {
         $theme->process_theme(Theme::STRUCT_DEFAULT);
     }
 
+    public function permissions() {
+        return true;
+    }
 }

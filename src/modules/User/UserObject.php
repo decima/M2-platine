@@ -32,6 +32,10 @@ class UserObject extends DataObject {
         return array("uid");
     }
 
+    public function user_is_logged() {
+        return isset($_SESSION['logged'])?$_SESSION['logged']:null;
+    }
+
     public function tableName() {
         return "user";
     }

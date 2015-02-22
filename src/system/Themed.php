@@ -92,6 +92,11 @@ abstract class Themed {
 
 
     public static function process_form(Form $form){
+        $output = self::forming($form);
+        self::add_to_body($output);
+    }
+
+    public static function forming(Form $form){
         $output = "";
         $output .= "<".$form -> getBalise();
         foreach($form->getAttributes() as $k=>$v){
@@ -102,7 +107,7 @@ abstract class Themed {
             $output .= static::process_form_elements($v);
         }
         $output .="</".$form -> getBalise().">";
-        self::add_to_body($output);
+        return $output;
     }
 
     protected static function process_form_elements(FormElement $element){
