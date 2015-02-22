@@ -22,6 +22,18 @@ abstract class Themed {
         }
     }
 
+    public static function get_head() {
+        return self::$head;
+    }
+    public static function get_menu() {
+        return self::$menu;
+    }
+    public static function &get_body() {
+        return self::$body;
+    }
+    public static function get_title() {
+        return self::$title;
+    }
     public static function set_title($title){
         self::$title =  $title;
     }
@@ -35,14 +47,41 @@ abstract class Themed {
         self::$menu[] = $element;
     }
 
-    public static function body() {
-        foreach (self::$body as $s) {
-            echo $s . "\n";
+    public static function body($index_debut = null, $nb = 0) {
+        $b = self::get_body();
+        $s = sizeof($b);
+
+        if(isset($index_debut)){
+            if($nb != 0){
+                $max = $index_debut+$nb-1;
+            }
+            else {
+                $max = $s - $index_debut;
+            }
+
+            for ($index_debut ; $index_debut <= $max ; $index_debut++) {
+                echo $b[$index_debut] . "\n";
+            }
+        }
+        else {
+            foreach (self::$body as $s) {
+                echo $s . "\n";
+            }
         }
     }
 
-    public static function add_to_body($element) {
-        self::$body[] = $element;
+    public static function add_to_body($element, $title = null, $index = 0) {
+        $output = "";
+        if($title != null){
+            $output = "<h1>".$title."</h1>";
+        }
+        $output .= $element;
+        self::$body[] = $output;
+    }
+
+    public static function clean_body_part($index = 0) {
+        if(isset($index) && sizeof(self::$body) > 0)
+            self::$body[$index] = "";
     }
 
     public static function add_to_head($element) {

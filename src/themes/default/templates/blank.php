@@ -17,12 +17,21 @@
 <body>
     <div id="page">
         <div id="bloc_central">
+            <?php if(sizeof(Theme::get_body()) != 2 ): ?>
             <div id="bloc_central_inside">
                 <?php if(Theme::$title != null): ?>
                     <div class="titre"><?php echo Theme::$title; ?></div>
                 <?php endif; ?>
                 <div class="contenu"><?php Theme::body(); ?></div>
             </div>
+            <?php else: ?>
+            <div id="bloc_left_inside">
+                <div class="contenu"><?php Theme::body(0,1); ?></div>
+            </div>
+            <div id="bloc_right_inside">
+                <div class="contenu"><?php Theme::body(1); ?></div>
+            </div>
+            <?php endif; ?>
             <div class="clear"></div>
         </div>
     </div>

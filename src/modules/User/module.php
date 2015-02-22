@@ -65,7 +65,7 @@ class User implements Module {
         );
         $item['/logout'] = array(
             "access" => "access-content",
-            "callback" => array("User", "page-logout")
+            "callback" => array("User", "page_logout")
         );
         return $item;
     }
@@ -89,20 +89,21 @@ class User implements Module {
     }
 
     public static function page_login() {
-
         $theme = new Theme();
-        $theme->set_title(t("Connexion"));
+        $title = t("Connexion");
+        $contenu = t("Connectez-vous et accédez aux paramètres de votre réseau social.");
+        $theme->add_to_body($contenu, $title);
 
         $f = new Form("POST", Page::url("/"));
-        $t = (new InputElement("login", t("identifiant"), ""));
+        $t = (new InputElement("login", t("Identifiant : "), ""));
         $f->addElement($t);
-        $t = (new InputElement("password", t("mot de passe"), "", "password"));
+        $t = (new InputElement("password", t("Mot de passe : "), "", "password"));
         $f->addElement($t);
 
-        $t = (new InputElement("submit-login", "", t("Envoyer"), "submit"));
+        $t = (new InputElement("submit-login", "", t("Connexion"), "submit"));
         $f->addElement($t);
         $theme->process_form($f);
-        $theme->process_theme(Theme::STRUCT_ADMIN);
+        $theme->process_theme(Theme::STRUCT_BLANK);
     }
 
     public static function page_signin(){
@@ -134,24 +135,26 @@ class User implements Module {
         }
 
         $theme = new Theme();
-        $theme->set_title(t("Inscription"));
+        $title = t("Découvrez Jinn");
+        $contenu = t("Inscrivez-vous puis connectez-vous pour profiter de toutes les fonctionnalités offertes par Jinn !");
+        $theme->add_to_body($contenu, $title);
 
         $f = new Form("POST");
-        $t = (new InputElement("login", t("identifiant"), ""));
+        $t = (new InputElement("login", t("Identifiant : "), ""));
         $f->addElement($t);
-        $t = (new InputElement("first_name", t("prénom"), ""));
+        $t = (new InputElement("first_name", t("Prénom : "), ""));
         $f->addElement($t);
-        $t = (new InputElement("last_name", t("nom"), ""));
+        $t = (new InputElement("last_name", t("Nom : "), ""));
         $f->addElement($t);
-        $t = (new InputElement("password", t("mot de passe"), "", "password"));
+        $t = (new InputElement("password", t("Mot de passe :"), "", "password"));
         $f->addElement($t);
-        $t = (new InputElement("password_confirm", t("confirmation du mot de passe"), "", "password"));
+        $t = (new InputElement("password_confirm", t("Confirmation : "), "", "password"));
         $f->addElement($t);
 
-        $t = (new InputElement("submit-signin", "", t("Envoyer"), "submit"));
+        $t = (new InputElement("submit-signin", "", t("S'inscrire"), "submit"));
         $f->addElement($t);
-        $theme->process_form($f);
-        $theme->add_to_body(print_r($_POST, true));
+        $formulaire = $theme->forming($f);
+        $theme->add_to_body($formulaire, t("Inscription"));
         $theme->process_theme(Theme::STRUCT_BLANK);
     }
 

@@ -29,6 +29,19 @@ class Theme extends Themed {
         require_once './themes/default/templates/menu.php';
     }
 
+    public static function add_to_body($element, $title = null, $index = null) {
+        $output = "";
+        if($title != null){
+            $output = "<div class=\"titre\">".$title."</div>";
+        }
+        $output .= $element;
+        $b = &self::get_body();
+        if(isset($index) && sizeof($b) > $index)
+            $b[$index] .= $output;
+        else
+            $b[] = $output;
+    }
+
     public static function tabling($rows, $headers = array(), $hcol = array()) {
         $output = "<div style='padding-left: 20px; padding-right: 20px; padding-bottom: 20px;'>";
         $output .= "<table class=\"tableau\">\n";
@@ -130,10 +143,10 @@ class Theme extends Themed {
         // Element auto-fermable
         if($element -> is_closed()){
             if ($isLabel AND isset($element->getAttributes()['type']) AND ($element->getAttributes()['type'] != 'radio' AND $element->getAttributes()['type'] != 'checkbox')) {
-                $output .= "<label for=\"".$label."\">".$element->getLabel()."</label>";
+                $output .= "<div class=\"formulaire_ligne\"><label for=\"".$label."\">".$element->getLabel()."</label>";
             }
             if (isset($element->getAttributes()['type']) AND ($element->getAttributes()['type'] == 'checkbox' OR $element->getAttributes()['type'] == 'radio')){
-                $output .= "<div>";
+                $output .= "<div class=\"\">";
             }
 
             $output .= "<" . $element->getBalise();
@@ -154,6 +167,9 @@ class Theme extends Themed {
             }
             else if ($isLabel AND isset($element->getAttributes()['type']) AND $element->getAttributes()['type'] == 'radio') {
                 $output .= "<label for=\"".$label."\"><span class=\"ui\"></span><span class=\"label\">" . $element->getLabel() . "</span></label>";
+                $output .= "</div>";
+            }
+            else if ($isLabel AND isset($element->getAttributes()['type']) AND ($element->getAttributes()['type'] != 'radio' AND $element->getAttributes()['type'] != 'checkbox')) {
                 $output .= "</div>";
             }
         }
