@@ -29,6 +29,9 @@ abstract class DataObject {
         }
         return false;
     }
+    public function getStdClass(){
+        return $this->_data;
+    }
 
     public function save() {
         $keys = $this->index();
