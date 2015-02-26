@@ -23,6 +23,8 @@ class Database implements SystemModule {
         foreach ($schema as $table => $attributes) {
             $sql = "CREATE TABLE IF NOT EXISTS " . CONFIG_DB_PREFIX . "$table(";
             $i = 0;
+            $pks = array();
+
             foreach ($attributes as $key => $infos) {
                 $i++;
                 $sql .="\n`$key` ";
@@ -30,13 +32,16 @@ class Database implements SystemModule {
                 $splited_row = str_split($row);
                 foreach ($splited_row as $k => $r) {
                     if ($r == 1) {
-                        $sql .=$keywords[$k] . " ";
+                        if ($k == 5) {
+                            $pks[] = $key;
+                        } else {
+                            $sql .=$keywords[$k] . " ";
+                        }
                     }
                 }
-                if (count($attributes) > $i) {
-                    $sql.=",";
-                }
+                $sql.=",";
             }
+            $sql .= "CONSTRAINT pk_$table PRIMARY KEY (" . implode(",", $pks) . ")";
             $sql.=");";
             self::execute($sql);
         }
@@ -108,7 +113,7 @@ class Database implements SystemModule {
             $im = implode(" , ", $vals);
             $sql .=" ON DUPLICATE KEY UPDATE " . $im;
         }
-        
+
         self::execute($sql);
     }
 
@@ -176,5 +181,5 @@ class Exception_Database_Exists extends Exception {
 }
 
 class Exception_Database_Format extends Exception {
-
+    
 }
