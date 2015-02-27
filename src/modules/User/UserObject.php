@@ -1,7 +1,7 @@
 <?php
 
 class UserObject extends DataObject {
-
+   
     public static function schema(&$schema) {
         $schema["user"] = array(
             "uid" => Database::FIELD_TYPE_INT + Database::PRIMARY_KEY + Database::AUTOINCREMENT,
