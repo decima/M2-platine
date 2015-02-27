@@ -120,7 +120,8 @@ abstract class Themed {
         $output .="<tbody>\n";
         foreach ($rows as $k => $r) {
             $output .="<tr>\n";
-            if($a = array_shift($hcol) != null) {
+            $a = array_shift($hcol);
+            if($a != null) {
                 $output .= "<th>".$a."</th>\n";
             }
             foreach ($r as $r2)
