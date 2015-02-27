@@ -35,10 +35,28 @@ class User implements Module {
     }
 
     public function widget_user_logged() {
+        $output = "";
+        $user = self::get_user_logged();
+
+        if($user != null) {
+            $output .= "<div id=\"page_lateral_profil_avatar\">";
+            $output .= "<img alt=\"\" src=\"../images/florent_peysson_n.png\"/>";
+            $output .= "</div>";
+            $output .= "<div id=\"page_lateral_profil_nom\">";
+            $output .= Theme::linking(Page::url("/profile"), "<i class=\"fa fa-gear fa-fw\"></i> $user->firstname  $user->lastname");
+            $output .= "</div>";
+            $output .= "<div class=\"page_lateral_profil_sep\"><div class=\"page_lateral_profil_sep_barre\"></div></div>";
+            $output .= "<div id=\"page_lateral_liens\">";
+            $output .= Theme::linking(Page::url("/logout"), "<i class=\"fa fa-power-off fa-fw\"></i>");
+            $output .= "</div>";
+        }
+        return $output;
+        /*
         return Theme::listing(array(
             Theme::linking(Page::url("/profile"), "Profil"),
             Theme::linking(Page::url("/logout"), "deconnexion"),
         ));
+        */
     }
 
     public static function create($email, $password, $firstname = "", $lastname = "") {
@@ -75,7 +93,6 @@ class User implements Module {
 
             $user = new UserObject();
             if (!$user->load_by_email_and_password($_POST['login'], $_POST['password'])) {
-
                 Notification::statusNotify(t("les identifants de connexion sont invalides"), Notification::STATUS_ERROR);
             } else {
                 $_SESSION['logged'] = $user->{$user->index()[0]};
@@ -88,10 +105,19 @@ class User implements Module {
         }
     }
 
+    public static function get_user_logged(){
+        $user = new UserObject();
+        if($user -> load($_SESSION['logged'])){
+            return $user;
+        }
+        return null;
+    }
+
+
     public static function page_login() {
         $theme = new Theme();
-        $title = t("Connexion");
-        $contenu = t("Connectez-vous et accédez aux paramètres de votre réseau social.");
+        $title = t("Bienvenue !");
+        $contenu = t("Connectez-vous et découvrez votre tout nouveau réseau social.");
         $theme->add_to_body($contenu, $title);
 
         $f = new Form("POST", Page::url("/"));
@@ -102,7 +128,8 @@ class User implements Module {
 
         $t = (new InputElement("submit-login", "", t("Connexion"), "submit"));
         $f->addElement($t);
-        $theme->process_form($f);
+        $formulaire = $theme->forming($f);
+        $theme->add_to_body($formulaire, t("Connexion"));
         $theme->process_theme(Theme::STRUCT_BLANK);
     }
 

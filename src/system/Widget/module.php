@@ -25,6 +25,30 @@ class Widget implements SystemModule {
         $item['/admin/view/widget'] = array(
             "callback" => array("Widget", "page_config")
         );
+        $item['/admin/view/widget/install/@'] = array(
+            "access" => "administration",
+            "callback" => array("Widget", "installWidgetPage")
+        );
+        $item['/admin/view/widget/enable/@'] = array(
+            "access" => "administration",
+            "callback" => array("Widget", "enableWidgetPage")
+        );
+        $item['/admin/view/widget/disable/@'] = array(
+            "access" => "administration",
+            "callback" => array("Widget", "disableWidgetPage")
+        );
+        $item['/admin/view/widget/uninstall/@'] = array(
+            "access" => "administration",
+            "callback" => array("Widget", "uninstallWidgetPage")
+        );
+        $item['/admin/view/widget/up/@'] = array(
+            "access" => "administration",
+            "callback" => array("Widget", "upWidgetPage")
+        );
+        $item['/admin/view/widget/down/@'] = array(
+            "access" => "administration",
+            "callback" => array("Widget", "downWidgetPage")
+        );
         return $item;
     }
 
@@ -54,67 +78,118 @@ class Widget implements SystemModule {
         if (isset($_GET['err'])) {
             switch ($_GET['err']) {
                 case 'install':
-                    Notification::statusNotify(t("Echec de l'installation du module"), Notification::STATUS_ERROR);
+                    Notification::statusNotify(t("Echec de l'installation du widget"), Notification::STATUS_ERROR);
                     break;
                 case 'enable':
-                    Notification::statusNotify(t("Echec de l'activation du module"), Notification::STATUS_ERROR);
+                    Notification::statusNotify(t("Echec de l'activation du widget"), Notification::STATUS_ERROR);
                     break;
                 case 'disable':
-                    Notification::statusNotify(t("Echec de la desactivation du module"), Notification::STATUS_ERROR);
+                    Notification::statusNotify(t("Echec de la desactivation du widget"), Notification::STATUS_ERROR);
                     break;
                 case 'uninstall':
-                    Notification::statusNotify(t("Echec de la désinstation du module"), Notification::STATUS_ERROR);
+                    Notification::statusNotify(t("Echec de la désinstation du widget"), Notification::STATUS_ERROR);
+                    break;
+                case 'up':
+                case 'down':
+                    Notification::statusNotify(t("Echec du changement de priorité du widget"), Notification::STATUS_ERROR);
                     break;
                 default:
                     Notification::statusNotify(t("Une erreur inconnue est survenue"), Notification::STATUS_ERROR);
-
                     break;
             }
         }
         $widget = new Widget();
         $widget->scanForWidget();
         $widgets = WidgetObject::loadAll();
+        $activates = WidgetObject::loadAllActivate();
         $theme = new Theme();
 
         $theme->set_title(t("Liste des widgets disponibles"));
         $c = count($widgets);
-        $c > 1 ? Notification::statusNotify(t("%cnt widgets disponibles", array("%cnt"=>$c)), Notification::STATUS_INFO) : $c == 1 ? Notification::statusNotify(t("%cnt widget disponible", array("%cnt"=>$c)), Notification::STATUS_INFO) : Notification::statusNotify(t("Aucun widget disponible"), Notification::STATUS_INFO);
+        $a = count($activates);
+
+        $c > 1 ? Notification::statusNotify(t("%cnt widgets disponibles", array("%cnt"=>$c)), Notification::STATUS_INFO) : ($c == 1 ? Notification::statusNotify(t("%cnt widget disponible", array("%cnt"=>$c)), Notification::STATUS_INFO) : Notification::statusNotify(t("Aucun widget disponible"), Notification::STATUS_INFO));
         $r = array(t("Nom du widget"), t("Etat du widget"), t("Actions"));
         $array = array();
-        foreach ($widgets as $w) {
-            /*
-            $install = $theme->linking(Page::url("/admin/modules/install/" . $m['name']), t("installer"));
-            $uninstall = $theme->linking(Page::url("/admin/modules/uninstall/" . $m['name']), t("désinstaller"));
-            $disable = $theme->linking(Page::url("/admin/modules/disable/" . $m['name']), t("désactiver"));
-            $enable = $theme->linking(Page::url("/admin/modules/enable/" . $m['name']), t("activer"));
+        foreach ($widgets as $k => $w) {
+            $install = $theme->linking(Page::url("/admin/view/widget/install/" . $w -> widget_name), t("installer"));
+            $uninstall = $theme->linking(Page::url("/admin/view/widget/uninstall/" . $w -> widget_name), t("désinstaller"));
+            $disable = $theme->linking(Page::url("/admin/view/widget/disable/" . $w -> widget_name), t("désactiver"));
+            $enable = $theme->linking(Page::url("/admin/view/widget/enable/" . $w -> widget_name), t("activer"));
 
-            $statement = t("activé");
-            $link_1 = $disable;
-            $link_2 = null;
-            if (!self::is_enabled($m['name'])) {
-                $statement = t("installé");
-                $link_1 = $enable;
-                $link_2 = $uninstall;
+            $up = $theme->linking(Page::url("/admin/view/widget/up/" . $w -> widget_name), "<i class='fa fa-arrow-up fa-fw'></i>", false, array("title"=>"Monter"));
+            $up_disabled = "<span class='link_disabled' title='Monter'><i class='fa fa-arrow-up fa-fw'></i></span>";
+            $down = $theme->linking(Page::url("/admin/view/widget/down/" . $w -> widget_name), "<i class='fa fa-arrow-down fa-fw'></i>", false, array("title"=>"Descendre"));
+            $down_disabled = "<span class='link_disabled' title='Descendre'><i class='fa fa-arrow-down fa-fw'></i></span>";
+
+
+            // Si le widget est activé
+            if($w -> activate){
+                $array[] = array($w -> widget_name, t("Activé"), $disable, $k == 0 ? $up_disabled : $up, $k == ($a-1) ? $down_disabled : $down);
             }
-            if (!self::is_installed($m['name'])) {
-                $link_1=$install;$link_2 = null;
-                $statement = t("désinstallé");
+            else {
+                $array[] = array($w -> widget_name, t("Désactivé"), $enable, $up_disabled, $down_disabled);
             }
-
-
-            if ($m["system_module"] == 1) {
-                $rtm = t("système");
-                $statement = t("");
-
-            } else {
-                $rtm = ($link_1).($link_2==null?"":" - ").$link_2;
-            }
-            */
-            $array[] = array($w -> widget_name, $w -> activate ? t("Activé") : t("Désactivé"), t("Pomme"), t("<a href=''><i class='fa fa-arrow-up fa-fw'></i></a>"), t("<a href=''><i class='fa fa-arrow-down fa-fw'></i></a>"));
         }
 
         $theme->add_to_body($theme->tabling($array, $r));
         $theme->process_theme(Theme::STRUCT_ADMIN);
+        return;
+    }
+
+    public static function upWidgetPage($widgetName) {
+        $widget = new WidgetObject();
+        if ($widget -> load($widgetName)) {
+            if ($widget->changePriority($widget, $widget::WIDGET_CHANGE_PRIORITY_UP)) {
+                header("location: " . Page::url("/admin/view/widget/"));
+            } else {
+                header("location: " . Page::url("/admin/view/widget/?err=up"));
+            }
+        } else {
+            header("location: " . Page::url("/admin/view/widget/?err=unknown"));
+        }
+        return;
+    }
+
+    public static function downWidgetPage($widgetName) {
+        $widget = new WidgetObject();
+        if ($widget -> load($widgetName)) {
+            if ($widget->changePriority($widget, $widget::WIDGET_CHANGE_PRIORITY_DOWN)) {
+                header("location: " . Page::url("/admin/view/widget/"));
+            } else {
+                header("location: " . Page::url("/admin/view/widget/?err=down"));
+            }
+        } else {
+            header("location: " . Page::url("/admin/view/widget/?err=unknown"));
+        }
+        return;
+    }
+
+    public static function enableWidgetPage($widgetName){
+        $widget = new WidgetObject();
+        if ($widget -> load($widgetName)) {
+            if ($widget->changeActivate($widget)) {
+                header("location: " . Page::url("/admin/view/widget/"));
+            } else {
+                header("location: " . Page::url("/admin/view/widget/?err=enable"));
+            }
+        } else {
+            header("location: " . Page::url("/admin/view/widget/?err=unknown"));
+        }
+        return;
+    }
+
+    public static function disableWidgetPage($widgetName){
+        $widget = new WidgetObject();
+        if ($widget -> load($widgetName)) {
+            if ($widget->changeActivate($widget)) {
+                header("location: " . Page::url("/admin/view/widget/"));
+            } else {
+                header("location: " . Page::url("/admin/view/widget/?err=disable"));
+            }
+        } else {
+            header("location: " . Page::url("/admin/view/widget/?err=unknown"));
+        }
         return;
     }
 

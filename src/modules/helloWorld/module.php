@@ -37,6 +37,11 @@ class HelloWorld implements Module {
         if ($surname != null) {
             Theme::add_to_body("May I call you $surname?");
         }
+        /*
+        $m = new ModuleManager();
+        $m -> install_module("Widget", "C:\wamp\www\jinn\src\system\Widget\module.php");
+        */
+
         $theme = new Theme();
         $theme->set_title("Hello World");
         $theme->process_theme(Theme::STRUCT_BLANK);

@@ -88,10 +88,14 @@ abstract class Themed {
         self::$head[] = $element;
     }
 
-    public static function linking($link, $value, $out = false){
+    public static function linking($link, $value, $out = false, $attr = array()){
         $output = "<a href='".$link."'";
         if($out)
-            $output .= " target='_blank'";
+            $attr["target"] = "_blank";
+
+        foreach ($attr as $k => $v){
+            $output .= " $k='$v'";
+        }
         $output .= ">".$value."</a>";
         return $output;
     }

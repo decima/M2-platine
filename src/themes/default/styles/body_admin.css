@@ -157,23 +157,23 @@ input {
     margin: auto;
     position: relative;
 }
-#page_lateral_liens > .page_lateral_icon {
+#page_lateral_liens > a {
     width: 50px;
     height: 30px;
     text-align: center;
     color: #AAA;
     float:left;
 }
-#page_lateral_liens > .page_lateral_icon:hover {
+#page_lateral_liens > a:hover {
     color: #CCC;
 }
-#page_lateral_liens > .page_lateral_icon > i {
+#page_lateral_liens > a > i {
     width: 100%;
 }
-.page_lateral_icon > i.fa-power-off {
+#page_lateral_liens > a > i.fa-power-off {
     color: #071438;
 }
-.page_lateral_icon > i.fa-power-off:hover {
+#page_lateral_liens > a > i.fa-power-off:hover {
     color: #4b556e;
 }
 .bille_notification {
@@ -1001,4 +1001,11 @@ label.label_input_checkbox_radio {
 [type="radio"]:disabled + label .ui:before
 {
     color: #aaa;
+}
+
+
+
+.link_disabled
+{
+    color: #CCC;
 }
