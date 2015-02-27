@@ -43,9 +43,11 @@ class WidgetObject extends DataObject {
         return parent::load(array("widget_name" => $bloc_name));
     }
 
-    public static function loadAll() {
+    public static function loadAll($isInstalled = null) {
         $d = new WidgetObject();
-        $request = "SELECT * FROM " . CONFIG_DB_PREFIX . $d->tableName() . " ORDER BY position ASC, activate DESC, priority ASC";
+        $request = "SELECT * FROM " . CONFIG_DB_PREFIX . $d->tableName();
+        $request .= isset($isInstalled) ? ($isInstalled ? " WHERE position > -1" : " WHERE position = -1") : "";
+        $request .= " ORDER BY position ASC, activate DESC, priority ASC";
         $results = Database::getAll($request);
         return $results == null ? array() : $results;
     }
@@ -140,6 +142,26 @@ class WidgetObject extends DataObject {
             default:
                 return false;
         }
+    }
+
+    public static function install($widget){
+        if($widget->position == -1){
+            $widget->position = 0;
+            $widget->save();
+            self::resetAllPriorityByPosition($widget->position);
+            return true;
+        }
+        return false;
+    }
+
+    public static function uninstall($widget){
+        if($widget->position > -1 AND $widget->activate == 0){
+            $widget->position = -1;
+            $widget->save();
+            self::resetAllPriorityByPosition($widget->position);
+            return true;
+        }
+        return false;
     }
 
     public static function resetAllPriorityByPosition($position){

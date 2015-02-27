@@ -26,30 +26,30 @@ class MenuWidget implements Module {
     public function widget_menu_view() {
         $theme = new Theme();
         $list = array();
-        $list[] = Theme::linking(Page::url("/admin/view/widget"), t("widgets"));
+        $list[] = Theme::linking(Page::url("/admin/view/widget"), t("<i class=\"fa fa-cogs fa-fw\"></i> Widgets"));
 
-        return t("Vue") . $theme->listing($list);
+        return t("<i class=\"fa fa-laptop fa-fw\"></i> Vue") . $theme->listing($list);
     }
 
     public function widget_menu_utilisateurs_groupes() {
         $theme = new Theme();
         $list = array();
 
-        $list[] = Theme::linking(Page::url("/admin/users/"), t("Gestionnaire des utilisateurs"));
-        $list[] = Theme::linking(Page::url("/admin/groups/"), t("Gestionnaire des groupes"));
-        $list[] = Theme::linking(Page::url("/admin/permissions/"), t("Permissions"));
+        $list[] = Theme::linking(Page::url("/admin/users/"), t("<i class=\"fa fa-user fa-fw\"></i> Gérer les utilisateurs"));
+        $list[] = Theme::linking(Page::url("/admin/groups/"), t("<i class=\"fa fa-users fa-fw\"></i> Gérer les groupes"));
+        $list[] = Theme::linking(Page::url("/admin/permissions/"), t("<i class=\"fa fa-shield fa-fw\"></i> Gérer les permissions"));
 
-        return t("utilisateurs et permissions") . $theme->listing($list);
+        return t("<i class=\"fa fa-users fa-fw\"></i> Utilisateurs") . $theme->listing($list);
     }
     
      public function widget_menu_system() {
         $theme = new Theme();
         $list = array();
 
-        $list[] = Theme::linking(Page::url("/admin/modules/"), t("Modules"));
-        $list[] = Theme::linking(Page::url("/admin/database/"), t("Base de données"));
+        $list[] = Theme::linking(Page::url("/admin/modules/"), t("<i class=\"fa fa-puzzle-piece fa-fw\"></i> Modules"));
+        $list[] = Theme::linking(Page::url("/admin/database/"), t("<i class=\"fa fa-database fa-fw\"></i> Base de données"));
 
-        return t("Système") . $theme->listing($list);
+        return t("<i class=\"fa fa-wrench fa-fw\"></i> Système") . $theme->listing($list);
     }
 
 }
