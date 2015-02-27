@@ -61,7 +61,8 @@ class Theme extends Themed {
                 else
                     $output .= $variant2;
             $output .= "'>\n";
-            if($a = array_shift($hcol) != null) {
+            $a = array_shift($hcol);
+            if($a != null) {
                 $output .= "<th>".$a."</th>\n";
             }
             foreach ($r as $r2)
