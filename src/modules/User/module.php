@@ -107,8 +107,15 @@ class User implements Module {
 
     public static function get_user_logged(){
         $user = new UserObject();
-        if($user -> load($_SESSION['logged'])){
+        if(isset($_SESSION['logged']) AND $user -> load($_SESSION['logged'])){
             return $user;
+        }
+        return null;
+    }
+
+    public static function get_user_logged_id(){
+        if(isset($_SESSION['logged'])){
+            return $_SESSION['logged'];
         }
         return null;
     }

@@ -153,7 +153,7 @@ abstract class Themed {
         return $output;
     }
 
-    protected static function process_form_elements(FormElement $element){
+    public static function process_form_elements(FormElement $element){
         ($element->getLabel() != null AND $element->getLabel() != "") ? $isLabel = true : $isLabel = false;
         ($element->getId() != null AND $element->getId() != "") ? $label = $element->getId() : $label = $element->getName();
         $output = "";

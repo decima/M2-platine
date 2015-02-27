@@ -46,7 +46,7 @@ class WidgetObject extends DataObject {
     public static function loadAll($isInstalled = null) {
         $d = new WidgetObject();
         $request = "SELECT * FROM " . CONFIG_DB_PREFIX . $d->tableName();
-        $request .= isset($isInstalled) ? ($isInstalled ? " WHERE position > -1" : " WHERE position = -1") : "";
+        $request .= (isset($isInstalled) AND $isInstalled != null) ? ($isInstalled ? " WHERE position > -1" : " WHERE position = -1") : "";
         $request .= " ORDER BY position ASC, activate DESC, priority ASC";
         $results = Database::getAll($request);
         return $results == null ? array() : $results;
@@ -55,8 +55,8 @@ class WidgetObject extends DataObject {
     public static function loadAllActivate($position = null, $havePriority = null) {
         $d = new WidgetObject();
         $request = "SELECT * FROM " . CONFIG_DB_PREFIX . $d->tableName() . " WHERE activate = 1";
-        $request .= ($position == null) ? "" : " AND position = ".$position;
-        $request .= isset($havePriority) ? ($havePriority ? " AND priority <> 0" : " AND priority = 0") : "";
+        $request .= (isset($position) AND $position != null) ? " AND position = ".$position : "";
+        $request .= (isset($havePriority) AND $havePriority != null) ? ($havePriority ? " AND priority <> 0" : " AND priority = 0") : "";
         $request .= " ORDER BY position ASC, activate DESC, priority ASC";
         $results = Database::getAll($request);
         return $results == null ? array() : $results;
