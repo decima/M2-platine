@@ -15,7 +15,7 @@ abstract class DataObject {
     public static function loadAll() {
         $cname = get_called_class();
         $o = new $cname();
-        return Database::getAll("Select * from " . CONFIG_DB_PREFIX . $o->tableName() . " where 1");
+        return Database::getAll("SELECT * FROM " . CONFIG_DB_PREFIX . $o->tableName() . " WHERE 1");
     }
 
     public function load($keyload) {
@@ -28,7 +28,7 @@ abstract class DataObject {
             $t = $this->index();
             $conditions[] = $t[0] . "='$keyload'";
         }
-        $result = Database::getRow("SELECT * from " . CONFIG_DB_PREFIX . $this->tableName() . " where " . implode(" AND ", $conditions));
+        $result = Database::getRow("SELECT * FROM  " . CONFIG_DB_PREFIX . $this->tableName() . " WHERE " . implode(" AND ", $conditions));
         if ($result !== false) {
             $this->_data = $result;
             return true;
@@ -66,7 +66,7 @@ abstract class DataObject {
     }
 
     public function __isset($name) {
-        return (isset($this->_data->{$param}));
+        return (isset($this->_data->{$name}));
     }
 
 }
