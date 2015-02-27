@@ -121,7 +121,7 @@ abstract class Themed {
         foreach ($rows as $k => $r) {
             $output .="<tr>\n";
             if($a = array_shift($hcol) != null) {
-                $output .= "<th>".$hcol."</th>\n";
+                $output .= "<th>".$a."</th>\n";
             }
             foreach ($r as $r2)
                 $output.="<td>$r2</td>\n";
