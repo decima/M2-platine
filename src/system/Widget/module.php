@@ -53,6 +53,11 @@ class Widget implements SystemModule {
     }
 
     public function scanForWidget() {
+        $wraw = WidgetObject::loadAll();
+        $widgets = array();
+        foreach ($wraw as $w) {
+            $widgets[$w->widget_name] = $w;
+        }
         $a = method_invoke_all("widget", array(), true);
         foreach ($a as $k => $v) {
             $wo = new WidgetObject();
@@ -62,6 +67,12 @@ class Widget implements SystemModule {
             $wo->callback = implode("::", $v["callback"]);
             $wo->permissions = $v["permissions"];
             $wo->save();
+            unset($widgets[$wo->widget_name]);
+        }
+        foreach ($widgets as $w) {
+            $wo = new WidgetObject();
+            $wo->load($k);
+            $wo->delete();
         }
     }
 
@@ -108,27 +119,26 @@ class Widget implements SystemModule {
         $c = count($widgets);
         $a = count($activates);
 
-        $c > 1 ? Notification::statusNotify(t("%cnt widgets disponibles", array("%cnt"=>$c)), Notification::STATUS_INFO) : ($c == 1 ? Notification::statusNotify(t("%cnt widget disponible", array("%cnt"=>$c)), Notification::STATUS_INFO) : Notification::statusNotify(t("Aucun widget disponible"), Notification::STATUS_INFO));
+        $c > 1 ? Notification::statusNotify(t("%cnt widgets disponibles", array("%cnt" => $c)), Notification::STATUS_INFO) : ($c == 1 ? Notification::statusNotify(t("%cnt widget disponible", array("%cnt" => $c)), Notification::STATUS_INFO) : Notification::statusNotify(t("Aucun widget disponible"), Notification::STATUS_INFO));
         $r = array(t("Nom du widget"), t("Etat du widget"), t("Actions"));
         $array = array();
         foreach ($widgets as $k => $w) {
-            $install = $theme->linking(Page::url("/admin/view/widget/install/" . $w -> widget_name), t("installer"));
-            $uninstall = $theme->linking(Page::url("/admin/view/widget/uninstall/" . $w -> widget_name), t("désinstaller"));
-            $disable = $theme->linking(Page::url("/admin/view/widget/disable/" . $w -> widget_name), t("désactiver"));
-            $enable = $theme->linking(Page::url("/admin/view/widget/enable/" . $w -> widget_name), t("activer"));
+            $install = $theme->linking(Page::url("/admin/view/widget/install/" . $w->widget_name), t("installer"));
+            $uninstall = $theme->linking(Page::url("/admin/view/widget/uninstall/" . $w->widget_name), t("désinstaller"));
+            $disable = $theme->linking(Page::url("/admin/view/widget/disable/" . $w->widget_name), t("désactiver"));
+            $enable = $theme->linking(Page::url("/admin/view/widget/enable/" . $w->widget_name), t("activer"));
 
-            $up = $theme->linking(Page::url("/admin/view/widget/up/" . $w -> widget_name), "<i class='fa fa-arrow-up fa-fw'></i>", false, array("title"=>"Monter"));
+            $up = $theme->linking(Page::url("/admin/view/widget/up/" . $w->widget_name), "<i class='fa fa-arrow-up fa-fw'></i>", false, array("title" => "Monter"));
             $up_disabled = "<span class='link_disabled' title='Monter'><i class='fa fa-arrow-up fa-fw'></i></span>";
-            $down = $theme->linking(Page::url("/admin/view/widget/down/" . $w -> widget_name), "<i class='fa fa-arrow-down fa-fw'></i>", false, array("title"=>"Descendre"));
+            $down = $theme->linking(Page::url("/admin/view/widget/down/" . $w->widget_name), "<i class='fa fa-arrow-down fa-fw'></i>", false, array("title" => "Descendre"));
             $down_disabled = "<span class='link_disabled' title='Descendre'><i class='fa fa-arrow-down fa-fw'></i></span>";
 
 
             // Si le widget est activé
-            if($w -> activate){
-                $array[] = array($w -> widget_name, t("Activé"), $disable, $k == 0 ? $up_disabled : $up, $k == ($a-1) ? $down_disabled : $down);
-            }
-            else {
-                $array[] = array($w -> widget_name, t("Désactivé"), $enable, $up_disabled, $down_disabled);
+            if ($w->activate) {
+                $array[] = array($w->widget_name, t("Activé"), $disable, $k == 0 ? $up_disabled : $up, $k == ($a - 1) ? $down_disabled : $down);
+            } else {
+                $array[] = array($w->widget_name, t("Désactivé"), $enable, $up_disabled, $down_disabled);
             }
         }
 
@@ -139,7 +149,7 @@ class Widget implements SystemModule {
 
     public static function upWidgetPage($widgetName) {
         $widget = new WidgetObject();
-        if ($widget -> load($widgetName)) {
+        if ($widget->load($widgetName)) {
             if ($widget->changePriority($widget, $widget::WIDGET_CHANGE_PRIORITY_UP)) {
                 header("location: " . Page::url("/admin/view/widget/"));
             } else {
@@ -153,7 +163,7 @@ class Widget implements SystemModule {
 
     public static function downWidgetPage($widgetName) {
         $widget = new WidgetObject();
-        if ($widget -> load($widgetName)) {
+        if ($widget->load($widgetName)) {
             if ($widget->changePriority($widget, $widget::WIDGET_CHANGE_PRIORITY_DOWN)) {
                 header("location: " . Page::url("/admin/view/widget/"));
             } else {
@@ -165,9 +175,9 @@ class Widget implements SystemModule {
         return;
     }
 
-    public static function enableWidgetPage($widgetName){
+    public static function enableWidgetPage($widgetName) {
         $widget = new WidgetObject();
-        if ($widget -> load($widgetName)) {
+        if ($widget->load($widgetName)) {
             if ($widget->changeActivate($widget)) {
                 header("location: " . Page::url("/admin/view/widget/"));
             } else {
@@ -179,9 +189,9 @@ class Widget implements SystemModule {
         return;
     }
 
-    public static function disableWidgetPage($widgetName){
+    public static function disableWidgetPage($widgetName) {
         $widget = new WidgetObject();
-        if ($widget -> load($widgetName)) {
+        if ($widget->load($widgetName)) {
             if ($widget->changeActivate($widget)) {
                 header("location: " . Page::url("/admin/view/widget/"));
             } else {
@@ -193,13 +203,12 @@ class Widget implements SystemModule {
         return;
     }
 
-    public function priority()
-    {
+    public function priority() {
         return 100;
     }
 
-    public function system_init()
-    {
+    public function system_init() {
         // TODO: Implement system_init() method.
     }
+
 }
