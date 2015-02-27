@@ -12,6 +12,12 @@ abstract class DataObject {
 
     public abstract function index();
 
+    public static function loadAll() {
+        $cname = get_called_class();
+        $o = new $cname();
+        return Database::getAll("Select * from " . CONFIG_DB_PREFIX . $o->tableName() . " where 1");
+    }
+
     public function load($keyload) {
         $conditions = array();
         if (is_array($keyload)) {
@@ -29,8 +35,14 @@ abstract class DataObject {
         }
         return false;
     }
-    public function getStdClass(){
+
+    public function getStdClass() {
         return $this->_data;
+    }
+
+    public function delete() {
+        Database::delete($this->tableName(), $this->_data);
+        return true;
     }
 
     public function save() {
