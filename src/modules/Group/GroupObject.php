@@ -39,6 +39,11 @@ class GroupObject extends DataObject {
         return parent::load(array("gid" => $id));
     }
 
+    public static function GetAllGroupsMembership($uid) {
+        $sql = "Select * from " . CONFIG_DB_PREFIX . "user_group where uid=$uid";
+        return Database::getAll($sql);
+    }
+
     public function load_by_label($label) {
         return parent::load(array("label" => $label));
     }
@@ -60,10 +65,12 @@ class GroupObject extends DataObject {
         unset($this->_members[$uid]);
         Database::delete("user_group", array("gid" => $this->gid, "uid" => $uid));
     }
-public function delete(){
-    $this->remove_all_members();
-    return parent::delete();
-}
+
+    public function delete() {
+        $this->remove_all_members();
+        return parent::delete();
+    }
+
     public function remove_all_members() {
         $this->_members = array();
         Database::delete("user_group", array("gid" => $this->gid));

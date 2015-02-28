@@ -16,14 +16,14 @@ class User implements Module {
         );
     }
 
-    public function install()  {
+    public function install() {
         try {
             return self::create(CONFIG_ADMIN_LOGIN, CONFIG_ADMIN_PASSWORD, "Admin", "Administrator");
-        }
-        catch (Exception $e){
+        } catch (Exception $e) {
             return false;
         }
     }
+
     public function schema($schema = array()) {
         UserObject::schema($schema);
         return $schema;
@@ -38,7 +38,7 @@ class User implements Module {
         $output = "";
         $user = self::get_user_logged();
 
-        if($user != null) {
+        if ($user != null) {
             $output .= "<div id=\"page_lateral_profil_avatar\">";
             $output .= "<img alt=\"\" src=\"../images/florent_peysson_n.png\"/>";
             $output .= "</div>";
@@ -52,11 +52,11 @@ class User implements Module {
         }
         return $output;
         /*
-        return Theme::listing(array(
-            Theme::linking(Page::url("/profile"), "Profil"),
-            Theme::linking(Page::url("/logout"), "deconnexion"),
-        ));
-        */
+          return Theme::listing(array(
+          Theme::linking(Page::url("/profile"), "Profil"),
+          Theme::linking(Page::url("/logout"), "deconnexion"),
+          ));
+         */
     }
 
     public static function create($email, $password, $firstname = "", $lastname = "") {
@@ -65,24 +65,29 @@ class User implements Module {
         $user->password = $password;
         $user->firstname = $firstname;
         $user->lastname = $lastname;
-        return $user->save();
+        $d = $user->save();
+        $u2 = new UserObject();
+        if ($u2->load_by_email($email)) {
+            method_invoke_all("hook_user_create", array($u2->uid));
+        }
+        return $d;
     }
 
     public function menu($item = array()) {
         $item['/profile'] = array(
-            "access" => "access-content",
+            "access" => "access content",
             "callback" => array("User", "page_profile")
         );
         $item['/'] = array(
-            "access" => "access-content",
+            "access" => "full access",
             "callback" => array("User", "page_home")
         );
         $item['/signin'] = array(
-            "access" => "access-content",
+            "access" => "create user",
             "callback" => array("User", "page_signin")
         );
         $item['/logout'] = array(
-            "access" => "access-content",
+            "access" => "full access",
             "callback" => array("User", "page_logout")
         );
         return $item;
@@ -105,21 +110,20 @@ class User implements Module {
         }
     }
 
-    public static function get_user_logged(){
+    public static function get_user_logged() {
         $user = new UserObject();
-        if(isset($_SESSION['logged']) AND $user -> load($_SESSION['logged'])){
+        if (isset($_SESSION['logged']) AND $user->load($_SESSION['logged'])) {
             return $user;
         }
         return null;
     }
 
-    public static function get_user_logged_id(){
-        if(isset($_SESSION['logged'])){
+    public static function get_user_logged_id() {
+        if (isset($_SESSION['logged'])) {
             return $_SESSION['logged'];
         }
         return null;
     }
-
 
     public static function page_login() {
         $theme = new Theme();
@@ -140,32 +144,27 @@ class User implements Module {
         $theme->process_theme(Theme::STRUCT_BLANK);
     }
 
-    public static function page_signin(){
+    public static function page_signin() {
         if (isset($_POST['submit-signin'])) {
-            if(!empty($_POST['login']) &&
-                !empty($_POST['password']) &&
-                !empty($_POST['first_name']) &&
-                !empty($_POST['last_name'])){
-                if($_POST['password'] == $_POST['password_confirm']){
-                    try{
+            if (!empty($_POST['login']) &&
+                    !empty($_POST['password']) &&
+                    !empty($_POST['first_name']) &&
+                    !empty($_POST['last_name'])) {
+                if ($_POST['password'] == $_POST['password_confirm']) {
+                    try {
                         $ret = self::create($_POST['login'], $_POST['password'], $_POST['first_name'], $_POST['last_name']);
                         self::page_logout();
-                    }
-                    catch (Exception_Database_Exists $e){
+                    } catch (Exception_Database_Exists $e) {
                         Notification::statusNotify(t("L'identifiant est déjà utilisé."), Notification::STATUS_ERROR);
-                    }
-                    catch (Exception_Database_Format $e){
+                    } catch (Exception_Database_Format $e) {
                         Notification::statusNotify(t("L'indentifiant est incorrect."), Notification::STATUS_ERROR);
                     }
-                }
-                else {
+                } else {
                     Notification::statusNotify(t("Les mots de passe sont différents."), Notification::STATUS_ERROR);
                 }
-            }
-            else {
+            } else {
                 Notification::statusNotify(t("Des informations d'inscription sont manquantes."), Notification::STATUS_ERROR);
             }
-
         }
 
         $theme = new Theme();
@@ -198,9 +197,9 @@ class User implements Module {
         $theme->process_theme(Theme::STRUCT_DEFAULT);
     }
 
-    public static function page_logout(){
+    public static function page_logout() {
         session_destroy();
-        header("location:".Page::url("/"));
+        header("location:" . Page::url("/"));
     }
 
     public static function page_profile() {
@@ -211,4 +210,5 @@ class User implements Module {
     public function permissions() {
         return true;
     }
+
 }

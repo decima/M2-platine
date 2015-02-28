@@ -39,6 +39,7 @@ class Page implements SystemModule {
         if (isset($res["access"])) {
 
             $r = method_invoke_all("permissions", array($res["access"]));
+            
             foreach ($r as $tt) {
                 if ($tt == false) {
                     $run = false;

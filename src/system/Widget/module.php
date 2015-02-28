@@ -23,30 +23,31 @@ class Widget implements SystemModule {
 
     public function menu($item = array()) {
         $item['/admin/view/widget'] = array(
+            "access" => "administrer",
             "callback" => array("Widget", "page_config")
         );
         $item['/admin/view/widget/install/@'] = array(
-            "access" => "administration",
+            "access" => "administrer",
             "callback" => array("Widget", "installWidgetPage")
         );
         $item['/admin/view/widget/enable/@'] = array(
-            "access" => "administration",
+            "access" => "administrer",
             "callback" => array("Widget", "enableWidgetPage")
         );
         $item['/admin/view/widget/disable/@'] = array(
-            "access" => "administration",
+            "access" => "administrer",
             "callback" => array("Widget", "disableWidgetPage")
         );
         $item['/admin/view/widget/uninstall/@'] = array(
-            "access" => "administration",
+            "access" => "administrer",
             "callback" => array("Widget", "uninstallWidgetPage")
         );
         $item['/admin/view/widget/up/@'] = array(
-            "access" => "administration",
+            "access" => "administrer",
             "callback" => array("Widget", "upWidgetPage")
         );
         $item['/admin/view/widget/down/@'] = array(
-            "access" => "administration",
+            "access" => "administrer",
             "callback" => array("Widget", "downWidgetPage")
         );
         return $item;

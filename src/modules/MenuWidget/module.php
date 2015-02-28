@@ -15,8 +15,8 @@ class MenuWidget implements Module {
     }
 
     public function widget($item = array()) {
-        $item["admin_menu_user"] = array("permissions" => "administrer", "callback" => array("MenuWidget", "widget_menu_utilisateurs_groupes"));
 
+        $item["admin_menu_user"] = array("permissions" => "administrer", "callback" => array("MenuWidget", "widget_menu_utilisateurs_groupes"));
         $item["admin_menu_view"] = array("permissions" => "administrer", "callback" => array("MenuWidget", "widget_menu_view"));
         $item["admin_menu_system"] = array("permissions" => "administrer", "callback" => array("MenuWidget", "widget_menu_system"));
 
@@ -41,8 +41,8 @@ class MenuWidget implements Module {
 
         return t("<i class=\"fa fa-users fa-fw\"></i> Utilisateurs") . $theme->listing($list);
     }
-    
-     public function widget_menu_system() {
+
+    public function widget_menu_system() {
         $theme = new Theme();
         $list = array();
 

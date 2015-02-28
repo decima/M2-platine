@@ -155,23 +155,23 @@ class ModuleManager implements SystemModule {
 
     public function menu($item = array()) {
         $item['admin/modules'] = array(
-            "access" => "administration",
+            "access" => "administrer",
             "callback" => array("ModuleManager", "list_modules")
         );
         $item['admin/modules/install/@'] = array(
-            "access" => "administration",
+            "access" => "administrer",
             "callback" => array("ModuleManager", "installModulePage")
         );
         $item['admin/modules/enable/@'] = array(
-            "access" => "administration",
+            "access" => "administrer",
             "callback" => array("ModuleManager", "enableModulePage")
         );
         $item['admin/modules/disable/@'] = array(
-            "access" => "administration",
+            "access" => "administrer",
             "callback" => array("ModuleManager", "disableModulePage")
         );
         $item['admin/modules/uninstall/@'] = array(
-            "access" => "administration",
+            "access" => "administrer",
             "callback" => array("ModuleManager", "uninstallModulePage")
         );
         return $item;

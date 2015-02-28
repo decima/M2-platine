@@ -16,8 +16,7 @@ class Euro implements Module {
     }
 
     public function menu($item = array()) {
-        $item["/euro/@"] = array("callback" => array("Euro", "price"));
-
+        $item["/euro/@"] = array("access" => "access content", "callback" => array("Euro", "price"));
         return $item;
     }
 
@@ -27,4 +26,5 @@ class Euro implements Module {
         $theme->add_to_body($euro * 6.55957);
         $theme->process_theme(Theme::STRUCT_DEFAULT);
     }
+
 }
