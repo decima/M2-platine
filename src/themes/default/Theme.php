@@ -147,7 +147,7 @@ class Theme extends Themed {
                 $output .= "<div class=\"formulaire_ligne\"><label for=\"".$label."\">".$element->getLabel()."</label>";
             }
             if (isset($element->getAttributes()['type']) AND ($element->getAttributes()['type'] == 'checkbox' OR $element->getAttributes()['type'] == 'radio')){
-                $output .= "<div class=\"\">";
+                $output .= "<div class=\"FormElementCheckboxRadio\">";
             }
 
             $output .= "<" . $element->getBalise();

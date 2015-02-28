@@ -847,18 +847,18 @@ label.label_input_checkbox_radio {
 
 
 
-[type="checkbox"]:not(:checked),
-[type="checkbox"]:checked,
-[type="radio"]:not(:checked),
-[type="radio"]:checked
+.FormElementCheckboxRadio>[type="checkbox"]:not(:checked),
+.FormElementCheckboxRadio>[type="checkbox"]:checked,
+.FormElementCheckboxRadio>[type="radio"]:not(:checked),
+.FormElementCheckboxRadio>[type="radio"]:checked
 {
     position: absolute;
     left: -9999px;
 }
-[type="checkbox"]:not(:checked) + label,
-[type="checkbox"]:checked + label,
-[type="radio"]:not(:checked) + label,
-[type="radio"]:checked + label
+.FormElementCheckboxRadio>[type="checkbox"]:not(:checked) + label,
+.FormElementCheckboxRadio>[type="checkbox"]:checked + label,
+.FormElementCheckboxRadio>[type="radio"]:not(:checked) + label,
+.FormElementCheckboxRadio>[type="radio"]:checked + label
 {
     position: relative;
     padding-left: 50px;
@@ -866,31 +866,31 @@ label.label_input_checkbox_radio {
     text-align: left;
     width: auto;
 }
-[type="checkbox"]:not(:checked) + label > .label,
-[type="checkbox"]:checked + label > .label,
-[type="radio"]:not(:checked) + label > .label,
-[type="radio"]:checked + label > .label
+.FormElementCheckboxRadio>[type="checkbox"]:not(:checked) + label > .label,
+.FormElementCheckboxRadio>[type="checkbox"]:checked + label > .label,
+.FormElementCheckboxRadio>[type="radio"]:not(:checked) + label > .label,
+.FormElementCheckboxRadio>[type="radio"]:checked + label > .label
 {
     position: relative;
     top: -1px;
     cursor: pointer;
 }
-[type="checkbox"]:not(:checked) + label:before,
-[type="checkbox"]:checked + label:before,
-[type="checkbox"]:not(:checked) + label:after,
-[type="checkbox"]:checked + label:after,
-[type="radio"]:not(:checked) + label:before,
-[type="radio"]:checked + label:before,
-[type="radio"]:not(:checked) + label:after,
-[type="radio"]:checked + label:after
+.FormElementCheckboxRadio>[type="checkbox"]:not(:checked) + label:before,
+.FormElementCheckboxRadio>[type="checkbox"]:checked + label:before,
+.FormElementCheckboxRadio>[type="checkbox"]:not(:checked) + label:after,
+.FormElementCheckboxRadio>[type="checkbox"]:checked + label:after,
+.FormElementCheckboxRadio>[type="radio"]:not(:checked) + label:before,
+.FormElementCheckboxRadio>[type="radio"]:checked + label:before,
+.FormElementCheckboxRadio>[type="radio"]:not(:checked) + label:after,
+.FormElementCheckboxRadio>[type="radio"]:checked + label:after
 {
     content: '';
     position: absolute;
 }
-[type="checkbox"]:not(:checked) + label:before,
-[type="checkbox"]:checked + label:before,
-[type="radio"]:not(:checked) + label:before,
-[type="radio"]:checked + label:before
+.FormElementCheckboxRadio>[type="checkbox"]:not(:checked) + label:before,
+.FormElementCheckboxRadio>[type="checkbox"]:checked + label:before,
+.FormElementCheckboxRadio>[type="radio"]:not(:checked) + label:before,
+.FormElementCheckboxRadio>[type="radio"]:checked + label:before
 {
     left:0; top: -4px;
     width: 40px; height: 20px;
@@ -906,10 +906,10 @@ label.label_input_checkbox_radio {
     -o-box-shadow: inset 0 1px 1px rgba(0,0,0,0.5), 0 1px 0 rgba(255,255,255,0.2);
     box-shadow: inset 0 1px 1px rgba(0,0,0,0.5), 0 1px 0 rgba(255,255,255,0.2);
 }
-[type="checkbox"]:not(:checked) + label:after,
-[type="checkbox"]:checked + label:after,
-[type="radio"]:not(:checked) + label:after,
-[type="radio"]:checked + label:after
+.FormElementCheckboxRadio>[type="checkbox"]:not(:checked) + label:after,
+.FormElementCheckboxRadio>[type="checkbox"]:checked + label:after,
+.FormElementCheckboxRadio>[type="radio"]:not(:checked) + label:after,
+.FormElementCheckboxRadio>[type="radio"]:checked + label:after
 {
     width: 14px; height: 20px;
     -webkit-transition: all .2s;
@@ -923,8 +923,8 @@ label.label_input_checkbox_radio {
 }
 
 /* on checked */
-[type="checkbox"]:checked + label:before,
-[type="radio"]:checked + label:before
+.FormElementCheckboxRadio>[type="checkbox"]:checked + label:before,
+.FormElementCheckboxRadio>[type="radio"]:checked + label:before
 {
     background-color: #FFFFFF;
     -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.5), 0 1px 0 rgba(255,255,255,0.2);
@@ -932,18 +932,18 @@ label.label_input_checkbox_radio {
     -o-box-shadow: inset 0 1px 1px rgba(0,0,0,0.5), 0 1px 0 rgba(255,255,255,0.2);
     box-shadow: inset 0 1px 1px rgba(0,0,0,0.5), 0 1px 0 rgba(255,255,255,0.2);
 }
-[type="checkbox"]:checked + label:after,
-[type="radio"]:checked + label:after
+.FormElementCheckboxRadio>[type="checkbox"]:checked + label:after,
+.FormElementCheckboxRadio>[type="radio"]:checked + label:after
 {
     top: -4px; left: 26px;
 }
 
-[type="checkbox"]:checked + label .ui,
-[type="checkbox"]:not(:checked) + label .ui:before,
-[type="checkbox"]:checked + label .ui:after,
-[type="radio"]:checked + label .ui,
-[type="radio"]:not(:checked) + label .ui:before,
-[type="radio"]:checked + label .ui:after
+.FormElementCheckboxRadio>[type="checkbox"]:checked + label .ui,
+.FormElementCheckboxRadio>[type="checkbox"]:not(:checked) + label .ui:before,
+.FormElementCheckboxRadio>[type="checkbox"]:checked + label .ui:after,
+.FormElementCheckboxRadio>[type="radio"]:checked + label .ui,
+.FormElementCheckboxRadio>[type="radio"]:not(:checked) + label .ui:before,
+.FormElementCheckboxRadio>[type="radio"]:checked + label .ui:after
 {
     position: absolute;
     left: 6px;
@@ -959,16 +959,16 @@ label.label_input_checkbox_radio {
     text-align: center;
     margin-top: -1px;
 }
-[type="checkbox"]:not(:checked) + label .ui:before,
-[type="radio"]:not(:checked) + label .ui:before
+.FormElementCheckboxRadio>[type="checkbox"]:not(:checked) + label .ui:before,
+.FormElementCheckboxRadio>[type="radio"]:not(:checked) + label .ui:before
 {
     content: "O";
     left: 22px;
     color: rgba(30,30,30,0.6);
     font-weight: 700;
 }
-[type="checkbox"]:checked + label .ui:after,
-[type="radio"]:checked + label .ui:after
+.FormElementCheckboxRadio>[type="checkbox"]:checked + label .ui:after,
+.FormElementCheckboxRadio>[type="radio"]:checked + label .ui:after
 {
     content: "I";
     left: 1px;
@@ -976,29 +976,29 @@ label.label_input_checkbox_radio {
     color: rgba(30,30,30,0.6);
     font-weight: 700;
 }
-[type="checkbox"]:focus + label:before,
-[type="radio"]:focus + label:before
+.FormElementCheckboxRadio>[type="checkbox"]:focus + label:before,
+.FormElementCheckboxRadio>[type="radio"]:focus + label:before
 {  }
-[type="checkbox"]:disabled:not(:checked) + label:before,
-[type="checkbox"]:disabled:checked + label:before,
-[type="radio"]:disabled:not(:checked) + label:before,
-[type="radio"]:disabled:checked + label:before
+.FormElementCheckboxRadio>[type="checkbox"]:disabled:not(:checked) + label:before,
+.FormElementCheckboxRadio>[type="checkbox"]:disabled:checked + label:before,
+.FormElementCheckboxRadio>[type="radio"]:disabled:not(:checked) + label:before,
+.FormElementCheckboxRadio>[type="radio"]:disabled:checked + label:before
 {
     box-shadow: none;
     border-color: #bbb;
     background-color: #ddd;
 }
 /* styles de la coche (si cochée/désactivée) */
-[type="checkbox"]:disabled:checked + label .ui:after,
-[type="radio"]:disabled:checked + label .ui:after
+.FormElementCheckboxRadio>[type="checkbox"]:disabled:checked + label .ui:after,
+.FormElementCheckboxRadio>[type="radio"]:disabled:checked + label .ui:after
 {
     color: #aaa;
 }
 /* on style aussi le label quand désactivé */
-[type="checkbox"]:disabled + label .label,
-[type="checkbox"]:disabled + label .ui:before,
-[type="radio"]:disabled + label .label,
-[type="radio"]:disabled + label .ui:before
+.FormElementCheckboxRadio>[type="checkbox"]:disabled + label .label,
+.FormElementCheckboxRadio>[type="checkbox"]:disabled + label .ui:before,
+.FormElementCheckboxRadio>[type="radio"]:disabled + label .label,
+.FormElementCheckboxRadio>[type="radio"]:disabled + label .ui:before
 {
     color: #aaa;
 }
