@@ -31,7 +31,7 @@ class FriendshipObject extends DataObject {
 
     public function loadAllFriends($id_user) {
         $d = new FriendshipObject();
-        $request = "SELECT * FROM " . CONFIG_DB_PREFIX . $d->tableName() ." WHERE (id_demandeur = ".$id_user." OR id_receveur = ".$id_user.") AND accepted = 1 ORDER BY date ASC, sid ASC, rid ASC";
+        $request = "SELECT * FROM " . CONFIG_DB_PREFIX . $d->tableName() ." WHERE (sid = ".$id_user." OR rid = ".$id_user.") AND accepted = 1 ORDER BY date ASC, sid ASC, rid ASC";
         $results = Database::getAll($request);
         $list_of_friends=array();
         if(is_array($results)){

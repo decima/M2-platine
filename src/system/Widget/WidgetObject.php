@@ -46,7 +46,7 @@ class WidgetObject extends DataObject {
     public static function loadAll($isInstalled = null) {
         $d = new WidgetObject();
         $request = "SELECT * FROM " . CONFIG_DB_PREFIX . $d->tableName();
-        $request .= (isset($isInstalled) AND $isInstalled != null) ? ($isInstalled ? " WHERE position > -1" : " WHERE position = -1") : "";
+        $request .= ($isInstalled !== null) ? ($isInstalled ? " WHERE position > -1" : " WHERE position = -1") : "";
         $request .= " ORDER BY position ASC, activate DESC, priority ASC";
         $results = Database::getAll($request);
         return $results == null ? array() : $results;

@@ -118,6 +118,7 @@ input {
     margin: 0 auto 70px;
     border-radius: 150px;
     box-shadow: 0px 0px 2px #CCCCCC;
+    background-color: #CCCCCC;
     overflow: hidden;
     position: relative;
 }
@@ -403,6 +404,7 @@ textarea.actualite_area_text {
     margin: auto;
     border-radius: 50px;
     box-shadow: 0 0 2px #AAA;
+    background-color: #AAA;
     overflow: hidden;
 }
 .notification_avatar_area > .notification_avatar img {
@@ -458,6 +460,62 @@ textarea.actualite_area_text {
 }
 
 
+
+.friend_line {
+    width: 100%;
+    margin: 20px auto;
+}
+.friend_line_avatar_area {
+    width: 130px;
+    float: left;
+}
+.friend_line_avatar_area > .friend_line_avatar {
+    width: 50px;
+    height: 50px;
+    margin: auto;
+    border-radius: 50px;
+    box-shadow: 0 0 2px #AAA;
+    background-color: #AAA;
+    overflow: hidden;
+}
+.friend_line_avatar_area > .friend_line_avatar img {
+    width: 50px;
+    height: 50px;
+    margin: auto;
+}
+.friend_line_name_area {
+    width: 530px;
+    height: 50px;
+    float: left;
+    background-color: #FEFEFE;
+    box-shadow: 0 0 2px #AAA;
+    border-radius: 2px;
+    overflow: hidden;
+}
+.friend_line_name {
+    margin-left: 20px;
+    line-height: 50px;
+    font-size: 11px;
+    color: #333;
+}
+.friend_line_name a {
+    color: #071438;
+    text-decoration: none;
+    font-weight: 600;
+}
+.friend_line_name a:hover {
+    color: #4b556e;
+}
+.friend_line_name_icon {
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    font-size: 14px;
+    float: right;
+    color: #071438;
+    text-align: center;
+    display: inline-block;
+}
 
 
 
