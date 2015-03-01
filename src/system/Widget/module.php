@@ -68,7 +68,7 @@ class Widget implements SystemModule {
             $wo->callback = implode("::", $v["callback"]);
             $wo->permissions = $v["permissions"];
             $wo->save();
-            if(isset($widgets[$k])){
+            if (isset($widgets[$k])) {
                 unset($widgets[$k]);
             }
         }
@@ -83,7 +83,13 @@ class Widget implements SystemModule {
         $w = WidgetObject::loadByPosition($position);
         if ($callable != null) {
             foreach ($w as $k => $v) {
-                $callable(call_user_func($v->callback));
+                $run = true;
+                $r = method_invoke_all("permissions", array($v->permissions));
+                foreach ($r as $tt)
+                    if ($tt == false)
+                        $run = false;
+                if ($run)
+                    $callable(call_user_func($v->callback));
             }
         }
     }
@@ -125,13 +131,13 @@ class Widget implements SystemModule {
         $u = count($unistalled_widgets);
 
         $notification = "";
-        $notification .= ($c+$u) > 1 ? "%cnt widgets disponibles" : (($c+$u) == 1 ? "%cnt widget disponible" : "Aucun widget disponible");
-        if($c > 0){
+        $notification .= ($c + $u) > 1 ? "%cnt widgets disponibles" : (($c + $u) == 1 ? "%cnt widget disponible" : "Aucun widget disponible");
+        if ($c > 0) {
             $notification .= $a > 1 ? " · %ant widgets activés" : ($a == 1 ? " · %ant widget activé" : "");
             $notification .= $c > 1 ? " · %int widgets installés" : ($c == 1 ? " · %int widget installé" : "");
             $notification .= $u > 1 ? " · %unt widgets désinstallés" : ($u == 1 ? " · %unt widget désinstallé" : "");
         }
-        Notification::statusNotify(t("$notification", array("%cnt" => $c+$u, "%ant" => $a, "%int" => $c, "%unt" => $u)), Notification::STATUS_INFO);
+        Notification::statusNotify(t("$notification", array("%cnt" => $c + $u, "%ant" => $a, "%int" => $c, "%unt" => $u)), Notification::STATUS_INFO);
 
         $r = array(t("Nom du widget"), t("Etat du widget"), t("Actions"));
         $array = array();
@@ -150,7 +156,7 @@ class Widget implements SystemModule {
             if ($w->activate) {
                 $array[] = array($w->widget_name, t("Activé"), $disable, $k == 0 ? $up_disabled : $up, $k == ($a - 1) ? $down_disabled : $down);
             } else {
-                $array[] = array($w->widget_name, t("Désactivé"), $enable." - ".$uninstall, $up_disabled, $down_disabled);
+                $array[] = array($w->widget_name, t("Désactivé"), $enable . " - " . $uninstall, $up_disabled, $down_disabled);
             }
         }
         foreach ($unistalled_widgets as $k => $w) {

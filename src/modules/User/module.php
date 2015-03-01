@@ -30,7 +30,7 @@ class User implements Module {
     }
 
     public function widget($item = array()) {
-        $item["user_logged"] = array("permissions" => "logged", "callback" => array("User", "widget_user_logged"));
+        $item["user_logged"] = array("permissions" => "access content", "callback" => array("User", "widget_user_logged"));
         return $item;
     }
 

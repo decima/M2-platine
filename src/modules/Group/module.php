@@ -13,7 +13,9 @@ class Group implements Module {
     public function info() {
         return array(
             "name" => "Group",
-            "readablename" => "Groups"
+            "readablename" => "Groups",
+            "dependencies"=>array("User"),
+            
         );
     }
 

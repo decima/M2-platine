@@ -12,7 +12,8 @@ class PermissionsManager implements Module {
     public function info() {
         return array(
             "name" => "PermissionsManager",
-            "readablename" => "Permissions Manager"
+            "readablename" => "Permissions Manager",
+            "dependencies" => array("Group"),
         );
     }
 
@@ -149,7 +150,7 @@ class PermissionsManager implements Module {
     }
 
     public function permissions($permission) {
-        
+
         if (strtolower($permission) == "full access") {
             return true;
         }
@@ -172,7 +173,6 @@ class PermissionsManager implements Module {
             }
         }
         return false;
-        
     }
 
 }
