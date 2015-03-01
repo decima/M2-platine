@@ -81,6 +81,15 @@ class ModuleManager implements SystemModule {
 
     public static function install_module($moduleName, $path) {
         require_once($path);
+        $m = new $moduleName();
+        $info = $m->info();
+        if(isset($info['dependencies'])){
+            foreach($info['dependencies'] as $d){
+                if(!self::is_enabled($d)){
+                    return false;
+                }
+            }
+        }
         if (!self::is_installed($moduleName)) {
             $schema = method_invoke($moduleName, "schema");
             try {
