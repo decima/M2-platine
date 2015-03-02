@@ -78,6 +78,10 @@ class User implements Module {
             "access" => "access content",
             "callback" => array("User", "page_profile")
         );
+        $item['/profile/@'] = array(
+            "access" => "access content",
+            "callback" => array("User", "page_profile")
+        );
         $item['/'] = array(
             "access" => "full access",
             "callback" => array("User", "page_home")
@@ -202,8 +206,14 @@ class User implements Module {
         header("location:" . Page::url("/"));
     }
 
-    public static function page_profile() {
+    public static function page_profile($id_user = null) {
         $theme = new Theme();
+        if($id_user == null)
+            $id_user = self::get_user_logged_id();
+
+        $result = method_invoke_all("hook_profile_view", array($id_user));
+        foreach($result as $r)
+            $theme->add_to_body($r);
         $theme->process_theme(Theme::STRUCT_DEFAULT);
     }
 

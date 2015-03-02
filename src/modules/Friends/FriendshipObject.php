@@ -50,8 +50,18 @@ class FriendshipObject extends DataObject {
         $request = "SELECT * FROM " . CONFIG_DB_PREFIX . $d->tableName();
         $request .= (isset($id_demandeur) AND $id_demandeur != null) ? " WHERE sid = $id_demandeur" : "";
         $request .= (isset($id_receveur) AND $id_receveur != null) ? ((isset($id_demandeur) AND $id_demandeur != null) ? " AND" : " WHERE" )." rid = $id_demandeur" : "";
-        $request .= " ORDER BY date ASC, sid ASC, rid ASC";
+        $request .= "AND accepted = 0 ORDER BY date ASC, sid ASC, rid ASC";
         $results = Database::getAll($request);
         return $results == null ? array() : $results;
+    }
+
+    public static function isFriend($id_demandeur, $id_receveur) {
+        $d = new FriendshipObject();
+        $request = "SELECT * FROM " . CONFIG_DB_PREFIX . $d->tableName();
+        $request .= " WHERE (sid = $id_demandeur OR sid = $id_receveur)";
+        $request .= " AND (rid = $id_demandeur OR rid = $id_receveur)";
+        $request .= "AND accepted = 1";
+        $results = Database::getAll($request);
+        return $results == null ? false : true;
     }
 }

@@ -30,6 +30,14 @@ class Friends implements Module {
             "access" => "access content",
             "callback" => array("Friends", "list_of_friends"),
         );
+        $item['/friends/request/@'] = array(
+            "access" => "access content",
+            "callback" => array("Friends", "send_request"),
+        );
+        $item['/friends/remove/@'] = array(
+            "access" => "access content",
+            "callback" => array("Friends", "remove"),
+        );
         
         return $item;
     }
@@ -68,6 +76,70 @@ class Friends implements Module {
         }
         $theme->process_theme(Theme::STRUCT_ADMIN);
 
+        return;
+    }
+
+
+    public static function hook_profile_view($id_user){
+        $u = User::get_user_logged_id();
+        $button = "";
+        // Si on est sur le profil de quelqu'un
+        if($u != $id_user) {
+            if(FriendshipObject::isFriend($u, $id_user)){
+                $button = Theme::linking(Page::url("/friends/remove/$id_user"), t("<i class=\"fa fa-user-times fa-fw\"></i> Retirer"));
+            }
+            else {
+                $button = Theme::linking(Page::url("/friends/request/$id_user"), t("<i class=\"fa fa-user-plus fa-fw\"></i> Ajouter"));
+            }
+        }
+        return $button;
+    }
+
+
+    public static function send_request($id_user){
+        $u = User::get_user_logged_id();
+        $a = new UserObject();
+
+        if($u != null){
+            if($a->load($id_user)){
+                if(!FriendshipObject::isFriend($u, $id_user) && !FriendshipObject::loadAllPendingRequests($u, $id_user)){
+                    $friendship = new FriendshipObject();
+                    $friendship->__set("sid", $u);
+                    $friendship->__set("rid", $id_user);
+                    $friendship->__set("accepted", 0);
+                    $friendship->__set("date", date("Y-m-d H:i:s"));
+                    $friendship->save();
+                }
+                header("location: " . Page::url("/profile/$id_user"));
+                return;
+            }
+            header("location: " . Page::url("/profile"));
+            return;
+        }
+        header("location: " . Page::url("/"));
+        return;
+    }
+
+
+    public static function remove($id_user){
+        $u = User::get_user_logged_id();
+        $a = new UserObject();
+
+        if($u != null){
+            if($a->load($id_user)){
+                if(FriendshipObject::isFriend($u, $id_user)){
+                    $friendship = new FriendshipObject();
+                    if(!$friendship->load($u, $id_user))
+                        $friendship->load($id_user, $u);
+                    $friendship->delete();
+                }
+                header("location: " . Page::url("/profile/$id_user"));
+                return;
+            }
+            header("location: " . Page::url("/profile"));
+            return;
+        }
+        header("location: " . Page::url("/"));
         return;
     }
 }
