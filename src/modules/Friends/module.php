@@ -114,6 +114,9 @@ class Friends implements Module {
             }
             $button .= Theme::linking(Page::url("/messages/$id_user"), t("<i class=\"fa fa-envelope fa-fw\"></i> Messgaerie"), false, $atr);
         }
+        else {
+            $button .= Theme::linking(Page::url("/messages"), t("<i class=\"fa fa-envelope fa-fw\"></i> Messgaerie"), false, $atr);
+        }
         return $button;
     }
 
