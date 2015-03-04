@@ -83,9 +83,9 @@ class ModuleManager implements SystemModule {
         require_once($path);
         $m = new $moduleName();
         $info = $m->info();
-        if(isset($info['dependencies'])){
-            foreach($info['dependencies'] as $d){
-                if(!self::is_enabled($d)){
+        if (isset($info['dependencies'])) {
+            foreach ($info['dependencies'] as $d) {
+                if (!self::is_enabled($d)) {
                     return false;
                 }
             }
@@ -141,6 +141,14 @@ class ModuleManager implements SystemModule {
     }
 
     public static function disable_module($moduleName) {
+        $infos = method_invoke_all("info");
+        foreach ($infos as $f) {
+            if (isset($f['dependencies'])) {
+                if(in_array($moduleName,$f['dependencies'])){
+                    return false;
+                }
+            }
+        }
         $rust = file_get_contents("./cache/classes.php");
         if (!self::is_installed($moduleName) || !self::is_enabled($moduleName)) {
             return false;
@@ -212,8 +220,8 @@ class ModuleManager implements SystemModule {
         $theme = new Theme();
 
         $theme->set_title(t("Liste des modules disponibles"));
-        Notification::statusNotify(t("%cnt modules disponibles",array("%cnt"=>count($modules))), Notification::STATUS_INFO);
-        $r = array(t("Nom du module"), t("Etat du module"), t("Actions"));
+        Notification::statusNotify(t("%cnt modules disponibles", array("%cnt" => count($modules))), Notification::STATUS_INFO);
+        $r = array(t("Nom du module"), t("dépendances"), t("Etat du module"), t("Actions"));
         $array = array();
         foreach ($modules as $m) {
 
@@ -231,25 +239,30 @@ class ModuleManager implements SystemModule {
                 $link_2 = $uninstall;
             }
             if (!self::is_installed($m['name'])) {
-                $link_1=$install;$link_2 = null;
+                $link_1 = $install;
+                $link_2 = null;
                 $statement = t("désinstallé");
             }
 
 
             if ($m["system_module"] == 1) {
-                $rtm = t("système");
-                                $statement = t("");
-
+                $rtm = ""; //t("système");
+                $statement = t("système");
             } else {
-                $rtm = ($link_1).($link_2==null?"":" - ").$link_2;
+                $rtm = ($link_1) . ($link_2 == null ? "" : " - ") . $link_2;
             }
-            $array[] = array($m["readablename"], $statement, $rtm);
+            $dependencies = "";
+            if (isset($m['dependencies'])) {
+                $dependencies = implode(", ", $m['dependencies']);
+            }
+            $array[] = array($m["readablename"], $dependencies, $statement, $rtm);
         }
 
 
 
         usort($array, function($a, $b) {
-            return strcmp($a[0], $b[0]);
+
+            return strcmp($a[2], $b[2]) * 10 + strcmp($a[0], $b[0]);
         });
         $theme->add_to_body($theme->tabling($array, $r));
         $theme->process_theme(Theme::STRUCT_ADMIN);
