@@ -40,7 +40,7 @@ class User implements Module {
 
         if ($user != null) {
             $output .= "<div id=\"page_lateral_profil_avatar\">";
-            $output .= "<img alt=\"\" src=\"../images/florent_peysson_n.png\"/>";
+            $output .= "<img alt=\"\" src=\"\"/>";
             $output .= "</div>";
             $output .= "<div id=\"page_lateral_profil_nom\">";
             $output .= Theme::linking(Page::url("/profile"), "<i class=\"fa fa-gear fa-fw\"></i> $user->firstname  $user->lastname");
@@ -208,12 +208,35 @@ class User implements Module {
 
     public static function page_profile($id_user = null) {
         $theme = new Theme();
-        if($id_user == null)
+        $isMyProfil = false;
+        if($id_user == null){
             $id_user = self::get_user_logged_id();
+            $isMyProfil = true;
+        }
 
+        $u = new UserObject();
+        $u -> load($id_user);
+
+        $output = "";
+        $output .= "<div id=\"profil_top\">";
+            $output .= "<div id=\"profil_top_avatar\">";
+                $output .= Theme::linking("", "<img src=\"\" alt=\"\"/>");
+            $output .= "</div>";
+            $output .= "<div id=\"profil_top_avatar_nom\">";
+            if($isMyProfil)
+                $output .= "<i class=\"fa fa-user fa-fw\" title=\"Mon profil\"></i>";
+                $output .= $u->firstname." ".$u->lastname;
+            $output .= "</div>";
+        $output .= "</div>";
+        $output .= "<div class=\"page_contenu_sep\"></div>";
+
+        $output .= "<div id=\"profil_buttons\">";
         $result = method_invoke_all("hook_profile_view", array($id_user));
         foreach($result as $r)
-            $theme->add_to_body($r);
+            $output .= $r;
+        $output .= "</div>";
+
+        $theme->add_to_body($output);
         $theme->process_theme(Theme::STRUCT_DEFAULT);
     }
 

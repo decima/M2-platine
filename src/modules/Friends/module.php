@@ -38,6 +38,14 @@ class Friends implements Module {
             "access" => "access content",
             "callback" => array("Friends", "remove"),
         );
+        $item['/friends/accept/@'] = array(
+            "access" => "access content",
+            "callback" => array("Friends", "accept"),
+        );
+        $item['/friends/decline/@'] = array(
+            "access" => "access content",
+            "callback" => array("Friends", "decline"),
+        );
         
         return $item;
     }
@@ -83,13 +91,26 @@ class Friends implements Module {
     public static function hook_profile_view($id_user){
         $u = User::get_user_logged_id();
         $button = "";
+        $atr = array();
+        $atr["class"] = "btn";
+
+        $demande_envoyee = FriendshipObject::loadAllPendingRequests($u, $id_user);
+        $demande_attente = FriendshipObject::loadAllPendingRequests($id_user, $u);
+
         // Si on est sur le profil de quelqu'un
         if($u != $id_user) {
             if(FriendshipObject::isFriend($u, $id_user)){
-                $button = Theme::linking(Page::url("/friends/remove/$id_user"), t("<i class=\"fa fa-user-times fa-fw\"></i> Retirer"));
+                $button = Theme::linking(Page::url("/friends/remove/$id_user"), t("<i class=\"fa fa-user-times fa-fw\"></i> Retirer"), false, $atr);
+            }
+            else if(sizeof($demande_envoyee) > 0) {
+                $button = Theme::linking(Page::url(""), t("<i class=\"fa fa-external-link-square fa-fw\"></i> Demande envoyée"), false, $atr);
+            }
+            else if(sizeof($demande_attente) > 0) {
+                $button = Theme::linking(Page::url("/friends/decline/$id_user"), t("<i class=\"fa fa-times fa-fw\"></i> Annuler"), false, $atr);
+                $button .= " ".Theme::linking(Page::url("/friends/accept/$id_user"), t("<i class=\"fa fa-check fa-fw\"></i> Accepter"), false, $atr);
             }
             else {
-                $button = Theme::linking(Page::url("/friends/request/$id_user"), t("<i class=\"fa fa-user-plus fa-fw\"></i> Ajouter"));
+                $button = Theme::linking(Page::url("/friends/request/$id_user"), t("<i class=\"fa fa-user-plus fa-fw\"></i> Ajouter"), false, $atr);
             }
         }
         return $button;
@@ -131,6 +152,50 @@ class Friends implements Module {
                     $friendship = new FriendshipObject();
                     if(!$friendship->load($u, $id_user))
                         $friendship->load($id_user, $u);
+                    $friendship->delete();
+                }
+                header("location: " . Page::url("/profile/$id_user"));
+                return;
+            }
+            header("location: " . Page::url("/profile"));
+            return;
+        }
+        header("location: " . Page::url("/"));
+        return;
+    }
+
+
+    public static function accept($id_user){
+        $u = User::get_user_logged_id();
+        $a = new UserObject();
+
+        if($u != null){
+            if($a->load($id_user)){
+                if(!FriendshipObject::isFriend($u, $id_user) && sizeof($req = FriendshipObject::loadAllPendingRequests($id_user, $u)) > 0){
+                    $friendship = new FriendshipObject();
+                    $friendship->load($id_user, $u);
+                    $friendship->__set("accepted", 1);
+                    $friendship->save();
+                }
+                header("location: " . Page::url("/profile/$id_user"));
+                return;
+            }
+            header("location: " . Page::url("/profile"));
+            return;
+        }
+        header("location: " . Page::url("/"));
+        return;
+    }
+
+    public static function decline($id_user){
+        $u = User::get_user_logged_id();
+        $a = new UserObject();
+
+        if($u != null){
+            if($a->load($id_user)){
+                if(!FriendshipObject::isFriend($u, $id_user) && sizeof($req = FriendshipObject::loadAllPendingRequests($id_user, $u)) > 0){
+                    $friendship = new FriendshipObject();
+                    $friendship->load($id_user, $u);
                     $friendship->delete();
                 }
                 header("location: " . Page::url("/profile/$id_user"));

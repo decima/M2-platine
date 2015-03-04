@@ -49,8 +49,8 @@ class FriendshipObject extends DataObject {
         $d = new FriendshipObject();
         $request = "SELECT * FROM " . CONFIG_DB_PREFIX . $d->tableName();
         $request .= (isset($id_demandeur) AND $id_demandeur != null) ? " WHERE sid = $id_demandeur" : "";
-        $request .= (isset($id_receveur) AND $id_receveur != null) ? ((isset($id_demandeur) AND $id_demandeur != null) ? " AND" : " WHERE" )." rid = $id_demandeur" : "";
-        $request .= "AND accepted = 0 ORDER BY date ASC, sid ASC, rid ASC";
+        $request .= (isset($id_receveur) AND $id_receveur != null) ? ((isset($id_demandeur) AND $id_demandeur != null) ? " AND" : " WHERE" )." rid = $id_receveur" : "";
+        $request .= " AND accepted = 0 ORDER BY date ASC, sid ASC, rid ASC";
         $results = Database::getAll($request);
         return $results == null ? array() : $results;
     }
