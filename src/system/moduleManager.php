@@ -97,6 +97,7 @@ class ModuleManager implements SystemModule {
                 $res = method_invoke($moduleName, "install");
                 $t = $res == null ? true : $res;
                 if ($t) {
+                    method_invoke_all("hook_module_install", $moduleName);
                     self::cache_i($moduleName);
                 }
                 return $t;
@@ -117,6 +118,7 @@ class ModuleManager implements SystemModule {
         $res = method_invoke($moduleName, "uninstall");
         $t = $res == null ? true : $res;
         if ($t) {
+            method_invoke_all("hook_module_uninstall", $moduleName);
             self::cache_ui($moduleName);
         }
         return $t;
@@ -135,8 +137,11 @@ class ModuleManager implements SystemModule {
         $t = $res !== false ? true : false;
 
         if ($t) {
+            method_invoke_all("hook_module_enable", $moduleName);
+
             self::cache_ea($moduleName);
         }
+        method_invoke_all("hook_module_uninstall", $moduleName);
         return $t;
     }
 
@@ -144,7 +149,7 @@ class ModuleManager implements SystemModule {
         $infos = method_invoke_all("info");
         foreach ($infos as $f) {
             if (isset($f['dependencies'])) {
-                if(in_array($moduleName,$f['dependencies'])){
+                if (in_array($moduleName, $f['dependencies'])) {
                     return false;
                 }
             }
@@ -165,6 +170,7 @@ class ModuleManager implements SystemModule {
         $res = method_invoke($moduleName, "disable");
         $t = $res == null ? true : $res;
         if ($t) {
+            method_invoke_all("hook_module_disable", $moduleName);
             self::cache_da($moduleName);
         }
         return $t;
