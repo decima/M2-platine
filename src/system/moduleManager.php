@@ -141,7 +141,6 @@ class ModuleManager implements SystemModule {
 
             self::cache_ea($moduleName);
         }
-        method_invoke_all("hook_module_uninstall", $moduleName);
         return $t;
     }
 
