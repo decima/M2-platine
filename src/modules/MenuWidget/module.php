@@ -28,7 +28,7 @@ class MenuWidget implements Module {
         $list = array();
         $list[] = Theme::linking(Page::url("/admin/view/widget"), t("<i class=\"fa fa-cogs fa-fw\"></i> Widgets"));
 
-        return t("<i class=\"fa fa-laptop fa-fw\"></i> Vue") . $theme->listing($list);
+        return t("<div class=\"widget_titre\"><i class=\"fa fa-laptop fa-fw\"></i> Vue</div>") . $theme->listing($list);
     }
 
     public function widget_menu_utilisateurs_groupes() {
@@ -39,7 +39,7 @@ class MenuWidget implements Module {
         $list[] = Theme::linking(Page::url("/admin/groups/"), t("<i class=\"fa fa-users fa-fw\"></i> Gérer les groupes"));
         $list[] = Theme::linking(Page::url("/admin/permissions/"), t("<i class=\"fa fa-shield fa-fw\"></i> Gérer les permissions"));
 
-        return t("<i class=\"fa fa-users fa-fw\"></i> Utilisateurs") . $theme->listing($list);
+        return t("<div class=\"widget_titre\"><i class=\"fa fa-users fa-fw\"></i> Utilisateurs</div>") . $theme->listing($list);
     }
 
     public function widget_menu_system() {
@@ -49,7 +49,7 @@ class MenuWidget implements Module {
         $list[] = Theme::linking(Page::url("/admin/modules/"), t("<i class=\"fa fa-puzzle-piece fa-fw\"></i> Modules"));
         $list[] = Theme::linking(Page::url("/admin/database/"), t("<i class=\"fa fa-database fa-fw\"></i> Base de données"));
 
-        return t("<i class=\"fa fa-wrench fa-fw\"></i> Système") . $theme->listing($list);
+        return t("<div class=\"widget_titre\"><i class=\"fa fa-wrench fa-fw\"></i> Système</div>") . $theme->listing($list);
     }
 
 }

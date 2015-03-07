@@ -47,6 +47,7 @@ class User implements Module {
             $output .= "</div>";
             $output .= "<div class=\"page_lateral_profil_sep\"><div class=\"page_lateral_profil_sep_barre\"></div></div>";
             $output .= "<div id=\"page_lateral_liens\">";
+            $output .= Theme::linking(Page::url("/"), "<i class=\"fa fa-tachometer fa-fw\"></i>");
             $output .= Theme::linking(Page::url("/logout"), "<i class=\"fa fa-power-off fa-fw\"></i>");
             $output .= "</div>";
         }

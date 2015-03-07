@@ -36,6 +36,13 @@ class Theme extends Themed {
         require_once './themes/default/templates/menu.php';
     }
 
+    public static function add_to_menu($element) {
+        $m = &parent::get_menu();
+        if(sizeof($m) > 0)
+            $m[] = "<div class=\"page_lateral_widget_sep\"></div>";
+        $m[] = "<div class=\"page_lateral_widget\">".$element."</div>";
+    }
+
     public static function add_to_body($element, $title = null, $index = null) {
         $output = "";
         if($title != null){

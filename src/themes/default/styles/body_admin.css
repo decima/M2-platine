@@ -1070,3 +1070,45 @@ label.label_input_checkbox_radio {
 {
     color: #CCC;
 }
+
+
+
+
+.page_lateral_widget {
+    width: 250px;
+    margin: auto;
+}
+.page_lateral_widget > .widget_titre {
+    margin-bottom: 5px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #202C4C;
+}
+.page_lateral_widget > ul {
+    list-style-type: none;
+    padding: 0;
+    margin: auto;
+}
+.page_lateral_widget > ul > li {
+    display: inline-block;
+}
+.page_lateral_widget > ul > li > a {
+    width: 230px;
+    display: block;
+    color: #202C4C;
+    text-decoration: none;
+    padding: 5px 10px;
+    margin: auto auto 5px;
+    font-size: 13px;
+    font-weight: 600;
+}
+.page_lateral_widget > ul > li > a:hover {
+    background-color: #4b556e;
+    color: #FEFEFE;
+}
+.page_lateral_widget_sep {
+    width: 250px;
+    height: 1px;
+    margin: 20px auto;
+    background-color: #CCC;
+}

@@ -25,7 +25,7 @@ abstract class Themed {
     public static function get_head() {
         return self::$head;
     }
-    public static function get_menu() {
+    public static function &get_menu() {
         return self::$menu;
     }
     public static function &get_body() {
