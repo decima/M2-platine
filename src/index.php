@@ -21,6 +21,7 @@ require 'system/Page.php';
 require 'system/moduleManager.php';
 require 'system/Notification.php';
 require 'system/Widget/module.php';
+require 'system/File/module.php';
 
 require 'cache/classes.php';
 require 'cache/theme.php';
