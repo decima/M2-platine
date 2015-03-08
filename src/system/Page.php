@@ -39,11 +39,10 @@ class Page implements SystemModule {
         if (isset($res["access"])) {
 
             $r = method_invoke_all("permissions", array($res["access"]));
-            
+
             foreach ($r as $tt) {
                 if ($tt == false) {
                     $run = false;
-                    
                 }
             }
         }
@@ -65,7 +64,7 @@ class Page implements SystemModule {
         }
         $executed = false;
         $allowed = true;
-        
+
         if (isset($res["callback"]) && $run) {
 
             if (is_array($res['callback']) && count($res['callback']) == 2) {
@@ -106,7 +105,7 @@ class Page implements SystemModule {
     }
 
     public static function url($path = "/") {
-        $s = $_SERVER["REQUEST_SCHEME"];
+        $s = isset($_SERVER["REQUEST_SCHEME"]) ? $_SERVER["REQUEST_SCHEME"] : "http";
         $s .="://" . $_SERVER['SERVER_NAME'];
         if ($_SERVER['SERVER_PORT'] != 443 && $_SERVER['SERVER_PORT'] != 80)
             $s .=":" . $_SERVER['SERVER_PORT'];
@@ -114,7 +113,10 @@ class Page implements SystemModule {
         $s .=str_replace("/index.php", "", $_SERVER['PHP_SELF']);
         return $s . $path;
     }
-
+    public static function path($path="/"){
+        $s =  getcwd();
+        return $s.$path;
+    }
     public function get_declared_pages() {
         $res = (method_invoke_all("menu", array(), true));
         $t = array();
