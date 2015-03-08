@@ -158,7 +158,7 @@ class User implements Module {
                 if ($_POST['password'] == $_POST['password_confirm']) {
                     try {
                         $ret = self::create($_POST['login'], $_POST['password'], $_POST['first_name'], $_POST['last_name']);
-                        self::page_logout();
+                        header("location:" . Page::url("/"));
                     } catch (Exception_Database_Exists $e) {
                         Notification::statusNotify(t("L'identifiant est déjà utilisé."), Notification::STATUS_ERROR);
                     } catch (Exception_Database_Format $e) {
@@ -198,7 +198,9 @@ class User implements Module {
 
     public static function page_main() {
         $theme = new Theme();
-        $theme->add_to_body("hello world");
+        $res = method_invoke_all($homepage, array(), true);
+        foreach ($res as $r)
+            $theme->add_to_body($r);
         $theme->process_theme(Theme::STRUCT_DEFAULT);
     }
 
@@ -210,30 +212,30 @@ class User implements Module {
     public static function page_profile($id_user = null) {
         $theme = new Theme();
         $isMyProfil = false;
-        if($id_user == null){
+        if ($id_user == null) {
             $id_user = self::get_user_logged_id();
             $isMyProfil = true;
         }
 
         $u = new UserObject();
-        $u -> load($id_user);
+        $u->load($id_user);
 
         $output = "";
         $output .= "<div id=\"profil_top\">";
-            $output .= "<div id=\"profil_top_avatar\">";
-                $output .= Theme::linking("", "<img src=\"\" alt=\"\"/>");
-            $output .= "</div>";
-            $output .= "<div id=\"profil_top_avatar_nom\">";
-            if($isMyProfil)
-                $output .= "<i class=\"fa fa-user fa-fw\" title=\"Mon profil\"></i>";
-                $output .= $u->firstname." ".$u->lastname;
-            $output .= "</div>";
+        $output .= "<div id=\"profil_top_avatar\">";
+        $output .= Theme::linking("", "<img src=\"\" alt=\"\"/>");
+        $output .= "</div>";
+        $output .= "<div id=\"profil_top_avatar_nom\">";
+        if ($isMyProfil)
+            $output .= "<i class=\"fa fa-user fa-fw\" title=\"Mon profil\"></i>";
+        $output .= $u->firstname . " " . $u->lastname;
+        $output .= "</div>";
         $output .= "</div>";
         $output .= "<div class=\"page_contenu_sep\"></div>";
 
         $output .= "<div id=\"profil_buttons\">";
         $result = method_invoke_all("hook_profile_view", array($id_user));
-        foreach($result as $r)
+        foreach ($result as $r)
             $output .= $r;
         $output .= "</div>";
 
