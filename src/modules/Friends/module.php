@@ -12,7 +12,8 @@ class Friends implements Module {
     public function info() {
         return array(
             "name" => "Friends",
-            "readablename" => "Friends"
+            "readablename" => "Friends",
+            "dependencies" => array("User")
         );
     }
 

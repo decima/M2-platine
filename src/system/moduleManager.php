@@ -226,7 +226,7 @@ class ModuleManager implements SystemModule {
 
         $theme->set_title(t("Liste des modules disponibles"));
         Notification::statusNotify(t("%cnt modules disponibles", array("%cnt" => count($modules))), Notification::STATUS_INFO);
-        $r = array(t("Nom du module"), t("dépendances"), t("Etat du module"), t("Actions"));
+        $r = array(t("Nom du module"), t("Dépendances"), t("Etat du module"), t("Actions"));
         $array = array();
         foreach ($modules as $m) {
 
