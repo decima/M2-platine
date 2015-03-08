@@ -1,5 +1,6 @@
 /nbproject/
-
+/src/cache/
+/src/config/
 
 ### WebStorm ###
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm
