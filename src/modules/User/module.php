@@ -95,6 +95,10 @@ class User implements Module {
             "access" => "full access",
             "callback" => array("User", "page_logout")
         );
+        $item["/profile/settings/avatar"] = array(
+            "access" => "full access",
+            "callback" => array("User", "page_set_avatar")
+        );
         return $item;
     }
 
@@ -223,7 +227,11 @@ class User implements Module {
         $output = "";
         $output .= "<div id=\"profil_top\">";
         $output .= "<div id=\"profil_top_avatar\">";
-        $output .= Theme::linking("", "<img src=\"\" alt=\"\"/>");
+            if($isMyProfil){
+                $output .= Theme::linking(Page::url("/profile/settings/avatar"), "<img src=\"\" alt=\"\"/><span id=\"profil_top_avatar_changeBG\"></span><span id=\"profil_top_avatar_changeTxt\">".t("Modifier")."</span>");
+            } else {
+                $output .= "<img src=\"\" alt=\"\"/>";
+            }
         $output .= "</div>";
         $output .= "<div id=\"profil_top_avatar_nom\">";
         if ($isMyProfil)
@@ -241,6 +249,33 @@ class User implements Module {
 
         $theme->add_to_body($output);
         $theme->process_theme(Theme::STRUCT_DEFAULT);
+    }
+
+    public static function page_set_avatar(){
+        $theme = new Theme();
+
+        if(isset($_FILES['file'])){
+            $file = new FileObject();
+            if($file -> uploadFile($_FILES['file'])){
+                header("location: " . Page::url("/profile"));
+                return;
+            } else {
+                Notification::statusNotify(t("Une erreur s'est produite lors de l'upload."), Notification::STATUS_ERROR);
+            }
+        }
+
+        $f = new Form("POST", Page::url("/file/upload"));
+        $f -> setAttribute("enctype", "multipart/form-data");
+        $t = (new InputElement("file", t("Fichier : "), "", "file"));
+        $f->addElement($t);
+
+        $t = (new InputElement("submit-file", "", t("Charger"), "submit"));
+        $f->addElement($t);
+        $formulaire = $theme->forming($f);
+        $theme->set_title("Changer mon avatar");
+        $theme->add_to_body($formulaire);
+        $theme->process_theme(Theme::STRUCT_ADMIN);
+        return;
     }
 
     public function permissions() {
