@@ -102,13 +102,13 @@ class Database implements SystemModule {
     }
 
     public static function insert($table, $fields, $duplicate = false) {
-        $imploding = implode(",", array_keys(objectToArray($fields)));
+        $imploding = implode("`,`", array_keys(objectToArray($fields)));
         $values = "'" . implode("','", array_values(objectToArray($fields))) . "'";
         $vals = array();
         foreach (objectToArray($fields) as $k => $v) {
-            $vals[] = "$k='$v'";
+            $vals[] = "`$k`='$v'";
         }
-        $sql = "INSERT INTO " . CONFIG_DB_PREFIX . $table . " ($imploding) VALUES($values)";
+        $sql = "INSERT INTO " . CONFIG_DB_PREFIX . $table . " (`$imploding`) VALUES($values)";
         if ($duplicate) {
             $im = implode(" , ", $vals);
             $sql .=" ON DUPLICATE KEY UPDATE " . $im;
