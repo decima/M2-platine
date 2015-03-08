@@ -245,6 +245,7 @@ class User implements Module {
         $result = method_invoke_all("hook_profile_view", array($id_user));
         foreach ($result as $r)
             $output .= $r;
+        $output .= "<div class=\"clear\"></div>";
         $output .= "</div>";
 
         $theme->add_to_body($output);
