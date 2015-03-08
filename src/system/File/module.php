@@ -34,51 +34,12 @@ class File implements SystemModule {
             "access" => "access content",
             "callback" => array("File", "page_download_content")
         );
+        $item['/file/upload'] = array(
+            "access" => "access content",
+            "callback" => array("File", "page_upload_content")
+        );
         return $item;
     }
-
-    /*
-    public function scanForWidget() {
-        $wraw = WidgetObject::loadAll();
-        $widgets = array();
-        foreach ($wraw as $w) {
-            $widgets[$w->widget_name] = $w;
-        }
-        $a = method_invoke_all("widget", array(), true);
-        foreach ($a as $k => $v) {
-            $wo = new WidgetObject();
-            $wo->load($k);
-            $wo->widget_name = $k;
-            $wo->module_name = "";
-            $wo->callback = implode("::", $v["callback"]);
-            $wo->permissions = $v["permissions"];
-            $wo->save();
-            if (isset($widgets[$k])) {
-                unset($widgets[$k]);
-            }
-        }
-        foreach ($widgets as $w) {
-            $wo = new WidgetObject();
-            $wo->load($k);
-            $wo->delete();
-        }
-    }
-
-    public function runWidgets($position = WidgetObject::WIDGET_LATERAL_LEFT, callable $callable = null) {
-        $w = WidgetObject::loadByPosition($position);
-        if ($callable != null) {
-            foreach ($w as $k => $v) {
-                $run = true;
-                $r = method_invoke_all("permissions", array($v->permissions));
-                foreach ($r as $tt)
-                    if ($tt == false)
-                        $run = false;
-                if ($run)
-                    $callable(call_user_func($v->callback));
-            }
-        }
-    }
-    */
 
     public static function page_download_content($id_file) {
         $theme = new Theme();
@@ -120,6 +81,32 @@ class File implements SystemModule {
         else {
             $theme->process_404();
         }
+        return;
+    }
+
+    public static function page_upload_content() {
+        $theme = new Theme();
+
+        if(isset($_FILES['file'])){
+            $file = new FileObject();
+            if($file -> uploadFile($_FILES['file'])){
+                Notification::statusNotify(t("Le fichier a bien été uploadé."), Notification::STATUS_SUCCESS);
+            } else {
+                Notification::statusNotify(t("Une erreur s'est produite lors de l'upload."), Notification::STATUS_ERROR);
+            }
+        }
+
+        $f = new Form("POST", Page::url("/file/upload"));
+        $f -> setAttribute("enctype", "multipart/form-data");
+        $t = (new InputElement("file", t("Fichier : "), "", "file"));
+        $f->addElement($t);
+
+        $t = (new InputElement("submit-file", "", t("Charger"), "submit"));
+        $f->addElement($t);
+        $formulaire = $theme->forming($f);
+        $theme->set_title("Charger un fichier");
+        $theme->add_to_body($formulaire);
+        $theme->process_theme(Theme::STRUCT_ADMIN);
         return;
     }
 

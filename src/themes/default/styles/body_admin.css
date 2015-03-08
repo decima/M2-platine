@@ -794,7 +794,13 @@ a.btn:active {
     -webkit-box-shadow: inset 0 0 6px #111;
     -o-box-shadow: inset 0 0 6px #111;
 }
-
+[type=file] {
+    width: auto;
+    padding: 0;
+    margin: 0;
+    background-color: transparent;
+    border: 0;
+}
 
 
 #bloc_central {
