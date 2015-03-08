@@ -148,7 +148,7 @@ class ModuleManager implements SystemModule {
         $infos = method_invoke_all("info");
         foreach ($infos as $f) {
             if (isset($f['dependencies'])) {
-                if (in_array($moduleName, $f['dependencies'])) {
+                if (in_array($moduleName, $f['dependencies'])&& ModuleManager::is_installed($f['name'])) {
                     return false;
                 }
             }
