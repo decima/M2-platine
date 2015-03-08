@@ -198,7 +198,7 @@ class User implements Module {
 
     public static function page_main() {
         $theme = new Theme();
-        $res = method_invoke_all($homepage, array(), true);
+        $res = method_invoke_all("hook_timeline", array(), true);
         foreach ($res as $r)
             $theme->add_to_body($r);
         $theme->process_theme(Theme::STRUCT_DEFAULT);
