@@ -80,12 +80,42 @@ class File implements SystemModule {
     }
     */
 
+    public static function page_download_content($id_file) {
+        $theme = new Theme();
+        $f = new FileObject();
+
+        if($f->load($id_file)) {
+            $f->nb_dl++;
+            $f->save();
+
+            $filename = Page::path($f->path);
+
+            if(ini_get('zlib.output_compression')) {
+                ini_set('zlib.output_compression', 'Off');
+            }
+
+            header('Pragma: public'); 	// required
+            header("Content-Type: $f->content_type");
+            header('Content-Disposition: attachment; filename="'.$f->id_file.'.'.$f->getExtension().'"');
+            header('Content-Transfer-Encoding: binary');
+            header('Content-Length: '.filesize($filename));	// provide file size
+            header('Connection: close');
+            readfile($filename);		// push it out
+            exit();
+        }
+        else {
+            $theme->process_404();
+        }
+        return;
+    }
+
     public static function page_display_content($id_file) {
         $theme = new Theme();
         $f = new FileObject();
-        $f->load($id_file);
-        if($f->id_file != null) {
 
+        if($f->load($id_file)) {
+            header("Content-Type: $f->content_type");
+            echo file_get_contents(Page::url($f->path));
         }
         else {
             $theme->process_404();

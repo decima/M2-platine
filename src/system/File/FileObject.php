@@ -9,7 +9,7 @@ class FileObject extends DataObject {
             "permission" => Database::FIELD_TYPE_STRING,
             "module" => Database::FIELD_TYPE_STRING,
             "path" => Database::FIELD_TYPE_STRING + Database::NOTNULLVAL,
-            "content-type" => Database::FIELD_TYPE_STRING,
+            "content_type" => Database::FIELD_TYPE_STRING,
             "nb_dl" => Database::FIELD_TYPE_INT
         );
     }
@@ -33,5 +33,9 @@ class FileObject extends DataObject {
 
     public function load($id) {
         return parent::load(array("id_file" => $id));
+    }
+
+    public function getExtension(){
+        return strtolower(substr(strrchr($this->path, '.'), 1));
     }
 }
