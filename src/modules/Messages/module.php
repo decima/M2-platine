@@ -54,7 +54,15 @@ class Messages implements Module {
         if (isset($_GET['page'])) {
             $page = $_GET['page'];
         }
-        echo json_encode(MessagesDB::getConversation(User::get_user_logged_id(), $id, $page));
+        $r = MessagesDB::getConversation(User::get_user_logged_id(), $id, $page);
+        foreach($r as $t=>$v){
+            $user = new UserObject();
+            $user->load($v->sid);
+            $r[$t]->avatar = $user->get_avatar();
+        }
+        
+        
+        return json_encode($r);
     }
 
     public function ajax_post_message($id) {
@@ -78,8 +86,7 @@ class Messages implements Module {
         $user = User::get_user_logged();
         $form = '<div method="post" id="messaging" class="actualite">
             <div class="actualite_avatar_area">
-                <div class="actualite_avatar">
-                    <i class="fa fa-4x fa-user"></i>                </div>
+                <div class="actualite_avatar avatar" style="background-image:url('.User::get_user_logged_avatar().');">            </div>
             </div>
             <div class="quoi_de_neuf_bloc">
                 <textarea class="actualite_area_text" placeholder="Saisissez votre message"></textarea>
@@ -115,8 +122,7 @@ class Messages implements Module {
 
                 $theme->add_to_body('<div class="messagerie">
             <div class="messagerie_avatar_area">
-                <div class="messagerie_avatar">
-                    <a href="profil_teresa_lisbon.html"><img src="../images/teresa_lisbon_m.png" alt="" /></a>
+                <div class="messagerie_avatar avatar" style="background-image:url('.$user->get_avatar().')">
                 </div>
                 <div class="messagerie_nom"><a>' . $user->firstname . ' <br/>' . $user->lastname . '</a></div>
             </div>
