@@ -76,6 +76,7 @@ class File implements SystemModule {
 
         if($f->load($id_file)) {
             header("Content-Type: $f->content_type");
+            header("Cache-Control: max-age=86400");
             echo file_get_contents(Page::url($f->path));
         }
         else {
