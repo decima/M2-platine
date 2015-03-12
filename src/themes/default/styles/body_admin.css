@@ -1118,3 +1118,12 @@ label.label_input_checkbox_radio {
     margin: 20px auto;
     background-color: #CCC;
 }
+
+#profil_buttons {
+    width: 510px;
+    margin: auto;
+    padding: 10px 20px;
+    background-color: #FEFEFE;
+    box-shadow: 0px 0px 2px #AAA;
+    border-radius: 2px;
+}

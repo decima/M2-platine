@@ -40,7 +40,7 @@ class User implements Module {
 
         if ($user != null) {
             $output .= "<div id=\"page_lateral_profil_avatar\">";
-            $output .= "<img alt=\"\" src=\"\"/>";
+            $output .= "<img alt=\"\" src=\"".$user->get_avatar()."\"/>";
             $output .= "</div>";
             $output .= "<div id=\"page_lateral_profil_nom\">";
             $output .= Theme::linking(Page::url("/profile"), "<i class=\"fa fa-gear fa-fw\"></i> $user->firstname  $user->lastname");
@@ -96,8 +96,12 @@ class User implements Module {
             "callback" => array("User", "page_logout")
         );
         $item["/profile/settings/avatar"] = array(
-            "access" => "full access",
+            "access" => "access content",
             "callback" => array("User", "page_set_avatar")
+        );
+        $item["/admin/users"] = array(
+            "access" => "administrer",
+            "callback" => array("User", "page_users")
         );
         return $item;
     }
@@ -132,6 +136,15 @@ class User implements Module {
             return $_SESSION['logged'];
         }
         return null;
+    }
+
+    public static function get_user_logged_avatar(){
+        if($a = self::get_user_logged()){
+            return $a->get_avatar();
+        }
+        else {
+            return false;
+        }
     }
 
     public static function page_login() {
@@ -213,6 +226,24 @@ class User implements Module {
         header("location:" . Page::url("/"));
     }
 
+    public static function page_users() {
+        $theme = new Theme();
+
+        $u = new UserObject();
+        $users = $u::loadAll();
+        foreach($users as $k => $v){
+            unset($users[$k]->password);
+        }
+        $atr = array();
+        $atr["class"] = "btn";
+
+        $theme->set_title("Liste des utilisateurs");
+        $theme->add_to_body(Theme::linking(Page::url("/signin"), t("<i class=\"fa fa-user-plus fa-fw\"></i> Créer un utilisateur"), false, $atr));
+        $theme->add_to_body("<div class='clear'></div>");
+        $theme->add_to_body($theme->tabling($users, array(t("Id"), t("Identifiant"), t("Prénom"), t("Nom"))));
+        $theme->process_theme(Theme::STRUCT_DEFAULT);
+    }
+
     public static function page_profile($id_user = null) {
         $theme = new Theme();
         $isMyProfil = false;
@@ -223,14 +254,15 @@ class User implements Module {
 
         $u = new UserObject();
         $u->load($id_user);
+        $url_avatar = $u->get_avatar();
 
         $output = "";
         $output .= "<div id=\"profil_top\">";
         $output .= "<div id=\"profil_top_avatar\">";
             if($isMyProfil){
-                $output .= Theme::linking(Page::url("/profile/settings/avatar"), "<img src=\"\" alt=\"\"/><span id=\"profil_top_avatar_changeBG\"></span><span id=\"profil_top_avatar_changeTxt\">".t("Modifier")."</span>");
+                $output .= Theme::linking(Page::url("/profile/settings/avatar"), "<img src=\"$url_avatar\" alt=\"\"/><span id=\"profil_top_avatar_changeBG\"></span><span id=\"profil_top_avatar_changeTxt\">".t("Modifier")."</span>");
             } else {
-                $output .= "<img src=\"\" alt=\"\"/>";
+                $output .= "<img src=\"$url_avatar\" alt=\"\"/>";
             }
         $output .= "</div>";
         $output .= "<div id=\"profil_top_avatar_nom\">";
@@ -245,6 +277,7 @@ class User implements Module {
         $result = method_invoke_all("hook_profile_view", array($id_user));
         foreach ($result as $r)
             $output .= $r;
+        $output .= "<div class=\"clear\"></div>";
         $output .= "</div>";
 
         $theme->add_to_body($output);
@@ -256,7 +289,9 @@ class User implements Module {
 
         if(isset($_FILES['file'])){
             $file = new FileObject();
-            if($file -> uploadFile($_FILES['file'])){
+            if(($id_file = $file -> uploadFile($_FILES['file']))){
+                $u = User::get_user_logged();
+                $u->set_avatar($id_file);
                 header("location: " . Page::url("/profile"));
                 return;
             } else {
@@ -264,7 +299,7 @@ class User implements Module {
             }
         }
 
-        $f = new Form("POST", Page::url("/file/upload"));
+        $f = new Form("POST", Page::url("/profile/settings/avatar"));
         $f -> setAttribute("enctype", "multipart/form-data");
         $t = (new InputElement("file", t("Fichier : "), "", "file"));
         $f->addElement($t);

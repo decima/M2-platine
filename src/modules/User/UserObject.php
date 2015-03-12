@@ -10,6 +10,11 @@ class UserObject extends DataObject {
             "firstname" => Database::FIELD_TYPE_STRING,
             "lastname" => Database::FIELD_TYPE_STRING
         );
+
+        $schema["user_avatar"] = array(
+            "uid" => Database::FIELD_TYPE_INT + Database::PRIMARY_KEY,
+            "fid" => Database::FIELD_TYPE_INT + Database::NOTNULLVAL
+        );
     }
 
     public function __set($param, $value) {
@@ -56,6 +61,15 @@ class UserObject extends DataObject {
         return md5($password . CONFIG_SITE_COOKIE);
     }
 
+    public function get_avatar(){
+        if(!($fid = Database::getValue("SELECT fid FROM " . CONFIG_DB_PREFIX . "user_avatar WHERE uid = $this->uid"))){
+            return false;
+        } else {
+            return Page::url("/file/$fid");
+        }
+    }
 
-
+    public function set_avatar($fid){
+        Database::insert("user_avatar", array("uid" => $this->uid, "fid" => $fid), true);
+    }
 }
