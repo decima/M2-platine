@@ -105,9 +105,9 @@ class Messages implements Module {
                 $messagetype = "";
                 if ($m->sid == $m->conversation && $m->read == 0) {
                     $messagetype = '<div class="messagerie_bloc_icone"><i class="fa fa-envelope fa-fw" title="Message lu"></i></div>';
-                }else if ($m->sid == $m->conversation && $m->read == 1) {
+                } else if ($m->sid == $m->conversation && $m->read == 1) {
                     $messagetype = '<div class="messagerie_bloc_icone"><i class="fa fa-envelope fa-fw" title="Message lu"></i></div>';
-                } elseif ($m->rid == $m->conversation&& $m->read ==0) {
+                } elseif ($m->rid == $m->conversation && $m->read == 0) {
                     $messagetype = '<div class="messagerie_bloc_icone"><i class="fa  fa-reply fa-fw" title="Réponse envoyée"></i></div>';
                 } else {
                     $messagetype = '<div class="messagerie_bloc_icone"><i class="fa  fa-check fa-fw" title="Réponse envoyée et lu"></i></div>';
@@ -138,12 +138,26 @@ class Messages implements Module {
 
 class MessagesDB {
 
+    public static function getUnreadMessages($uid, $uid2 = null) {
+        $tbl = CONFIG_DB_PREFIX . "messages";
+        $t = " ";
+        if ($uid2 != null) {
+            $t = "and sid=$uid2";
+        }
+        return Database::getValue("select count(*) from $tbl where rid=$uid $t and read=0");
+    }
+
     public static function getConversation($uid, $uid2, $page = 0) {
         $tbl = CONFIG_DB_PREFIX . "messages";
         $tbl2 = CONFIG_DB_PREFIX . "user";
-        $int = 5;
+        $int = 10;
         $page = $page * $int;
+        $tcount = self::getUnreadMessages($uid, $uid2);
+
         Database::execute("UPDATE $tbl set `read`=1 where rid=$uid and sid=$uid2");
+        if ($tcount > 10) {
+            $int = $tcount;
+        }
         $request = "SELECT u1.firstname as sender_firstname, u1.lastname as sender_lastname, u2.firstname as receiver_firstname, u2.lastname as receiver_lastname, m.* from $tbl m join $tbl2 u1 on m.sid = u1.uid JOIN $tbl2 u2 on m.rid = u2.uid where (m.sid=$uid AND m.rid=$uid2) OR (m.sid=$uid2 AND m.rid=$uid) order by m.sent_on DESC LIMIT $page,$int";
         $rest = Database::getAll($request);
         foreach ($rest as $k => $r) {
@@ -190,7 +204,7 @@ WHERE m2.mid IS NULL and m1.sid=$uid OR m1.rid=$uid ORDER BY m1.sent_on DESC;";
     }
 
     public static function submitMessage($sid, $rid, $message) {
-        $a = array("sid" => $sid, "rid" => $rid, "message" => $message, "sent_on" => time(), "`read`" => 0);
+        $a = array("sid" => $sid, "rid" => $rid, "message" => $message, "sent_on" => time(), "read" => 0);
         Database::insert("messages", $a);
     }
 

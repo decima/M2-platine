@@ -3,10 +3,8 @@ String.prototype.endsWith = function (suffix) {
 };
 $(document).ready(function () {
     refreshMessages();
-    theme_init();
     setInterval(function () {
         refreshMessages();
-        theme_init();
 
     }, 2000);
 
@@ -22,7 +20,6 @@ $(document).ready(function () {
     $(".actualite_btn").click(function () {
 
         send_message($("#messaging textarea").val());
-        $('html, body').scrollTop($(document).height() - $(window).height());
         $("#messaging textarea").val("");
 
     });
