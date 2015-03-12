@@ -174,8 +174,26 @@ class ModuleManager implements SystemModule {
         }
         return $t;
     }
-
+    
+    public function hook_admin_homepage(){
+             return t("Bienvenue sur le tableau de bord de votre réseau social.");
+       }
+    
+    public function admin_home(){
+        $results = method_invoke_all("hook_admin_homepage");
+        $theme = new Theme();
+        $theme->set_title(t("Tableau de bord"));
+        foreach($results as $r){
+            $theme->add_to_body($r);
+        }
+        $theme->process_theme(Theme::STRUCT_ADMIN);
+    }
+    
     public function menu($item = array()) {
+        $item['admin'] = array(
+            "access" => "administrer",
+            "callback" => array("ModuleManager", "admin_home")
+        );
         $item['admin/modules'] = array(
             "access" => "administrer",
             "callback" => array("ModuleManager", "list_modules")
