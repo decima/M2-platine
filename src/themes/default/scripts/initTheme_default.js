@@ -58,4 +58,8 @@ $(window).resize(function() {
 $(window).load(function(){
     theme_init();
     $('textarea').elastic();
+
+    document.getElementById("page_contenu").addEventListener("resize", function(){
+        theme_init();
+    });
 });

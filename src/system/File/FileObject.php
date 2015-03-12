@@ -64,7 +64,7 @@ class FileObject extends DataObject {
             $f -> content_type = $file['type'];
             $f -> save();
 
-            return true;
+            return $f -> id_file;
         } else {
             return false;
         }
