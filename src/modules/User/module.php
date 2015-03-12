@@ -39,9 +39,7 @@ class User implements Module {
         $user = self::get_user_logged();
 
         if ($user != null) {
-            $output .= "<div id=\"page_lateral_profil_avatar\">";
-            $output .= "<img alt=\"\" src=\"".$user->get_avatar()."\"/>";
-            $output .= "</div>";
+            $output .= "<div id=\"page_lateral_profil_avatar\" style=\"background-image:url(".$user->get_avatar().");\"></div>";
             $output .= "<div id=\"page_lateral_profil_nom\">";
             $output .= Theme::linking(Page::url("/profile"), "<i class=\"fa fa-gear fa-fw\"></i> $user->firstname  $user->lastname");
             $output .= "</div>";
@@ -258,11 +256,9 @@ class User implements Module {
 
         $output = "";
         $output .= "<div id=\"profil_top\">";
-        $output .= "<div id=\"profil_top_avatar\">";
+        $output .= "<div id=\"profil_top_avatar\" style=\"background-image:url($url_avatar);\">";
             if($isMyProfil){
-                $output .= Theme::linking(Page::url("/profile/settings/avatar"), "<img src=\"$url_avatar\" alt=\"\"/><span id=\"profil_top_avatar_changeBG\"></span><span id=\"profil_top_avatar_changeTxt\">".t("Modifier")."</span>");
-            } else {
-                $output .= "<img src=\"$url_avatar\" alt=\"\"/>";
+                $output .= Theme::linking(Page::url("/profile/settings/avatar"), "<span id=\"profil_top_avatar_changeBG\"></span><span id=\"profil_top_avatar_changeTxt\">".t("Modifier")."</span>");
             }
         $output .= "</div>";
         $output .= "<div id=\"profil_top_avatar_nom\">";

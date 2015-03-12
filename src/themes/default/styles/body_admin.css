@@ -121,6 +121,8 @@ input {
     background-color: #CCCCCC;
     overflow: hidden;
     position: relative;
+    background-size: cover;
+    background-position: center;
 }
 #page_lateral_profil_avatar img {
     width: 150px;
@@ -328,6 +330,8 @@ textarea.actualite_area_text {
     border-radius: 200px;
     overflow: hidden;
     box-shadow: 0px 0px 2px #AAA;
+    background-size: cover;
+    background-position: center;
 }
 #profil_top_avatar > a > img {
     width: 200px;
@@ -777,6 +781,8 @@ a.btn {
     position: relative;
     right: 0;
     cursor: pointer;
+    margin-left: 5px;
+    margin-right: 5px;
 }
 input[type=button]:hover,
 input[type=submit]:hover,
