@@ -155,7 +155,8 @@ class MessagesDB {
         if ($uid2 != null) {
             $t = "and sid=$uid2";
         }
-        $e = Database::getValue("select count(*) from $tbl where rid=$uid $t and read=0");
+        $s = "select count(*) from $tbl where rid=$uid $t and `read`=0";
+        $e = Database::getValue($s);
         return $e != false ? $e : 0;
     }
 

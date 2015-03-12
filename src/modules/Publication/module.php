@@ -49,6 +49,7 @@ class Publication implements Module {
         $f = PublicationObject::loadAllByFriendship($friends);
         $content_publish = "";
         $users = array();
+        $theme = new Theme();
         foreach ($f as $t) {
             if(!isset($users[$t->author])){
                 $users[$t->author] = new UserObject();
@@ -59,16 +60,15 @@ class Publication implements Module {
                 <div class="actualite_avatar_area">
                     <div class="actualite_avatar avatar"  style="background-image:url('.$u->get_avatar().')">
                     </div>
-                    <div class="actualite_nom"><a>'.$u->firstname.'<br>'.$u->lastname.'</a></div>
+                    <div class="actualite_nom">'.$theme::linking(Page::url("/profile/$u->uid"), $u->firstname."<br />".$u->lastname).'</a></div>
                 </div>
                 <div class="actualite_bloc">
                     <div class="actualite_area">
                         <div class="actualite_area_text">
-' . $this->render_render($t->qrender, $t->content) . '                           
-</div>
+                        ' . $this->render_render($t->qrender, $t->content) . '
+                        </div>
                     </div>
                     <div class="actualite_buttons">
-                        
                         <div class="actualite_date"><i class="fa fa-calendar fa-fw"></i> '.date("H:i:s d/m/Y",$t->date_published).'</div>
                         <div class="clear"></div>
                     </div>

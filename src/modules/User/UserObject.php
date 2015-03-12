@@ -57,6 +57,24 @@ class UserObject extends DataObject {
         return parent::load(array("email" => $email, "password" => self::encrypt_password($password)));
     }
 
+    public static function loadAllUsersWithout($array_id_users = array()) {
+        $d = new UserObject();
+        $request = "SELECT * FROM " . CONFIG_DB_PREFIX . $d->tableName();
+        if(sizeof($array_id_users) > 0) {
+            $request .= " WHERE uid NOT IN(".implode(",", $array_id_users).")";
+        }
+        $request .= " ORDER BY lastname ASC, firstname ASC";
+        $results = Database::getAll($request);
+        $list_of_users=array();
+        if(is_array($results)){
+            foreach($results as $r){
+                if($r->uid != User::get_user_logged_id())
+                    $list_of_users[] = $r->uid;
+            }
+        }
+        return $list_of_users;
+    }
+
     private static function encrypt_password($password) {
         return md5($password . CONFIG_SITE_COOKIE);
     }

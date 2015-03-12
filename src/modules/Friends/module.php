@@ -66,22 +66,24 @@ class Friends implements Module {
                 $u -> load($f);
                 $output .= "<div class=\"friend_line\">";
                     $output .= "<div class=\"friend_line_avatar_area\">";
-                        $output .= "<div class=\"friend_line_avatar\">";
-                            $output .= $theme->linking(Page::url("/profile/".$f), "<img src=\"\" alt=\"\"/>");
+                        $output .= "<div class=\"friend_line_avatar avatar\" style=\"background-image:url(".$u -> get_avatar().");\">";
+                            $output .= $theme->linking(Page::url("/profile/".$f), "");
                         $output .= "</div>";
                     $output .= "</div>";
-                $output .= "<div class=\"friend_line_name_area\">";
-                    $output .= "<div class=\"friend_line_name\">";
-                        $output .= $theme->linking(Page::url("/profile/".$f), $u->firstname." ".$u->lastname);
-                        $output .= "<div class=\"friend_line_name_icon\">";
-                            $output .= "<i class=\"fa fa-user fa-fw\"></i>";
+                    $output .= "<div class=\"friend_line_name_area\">";
+                        $output .= "<div class=\"friend_line_name\">";
+                            $output .= $theme->linking(Page::url("/profile/".$f), $u->firstname." ".$u->lastname);
+                            $output .= "<div class=\"friend_line_name_icon\">";
+                                $output .= "<i class=\"fa fa-user fa-fw\"></i>";
+                            $output .= "</div>";
                         $output .= "</div>";
                     $output .= "</div>";
+                    $output .= "<div class=\"clear\"></div>";
                 $output .= "</div>";
             }
             $theme->add_to_body($output);
         } else {
-            Notification::statusNotify(t("Parce qu'on peut dire que le salami est vôtre seul ami..."), Notification::STATUS_INFO);
+            Notification::statusNotify(t("Vous n'avez pas encore d'ami. ".$theme->linking(Page::url("/users"), t("Voir la liste des utilisateurs"))), Notification::STATUS_INFO);
         }
         $theme->process_theme(Theme::STRUCT_ADMIN);
 

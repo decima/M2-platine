@@ -39,13 +39,22 @@ class User implements Module {
         $user = self::get_user_logged();
 
         if ($user != null) {
+            $nb_messages_unread = method_invoke_all("hook_has_new_messages");
+            $messages_ico = "<i class=\"fa fa-envelope fa-fw\"></i>";
+            $messages_ico .= $nb_messages_unread[0] > 0 ? "<span class=\"bille_notification\">$nb_messages_unread[0]</span>":"";
+
             $output .= "<div id=\"page_lateral_profil_avatar\" class=\"avatar\" style=\"background-image:url(".$user->get_avatar().");\"></div>";
             $output .= "<div id=\"page_lateral_profil_nom\">";
             $output .= Theme::linking(Page::url("/profile"), "<i class=\"fa fa-gear fa-fw\"></i> $user->firstname  $user->lastname");
             $output .= "</div>";
             $output .= "<div class=\"page_lateral_profil_sep\"><div class=\"page_lateral_profil_sep_barre\"></div></div>";
             $output .= "<div id=\"page_lateral_liens\">";
-            $output .= Theme::linking(Page::url("/"), "<i class=\"fa fa-tachometer fa-fw\"></i>");
+            //$output .= Theme::linking(Page::url("/"), "<i class=\"fa fa-tachometer fa-fw\"></i>");
+            $output .= Theme::linking(Page::url("/"), "<i class=\"fa fa-home fa-fw\"></i>");
+            //$output .= Theme::linking(Page::url("/notifications"), "<i class=\"fa fa-ticket fa-fw\"></i><span class=\"bille_notification\">+99</span>");
+            $output .= Theme::linking(Page::url("/friends"), "<i class=\"fa fa-users fa-fw\"></i>");
+            $output .= Theme::linking(Page::url("/messages"), $messages_ico);
+            $output .= Theme::linking(Page::url("/users"), "<i class=\"fa fa-search fa-fw\"></i>");
             $output .= Theme::linking(Page::url("/logout"), "<i class=\"fa fa-power-off fa-fw\"></i>");
             $output .= "</div>";
         }
@@ -97,9 +106,13 @@ class User implements Module {
             "access" => "access content",
             "callback" => array("User", "page_set_avatar")
         );
+        $item["/users"] = array(
+            "access" => "access content",
+            "callback" => array("User", "page_users")
+        );
         $item["/admin/users"] = array(
             "access" => "administrer",
-            "callback" => array("User", "page_users")
+            "callback" => array("User", "page_admin_users")
         );
         return $item;
     }
@@ -148,7 +161,9 @@ class User implements Module {
     public static function page_login() {
         $theme = new Theme();
         $title = t("Bienvenue !");
-        $contenu = t("Connectez-vous et découvrez votre tout nouveau réseau social.");
+        $contenu = t("Connectez-vous et découvrez votre tout nouveau réseau social.<br />Pas encore inscrit ? Inscrivez-vous maintenant !<br /><br />");
+        $contenu .= Theme::linking(Page::url("/signin"), t("<i class=\"fa fa-user-plus fa-fw\"></i> Inscription"), false, array("class"=>"btn"));
+
         $theme->add_to_body($contenu, $title);
 
         $f = new Form("POST", Page::url("/"));
@@ -228,6 +243,40 @@ class User implements Module {
         $theme = new Theme();
 
         $u = new UserObject();
+        $output = "";
+        $theme->set_title("Liste des utilisateurs");
+        if ($tab = $users = $u::loadAllUsersWithout()) {
+            foreach($tab as $k => $f){
+                $u = new UserObject();
+                $u -> load($f);
+                $output .= "<div class=\"friend_line\">";
+                $output .= "<div class=\"friend_line_avatar_area\">";
+                $output .= "<div class=\"friend_line_avatar avatar\" style=\"background-image:url(".$u -> get_avatar().");\">";
+                $output .= $theme->linking(Page::url("/profile/".$f), "");
+                $output .= "</div>";
+                $output .= "</div>";
+                $output .= "<div class=\"friend_line_name_area\">";
+                $output .= "<div class=\"friend_line_name\">";
+                $output .= $theme->linking(Page::url("/profile/".$f), $u->firstname." ".$u->lastname);
+                $output .= "<div class=\"friend_line_name_icon\">";
+                $output .= "<i class=\"fa fa-user fa-fw\"></i>";
+                $output .= "</div>";
+                $output .= "</div>";
+                $output .= "</div>";
+                $output .= "<div class=\"clear\"></div>";
+                $output .= "</div>";
+            }
+            $theme->add_to_body($output);
+        } else {
+            Notification::statusNotify(t("Il n'y a pas encore d'utilisateur inscrit."), Notification::STATUS_INFO);
+        }
+        $theme->process_theme(Theme::STRUCT_DEFAULT);
+    }
+
+    public static function page_admin_users() {
+        $theme = new Theme();
+
+        $u = new UserObject();
         $users = $u::loadAll();
         foreach($users as $k => $v){
             unset($users[$k]->password);
@@ -239,7 +288,7 @@ class User implements Module {
         $theme->add_to_body(Theme::linking(Page::url("/signin"), t("<i class=\"fa fa-user-plus fa-fw\"></i> Créer un utilisateur"), false, $atr));
         $theme->add_to_body("<div class='clear'></div>");
         $theme->add_to_body($theme->tabling($users, array(t("Id"), t("Identifiant"), t("Prénom"), t("Nom"))));
-        $theme->process_theme(Theme::STRUCT_DEFAULT);
+        $theme->process_theme(Theme::STRUCT_ADMIN);
     }
 
     public static function page_profile($id_user = null) {
