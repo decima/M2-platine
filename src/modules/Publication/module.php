@@ -24,8 +24,9 @@ class Publication implements Module {
     }
 
     public function hook_timeline() {
+        $type = "Text";
         if (isset($_POST['send'])) {
-            $result = $this->render_form_submit("Text");
+            $result = $this->render_form_submit($type);
             $f = new PublicationObject();
             $f->content = $result;
             $f->qrender = "Text";
@@ -33,12 +34,11 @@ class Publication implements Module {
         }
         $form_publish = '<div class="actualite">
                 <div class="actualite_avatar_area">
-                    <div class="actualite_avatar">
-                        <a href="profil_patrick_jane.html"><img src="../images/patrick_jane_m.png" alt=""></a>
+                    <div class="actualite_avatar avatar" style="background-image:url('.User::get_user_logged_avatar().')">
                     </div>
                 </div>
                 <div class="quoi_de_neuf_bloc">
-                    <form method="POST" action="">' . $this->render_form("Text") . '
+                    <form method="POST" action="">' . $this->render_form($type) . '
                     <input type="submit" value="publier" name="send"/></form>
                 <div style="position: absolute; display: none; word-wrap: break-word; white-space: pre-wrap; border-left: 0px none rgb(51, 51, 51); border-color: rgb(51, 51, 51); border-style: none; border-width: 0px; font-weight: 400; width: 510px; font-family: monospace; line-height: 14px; font-size: 12px; padding: 10px;">&nbsp;</div></div>
                 <div class="clear"></div>
@@ -48,13 +48,18 @@ class Publication implements Module {
         $friends[] = user::get_user_logged_id();
         $f = PublicationObject::loadAllByFriendship($friends);
         $content_publish = "";
+        $users = array();
         foreach ($f as $t) {
+            if(!isset($users[$t->author])){
+                $users[$t->author] = new UserObject();
+                $users[$t->author]->load($t->author);
+            }
+            $u =  $users[$t->author];
             $content_publish .='<div class="actualite">
                 <div class="actualite_avatar_area">
-                    <div class="actualite_avatar">
-                        <i class="fa fa-user fa-4x"></i>
+                    <div class="actualite_avatar avatar"  style="background-image:url('.$u->get_avatar().')">
                     </div>
-                    <div class="actualite_nom"><a href="profil_patrick_jane.html">Patrick<br>Jane</a></div>
+                    <div class="actualite_nom"><a>'.$u->firstname.'<br>'.$u->lastname.'</a></div>
                 </div>
                 <div class="actualite_bloc">
                     <div class="actualite_area">
