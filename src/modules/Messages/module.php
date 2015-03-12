@@ -55,13 +55,13 @@ class Messages implements Module {
             $page = $_GET['page'];
         }
         $r = MessagesDB::getConversation(User::get_user_logged_id(), $id, $page);
-        foreach($r as $t=>$v){
+        foreach ($r as $t => $v) {
             $user = new UserObject();
             $user->load($v->sid);
             $r[$t]->avatar = $user->get_avatar();
         }
-        
-        
+
+
         return json_encode($r);
     }
 
@@ -86,7 +86,7 @@ class Messages implements Module {
         $user = User::get_user_logged();
         $form = '<div method="post" id="messaging" class="actualite">
             <div class="actualite_avatar_area">
-                <div class="actualite_avatar avatar" style="background-image:url('.User::get_user_logged_avatar().');">            </div>
+                <div class="actualite_avatar avatar" style="background-image:url(' . User::get_user_logged_avatar() . ');">            </div>
             </div>
             <div class="quoi_de_neuf_bloc">
                 <textarea class="actualite_area_text" placeholder="Saisissez votre message"></textarea>
@@ -122,7 +122,7 @@ class Messages implements Module {
 
                 $theme->add_to_body('<div class="messagerie">
             <div class="messagerie_avatar_area">
-                <div class="messagerie_avatar avatar" style="background-image:url('.$user->get_avatar().')">
+                <div class="messagerie_avatar avatar" style="background-image:url(' . $user->get_avatar() . ')">
                 </div>
                 <div class="messagerie_nom"><a>' . $user->firstname . ' <br/>' . $user->lastname . '</a></div>
             </div>
@@ -140,6 +140,11 @@ class Messages implements Module {
         }
     }
 
+    public function hook_has_new_messages() {
+        $e = MessagesDB::getUnreadMessages(User::get_user_logged_id());
+        return $e;
+    }
+
 }
 
 class MessagesDB {
@@ -150,7 +155,8 @@ class MessagesDB {
         if ($uid2 != null) {
             $t = "and sid=$uid2";
         }
-        return Database::getValue("select count(*) from $tbl where rid=$uid $t and read=0");
+        $e = Database::getValue("select count(*) from $tbl where rid=$uid $t and read=0");
+        return $e != false ? $e : 0;
     }
 
     public static function getConversation($uid, $uid2, $page = 0) {
