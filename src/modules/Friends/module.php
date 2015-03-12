@@ -113,10 +113,10 @@ class Friends implements Module {
             else {
                 $button = Theme::linking(Page::url("/friends/request/$id_user"), t("<i class=\"fa fa-user-plus fa-fw\"></i> Ajouter"), false, $atr);
             }
-            $button .= Theme::linking(Page::url("/messages/$id_user"), t("<i class=\"fa fa-envelope fa-fw\"></i> Messgaerie"), false, $atr);
+            $button .= Theme::linking(Page::url("/messages/$id_user"), t("<i class=\"fa fa-envelope fa-fw\"></i> Messagerie"), false, $atr);
         }
         else {
-            $button .= Theme::linking(Page::url("/messages"), t("<i class=\"fa fa-envelope fa-fw\"></i> Messgaerie"), false, $atr);
+            $button .= Theme::linking(Page::url("/messages"), t("<i class=\"fa fa-envelope fa-fw\"></i> Messagerie"), false, $atr);
         }
         return $button;
     }

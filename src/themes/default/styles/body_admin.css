@@ -346,15 +346,13 @@ textarea.actualite_area_text {
     height: 200px;
     background-color: rgba(15,15,15,0.7);
     display: none;
-    top: -200px;
-    position: relative;
 }
 #profil_top_avatar_changeTxt {
     color: #FEFEFE;
     font-size: 13px;
     text-align: center;
     position: relative;
-    top: -250px;
+    top: -50px;
     display: none;
     width: 100%;
 }
