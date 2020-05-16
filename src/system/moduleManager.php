@@ -1,51 +1,60 @@
 <?php
 
-class ModuleManager implements SystemModule {
+class ModuleManager implements SystemModule
+{
 
-    public function info() {
+    public function info()
+    {
         _Security::version(0, 1);
-        return array(
-            "name" => "ModuleManager",
-            "readablename" => "Module Manager"
-        );
+        return [
+            "name"         => "ModuleManager",
+            "readablename" => "Module Manager",
+        ];
     }
 
-    public function init_system_module() {
+    public function init_system_module()
+    {
         $system_modules = get_all_classes_implementing_interfaces("SystemModule");
-        uasort($system_modules, function($a, $b) {
+        uasort($system_modules, function ($a, $b) {
             $temp = new $a();
             $temp2 = new $b();
             return $temp->priority() > $temp2->priority();
         });
-        array_map(function($a) {
+        array_map(function ($a) {
             $r = new $a();
             $r->system_init();
         }, $system_modules);
     }
 
-    public function system_init() {
-        
+    public function system_init()
+    {
+
     }
 
-    public function priority() {
+    public function priority()
+    {
         return 0;
     }
 
-    public static function get_list_of_modules() {
+    public static function get_list_of_modules()
+    {
         return method_invoke_all("info");
     }
 
-    public static function is_installed($moduleName) {
+    public static function is_installed($moduleName)
+    {
         $r = file_get_contents("./cache/installed.txt");
         $res = explode(",", $r);
         return (in_array($moduleName, $res));
     }
 
-    public static function cache_i($mname) {
+    public static function cache_i($mname)
+    {
         file_put_contents("./cache/installed.txt", "," . $mname, FILE_APPEND);
     }
 
-    public static function cache_ui($mname) {
+    public static function cache_ui($mname)
+    {
         $r = file_get_contents("./cache/installed.txt");
         $res = explode(",", $r);
         foreach ($res as $k => $v) {
@@ -57,17 +66,20 @@ class ModuleManager implements SystemModule {
         file_put_contents("./cache/installed.txt", $r);
     }
 
-    public static function is_enabled($moduleName) {
+    public static function is_enabled($moduleName)
+    {
         $r = file_get_contents("./cache/enabled.txt");
         $res = explode(",", $r);
         return (in_array($moduleName, $res));
     }
 
-    public static function cache_ea($mname) {
+    public static function cache_ea($mname)
+    {
         file_put_contents("./cache/enabled.txt", "," . $mname, FILE_APPEND);
     }
 
-    public static function cache_da($mname) {
+    public static function cache_da($mname)
+    {
         $r = file_get_contents("./cache/enabled.txt");
         $res = explode(",", $r);
         foreach ($res as $k => $v) {
@@ -79,8 +91,11 @@ class ModuleManager implements SystemModule {
         file_put_contents("./cache/enabled.txt", $r);
     }
 
-    public static function install_module($moduleName, $path) {
-        require_once($path);
+    public static function install_module($moduleName, $path)
+    {
+        if ($path) {
+            require_once($path);
+        }
         $m = new $moduleName();
         $info = $m->info();
         if (isset($info['dependencies'])) {
@@ -108,7 +123,8 @@ class ModuleManager implements SystemModule {
         return false;
     }
 
-    public static function uninstall_module($moduleName, $path) {
+    public static function uninstall_module($moduleName, $path)
+    {
         require_once($path);
         if (!self::is_installed($moduleName) || self::is_enabled($moduleName)) {
             return false;
@@ -124,7 +140,8 @@ class ModuleManager implements SystemModule {
         return $t;
     }
 
-    public static function enable_module($moduleName, $path) {
+    public static function enable_module($moduleName, $path)
+    {
         $exists = method_invoke($moduleName, "info");
         $res = false;
         if (!self::is_enabled($moduleName) && self::is_installed($moduleName)) {
@@ -144,11 +161,12 @@ class ModuleManager implements SystemModule {
         return $t;
     }
 
-    public static function disable_module($moduleName) {
+    public static function disable_module($moduleName)
+    {
         $infos = method_invoke_all("info");
         foreach ($infos as $f) {
             if (isset($f['dependencies'])) {
-                if (in_array($moduleName, $f['dependencies'])&& ModuleManager::is_installed($f['name'])) {
+                if (in_array($moduleName, $f['dependencies']) && ModuleManager::is_installed($f['name'])) {
                     return false;
                 }
             }
@@ -174,50 +192,54 @@ class ModuleManager implements SystemModule {
         }
         return $t;
     }
-    
-    public function hook_admin_homepage(){
-             return t("Bienvenue sur le tableau de bord de votre réseau social.");
-       }
-    
-    public function admin_home(){
+
+    public function hook_admin_homepage()
+    {
+        return t("Bienvenue sur le tableau de bord de votre réseau social.");
+    }
+
+    public static function admin_home()
+    {
         $results = method_invoke_all("hook_admin_homepage");
         $theme = new Theme();
         $theme->set_title(t("Tableau de bord"));
-        foreach($results as $r){
+        foreach ($results as $r) {
             $theme->add_to_body($r);
         }
         $theme->process_theme(Theme::STRUCT_ADMIN);
     }
-    
-    public function menu($item = array()) {
-        $item['admin'] = array(
-            "access" => "administrer",
-            "callback" => array("ModuleManager", "admin_home")
-        );
-        $item['admin/modules'] = array(
-            "access" => "administrer",
-            "callback" => array("ModuleManager", "list_modules")
-        );
-        $item['admin/modules/install/@'] = array(
-            "access" => "administrer",
-            "callback" => array("ModuleManager", "installModulePage")
-        );
-        $item['admin/modules/enable/@'] = array(
-            "access" => "administrer",
-            "callback" => array("ModuleManager", "enableModulePage")
-        );
-        $item['admin/modules/disable/@'] = array(
-            "access" => "administrer",
-            "callback" => array("ModuleManager", "disableModulePage")
-        );
-        $item['admin/modules/uninstall/@'] = array(
-            "access" => "administrer",
-            "callback" => array("ModuleManager", "uninstallModulePage")
-        );
+
+    public function menu($item = [])
+    {
+        $item['admin'] = [
+            "access"   => "administrer",
+            "callback" => ["ModuleManager", "admin_home"],
+        ];
+        $item['admin/modules'] = [
+            "access"   => "administrer",
+            "callback" => ["ModuleManager", "list_modules"],
+        ];
+        $item['admin/modules/install/@'] = [
+            "access"   => "administrer",
+            "callback" => ["ModuleManager", "installModulePage"],
+        ];
+        $item['admin/modules/enable/@'] = [
+            "access"   => "administrer",
+            "callback" => ["ModuleManager", "enableModulePage"],
+        ];
+        $item['admin/modules/disable/@'] = [
+            "access"   => "administrer",
+            "callback" => ["ModuleManager", "disableModulePage"],
+        ];
+        $item['admin/modules/uninstall/@'] = [
+            "access"   => "administrer",
+            "callback" => ["ModuleManager", "uninstallModulePage"],
+        ];
         return $item;
     }
 
-    public static function list_modules() {
+    public static function list_modules()
+    {
         if (isset($_GET['err'])) {
             switch ($_GET['err']) {
                 case 'install':
@@ -243,9 +265,9 @@ class ModuleManager implements SystemModule {
         $theme = new Theme();
 
         $theme->set_title(t("Liste des modules disponibles"));
-        Notification::statusNotify(t("%cnt modules disponibles", array("%cnt" => count($modules))), Notification::STATUS_INFO);
-        $r = array(t("Nom du module"), t("Dépendances"), t("Etat du module"), t("Actions"));
-        $array = array();
+        Notification::statusNotify(t("%cnt modules disponibles", ["%cnt" => count($modules)]), Notification::STATUS_INFO);
+        $r = [t("Nom du module"), t("Dépendances"), t("Etat du module"), t("Actions")];
+        $array = [];
         foreach ($modules as $m) {
 
             $install = $theme->linking(Page::url("/admin/modules/install/" . $m['name']), t("installer"));
@@ -278,12 +300,11 @@ class ModuleManager implements SystemModule {
             if (isset($m['dependencies'])) {
                 $dependencies = implode(", ", $m['dependencies']);
             }
-            $array[] = array($m["readablename"], $dependencies, $statement, $rtm);
+            $array[] = [$m["readablename"], $dependencies, $statement, $rtm];
         }
 
 
-
-        usort($array, function($a, $b) {
+        usort($array, function ($a, $b) {
 
             return strcmp($a[2], $b[2]) * 10 + strcmp($a[0], $b[0]);
         });
@@ -292,7 +313,8 @@ class ModuleManager implements SystemModule {
         return;
     }
 
-    public static function installModulePage($moduleName) {
+    public static function installModulePage($moduleName)
+    {
 
         $modules = self::scan_all_modules();
         if (isset($modules[$moduleName])) {
@@ -308,7 +330,8 @@ class ModuleManager implements SystemModule {
         return;
     }
 
-    public static function enableModulePage($moduleName) {
+    public static function enableModulePage($moduleName)
+    {
 
         $modules = self::scan_all_modules();
         if (isset($modules[$moduleName])) {
@@ -323,7 +346,8 @@ class ModuleManager implements SystemModule {
         return;
     }
 
-    public static function disableModulePage($moduleName) {
+    public static function disableModulePage($moduleName)
+    {
 
         $modules = self::scan_all_modules();
         if (isset($modules[$moduleName])) {
@@ -338,7 +362,8 @@ class ModuleManager implements SystemModule {
         return;
     }
 
-    public static function uninstallModulePage($moduleName) {
+    public static function uninstallModulePage($moduleName)
+    {
 
         $modules = self::scan_all_modules();
         if (isset($modules[$moduleName])) {
@@ -353,16 +378,17 @@ class ModuleManager implements SystemModule {
         return;
     }
 
-    public static function scan_all_modules() {
+    public static function scan_all_modules()
+    {
         $Directory = new RecursiveDirectoryIterator('./modules');
         $Iterator = new RecursiveIteratorIterator($Directory);
         $regex = new RegexIterator($Iterator, '/^.+\module.php$/i', RecursiveRegexIterator::GET_MATCH);
         $systemModules = get_all_classes_implementing_interfaces("SystemModule");
-        $res = array();
+        $res = [];
         $enabled = method_invoke_all("info");
-        $modules = array();
+        $modules = [];
         $systemModules = array_map('strtolower', $systemModules);
-        $available = array();
+        $available = [];
 
         foreach ($enabled as $k => $e) {
             $modules[$e['name']] = $e;

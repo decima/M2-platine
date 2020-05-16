@@ -2,67 +2,74 @@
 
 /**
  * @moduleName Doc
- * 
- * 
+ *
+ *
  * */
 require_once('md.php');
 
-class Doc implements Module {
+class Doc implements Module
+{
 
-    public function info() {
-        return array(
-            "name" => "Doc",
+    public function info()
+    {
+        return [
+            "name"         => "Doc",
             "readablename" => "Documentation Jinn",
-        );
+        ];
     }
 
-    public function menu($item = array()) {
+    public function menu($item = [])
+    {
 
-        $item['/doc/@'] = array(
-            "access" => "access documentation",
-            "callback" => array("Doc", "documentation"),
-        );
-        $item['/doc/@/@'] = array(
-            "access" => "access documentation",
-            "callback" => array("Doc", "documentation"),
-        );
+        $item['/doc/@'] = [
+            "access"   => "access documentation",
+            "callback" => ["Doc", "documentation"],
+        ];
+        $item['/doc/@/@'] = [
+            "access"   => "access documentation",
+            "callback" => ["Doc", "documentation"],
+        ];
         return $item;
     }
 
-    public static function titleWidget() {
+    public static function titleWidget()
+    {
         $svg = '<img style="width:150px;" src="' . Page::url("/modules/doc/logo.png") . '"/>';
         return "<div class='widget_titre titre title-doc'>" . $svg . Theme::linking(Page::url("/doc/getting-started"), t("Documentation"), false) . "</div>";
     }
 
-    public function widget($items = array()) {
-        $items['documentation1'] = array(
+    public function widget($items = [])
+    {
+        $items['documentation1'] = [
             "permissions" => "access documentation",
-            "callback" => array("Doc", "docWidget1"),
-        );
-        $items['doc_title'] = array(
+            "callback"    => ["Doc", "docWidget1"],
+        ];
+        $items['doc_title'] = [
             "permissions" => "access documentation",
-            "callback" => array("Doc", "titleWidget"),
-        );
-        $items['documentation2'] = array(
+            "callback"    => ["Doc", "titleWidget"],
+        ];
+        $items['documentation2'] = [
             "permissions" => "access documentation",
-            "callback" => array("Doc", "docWidget2"),
-        );
+            "callback"    => ["Doc", "docWidget2"],
+        ];
         return $items;
     }
 
-    public static function docWidget1() {
+    public static function docWidget1()
+    {
         $t1 = t("<div class='widget_titre'><i class=\"fa fa-book\"></i> Utiliser Jinn</div>");
         $theme = new Theme();
-        $list = array();
+        $list = [];
 
         $list[] = Theme::linking(Page::url("/doc/getting-started/install"), t("<i class=\"fa fa-dropbox fa-fw\"></i> Installer le système"));
         return $t1 . Theme::listing($list);
     }
 
-    public static function docWidget2() {
+    public static function docWidget2()
+    {
         $t1 = t("<div class='widget_titre'><i class=\"fa fa-cubes\"></i> Modules</div>");
         $theme = new Theme();
-        $list = array();
+        $list = [];
 
 
         $list[] = Theme::linking(Page::url("/doc/modules/create"), t("<i class=\"fa fa-cube fa-fw\"></i> Créer un module"));
@@ -72,7 +79,8 @@ class Doc implements Module {
         return $t1 . Theme::listing($list);
     }
 
-    public function documentation($rubrique, $sousrubrique = 'index') {
+    public static function documentation($rubrique, $sousrubrique = 'index')
+    {
         $r = "";
         $rubrique = str_replace(" ", "-", $rubrique);
         if (file_exists("modules/doc/docs/$rubrique/$sousrubrique.md")) {
@@ -99,7 +107,8 @@ class Doc implements Module {
         $theme->process_theme(Theme::STRUCT_ADMIN);
     }
 
-    public function permissions() {
+    public function permissions()
+    {
         return true;
     }
 

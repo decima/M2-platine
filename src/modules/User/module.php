@@ -7,16 +7,19 @@
  * */
 require_once("UserObject.php");
 
-class User implements Module {
+class User implements Module
+{
 
-    public function info() {
-        return array(
-            "name" => "User",
-            "readablename" => "User Manager"
-        );
+    public function info()
+    {
+        return [
+            "name"         => "User",
+            "readablename" => "User Manager",
+        ];
     }
 
-    public function install() {
+    public function install()
+    {
         try {
             return self::create(CONFIG_ADMIN_LOGIN, CONFIG_ADMIN_PASSWORD, "Admin", "Administrator");
         } catch (Exception $e) {
@@ -24,26 +27,29 @@ class User implements Module {
         }
     }
 
-    public function schema($schema = array()) {
+    public function schema($schema = [])
+    {
         UserObject::schema($schema);
         return $schema;
     }
 
-    public function widget($item = array()) {
-        $item["user_logged"] = array("permissions" => "access content", "callback" => array("User", "widget_user_logged"));
+    public function widget($item = [])
+    {
+        $item["user_logged"] = ["permissions" => "access content", "callback" => ["User", "widget_user_logged"]];
         return $item;
     }
 
-    public function widget_user_logged() {
+    public static function widget_user_logged()
+    {
         $output = "";
         $user = self::get_user_logged();
 
         if ($user != null) {
             $nb_messages_unread = method_invoke_all("hook_has_new_messages");
             $messages_ico = "<i class=\"fa fa-envelope fa-fw\"></i>";
-            $messages_ico .= $nb_messages_unread[0] > 0 ? "<span class=\"bille_notification\">$nb_messages_unread[0]</span>":"";
+            $messages_ico .= $nb_messages_unread[0] > 0 ? "<span class=\"bille_notification\">$nb_messages_unread[0]</span>" : "";
 
-            $output .= "<div id=\"page_lateral_profil_avatar\" class=\"avatar\" style=\"background-image:url(".$user->get_avatar().");\"></div>";
+            $output .= "<div id=\"page_lateral_profil_avatar\" class=\"avatar\" style=\"background-image:url(" . $user->get_avatar() . ");\"></div>";
             $output .= "<div id=\"page_lateral_profil_nom\">";
             $output .= Theme::linking(Page::url("/profile"), "<i class=\"fa fa-gear fa-fw\"></i> $user->firstname  $user->lastname");
             $output .= "</div>";
@@ -59,15 +65,16 @@ class User implements Module {
             $output .= "</div>";
         }
         return $output;
-        /*
-          return Theme::listing(array(
-          Theme::linking(Page::url("/profile"), "Profil"),
-          Theme::linking(Page::url("/logout"), "deconnexion"),
-          ));
-         */
+
+        return Theme::listing([
+            Theme::linking(Page::url("/profile"), "Profil"),
+            Theme::linking(Page::url("/logout"), "deconnexion"),
+        ]);
+
     }
 
-    public static function create($email, $password, $firstname = "", $lastname = "") {
+    public static function create($email, $password, $firstname = "", $lastname = "")
+    {
         $user = new UserObject();
         $user->email = $email;
         $user->password = $password;
@@ -76,48 +83,50 @@ class User implements Module {
         $d = $user->save();
         $u2 = new UserObject();
         if ($u2->load_by_email($email)) {
-            method_invoke_all("hook_user_create", array($u2->uid));
+            method_invoke_all("hook_user_create", [$u2->uid]);
         }
         return $d;
     }
 
-    public function menu($item = array()) {
-        $item['/profile'] = array(
-            "access" => "access content",
-            "callback" => array("User", "page_profile")
-        );
-        $item['/profile/@'] = array(
-            "access" => "access content",
-            "callback" => array("User", "page_profile")
-        );
-        $item['/'] = array(
-            "access" => "full access",
-            "callback" => array("User", "page_home")
-        );
-        $item['/signin'] = array(
-            "access" => "create user",
-            "callback" => array("User", "page_signin")
-        );
-        $item['/logout'] = array(
-            "access" => "full access",
-            "callback" => array("User", "page_logout")
-        );
-        $item["/profile/settings/avatar"] = array(
-            "access" => "access content",
-            "callback" => array("User", "page_set_avatar")
-        );
-        $item["/users"] = array(
-            "access" => "access content",
-            "callback" => array("User", "page_users")
-        );
-        $item["/admin/users"] = array(
-            "access" => "administrer",
-            "callback" => array("User", "page_admin_users")
-        );
+    public function menu($item = [])
+    {
+        $item['/profile'] = [
+            "access"   => "access content",
+            "callback" => ["User", "page_profile"],
+        ];
+        $item['/profile/@'] = [
+            "access"   => "access content",
+            "callback" => ["User", "page_profile"],
+        ];
+        $item['/'] = [
+            "access"   => "full access",
+            "callback" => ["User", "page_home"],
+        ];
+        $item['/signin'] = [
+            "access"   => "create user",
+            "callback" => ["User", "page_signin"],
+        ];
+        $item['/logout'] = [
+            "access"   => "full access",
+            "callback" => ["User", "page_logout"],
+        ];
+        $item["/profile/settings/avatar"] = [
+            "access"   => "access content",
+            "callback" => ["User", "page_set_avatar"],
+        ];
+        $item["/users"] = [
+            "access"   => "access content",
+            "callback" => ["User", "page_users"],
+        ];
+        $item["/admin/users"] = [
+            "access"   => "administrer",
+            "callback" => ["User", "page_admin_users"],
+        ];
         return $item;
     }
 
-    public static function page_home() {
+    public static function page_home()
+    {
         if (isset($_POST['submit-login'])) {
 
             $user = new UserObject();
@@ -134,35 +143,38 @@ class User implements Module {
         }
     }
 
-    public static function get_user_logged() {
+    public static function get_user_logged()
+    {
         $user = new UserObject();
-        if (isset($_SESSION['logged']) AND $user->load($_SESSION['logged'])) {
+        if (isset($_SESSION['logged']) and $user->load($_SESSION['logged'])) {
             return $user;
         }
         return null;
     }
 
-    public static function get_user_logged_id() {
+    public static function get_user_logged_id()
+    {
         if (isset($_SESSION['logged'])) {
             return $_SESSION['logged'];
         }
         return null;
     }
 
-    public static function get_user_logged_avatar(){
-        if($a = self::get_user_logged()){
+    public static function get_user_logged_avatar()
+    {
+        if ($a = self::get_user_logged()) {
             return $a->get_avatar();
-        }
-        else {
+        } else {
             return false;
         }
     }
 
-    public static function page_login() {
+    public static function page_login()
+    {
         $theme = new Theme();
         $title = t("Bienvenue !");
         $contenu = t("Connectez-vous et découvrez votre tout nouveau réseau social.<br />Pas encore inscrit ? Inscrivez-vous maintenant !<br /><br />");
-        $contenu .= Theme::linking(Page::url("/signin"), t("<i class=\"fa fa-user-plus fa-fw\"></i> Inscription"), false, array("class"=>"btn"));
+        $contenu .= Theme::linking(Page::url("/signin"), t("<i class=\"fa fa-user-plus fa-fw\"></i> Inscription"), false, ["class" => "btn"]);
 
         $theme->add_to_body($contenu, $title);
 
@@ -179,12 +191,13 @@ class User implements Module {
         $theme->process_theme(Theme::STRUCT_BLANK);
     }
 
-    public static function page_signin() {
+    public static function page_signin()
+    {
         if (isset($_POST['submit-signin'])) {
             if (!empty($_POST['login']) &&
-                    !empty($_POST['password']) &&
-                    !empty($_POST['first_name']) &&
-                    !empty($_POST['last_name'])) {
+                !empty($_POST['password']) &&
+                !empty($_POST['first_name']) &&
+                !empty($_POST['last_name'])) {
                 if ($_POST['password'] == $_POST['password_confirm']) {
                     try {
                         $ret = self::create($_POST['login'], $_POST['password'], $_POST['first_name'], $_POST['last_name']);
@@ -226,38 +239,41 @@ class User implements Module {
         $theme->process_theme(Theme::STRUCT_BLANK);
     }
 
-    public static function page_main() {
+    public static function page_main()
+    {
         $theme = new Theme();
-        $res = method_invoke_all("hook_timeline", array(), true);
+        $res = method_invoke_all("hook_timeline", [], true);
         foreach ($res as $r)
             $theme->add_to_body($r);
         $theme->process_theme(Theme::STRUCT_DEFAULT);
     }
 
-    public static function page_logout() {
+    public static function page_logout()
+    {
         session_destroy();
         header("location:" . Page::url("/"));
     }
 
-    public static function page_users() {
+    public static function page_users()
+    {
         $theme = new Theme();
 
         $u = new UserObject();
         $output = "";
         $theme->set_title("Liste des utilisateurs");
         if ($tab = $users = $u::loadAllUsersWithout()) {
-            foreach($tab as $k => $f){
+            foreach ($tab as $k => $f) {
                 $u = new UserObject();
-                $u -> load($f);
+                $u->load($f);
                 $output .= "<div class=\"friend_line\">";
                 $output .= "<div class=\"friend_line_avatar_area\">";
-                $output .= "<div class=\"friend_line_avatar avatar\" style=\"background-image:url(".$u -> get_avatar().");\">";
-                $output .= $theme->linking(Page::url("/profile/".$f), "");
+                $output .= "<div class=\"friend_line_avatar avatar\" style=\"background-image:url(" . $u->get_avatar() . ");\">";
+                $output .= $theme->linking(Page::url("/profile/" . $f), "");
                 $output .= "</div>";
                 $output .= "</div>";
                 $output .= "<div class=\"friend_line_name_area\">";
                 $output .= "<div class=\"friend_line_name\">";
-                $output .= $theme->linking(Page::url("/profile/".$f), $u->firstname." ".$u->lastname);
+                $output .= $theme->linking(Page::url("/profile/" . $f), $u->firstname . " " . $u->lastname);
                 $output .= "<div class=\"friend_line_name_icon\">";
                 $output .= "<i class=\"fa fa-user fa-fw\"></i>";
                 $output .= "</div>";
@@ -273,25 +289,27 @@ class User implements Module {
         $theme->process_theme(Theme::STRUCT_DEFAULT);
     }
 
-    public static function page_admin_users() {
+    public static function page_admin_users()
+    {
         $theme = new Theme();
 
         $u = new UserObject();
         $users = $u::loadAll();
-        foreach($users as $k => $v){
+        foreach ($users as $k => $v) {
             unset($users[$k]->password);
         }
-        $atr = array();
+        $atr = [];
         $atr["class"] = "btn";
 
         $theme->set_title("Liste des utilisateurs");
         $theme->add_to_body(Theme::linking(Page::url("/signin"), t("<i class=\"fa fa-user-plus fa-fw\"></i> Créer un utilisateur"), false, $atr));
         $theme->add_to_body("<div class='clear'></div>");
-        $theme->add_to_body($theme->tabling($users, array(t("Id"), t("Identifiant"), t("Prénom"), t("Nom"))));
+        $theme->add_to_body($theme->tabling($users, [t("Id"), t("Identifiant"), t("Prénom"), t("Nom")]));
         $theme->process_theme(Theme::STRUCT_ADMIN);
     }
 
-    public static function page_profile($id_user = null) {
+    public static function page_profile($id_user = null)
+    {
         $theme = new Theme();
         $isMyProfil = false;
         if ($id_user == null) {
@@ -306,9 +324,9 @@ class User implements Module {
         $output = "";
         $output .= "<div id=\"profil_top\">";
         $output .= "<div id=\"profil_top_avatar\" class=\"avatar\" style=\"background-image:url($url_avatar);\">";
-            if($isMyProfil){
-                $output .= Theme::linking(Page::url("/profile/settings/avatar"), "<span id=\"profil_top_avatar_changeBG\"></span><span id=\"profil_top_avatar_changeTxt\">".t("Modifier")."</span>");
-            }
+        if ($isMyProfil) {
+            $output .= Theme::linking(Page::url("/profile/settings/avatar"), "<span id=\"profil_top_avatar_changeBG\"></span><span id=\"profil_top_avatar_changeTxt\">" . t("Modifier") . "</span>");
+        }
         $output .= "</div>";
         $output .= "<div id=\"profil_top_avatar_nom\">";
         if ($isMyProfil)
@@ -319,7 +337,7 @@ class User implements Module {
         $output .= "<div class=\"page_contenu_sep\"></div>";
 
         $output .= "<div id=\"profil_buttons\">";
-        $result = method_invoke_all("hook_profile_view", array($id_user));
+        $result = method_invoke_all("hook_profile_view", [$id_user]);
         foreach ($result as $r)
             $output .= $r;
         $output .= "<div class=\"clear\"></div>";
@@ -329,12 +347,13 @@ class User implements Module {
         $theme->process_theme(Theme::STRUCT_DEFAULT);
     }
 
-    public static function page_set_avatar(){
+    public static function page_set_avatar()
+    {
         $theme = new Theme();
 
-        if(isset($_FILES['file'])){
+        if (isset($_FILES['file'])) {
             $file = new FileObject();
-            if(($id_file = $file -> uploadFile($_FILES['file']))){
+            if (($id_file = $file->uploadFile($_FILES['file']))) {
                 $u = User::get_user_logged();
                 $u->set_avatar($id_file);
                 header("location: " . Page::url("/profile"));
@@ -345,7 +364,7 @@ class User implements Module {
         }
 
         $f = new Form("POST", Page::url("/profile/settings/avatar"));
-        $f -> setAttribute("enctype", "multipart/form-data");
+        $f->setAttribute("enctype", "multipart/form-data");
         $t = (new InputElement("file", t("Fichier : "), "", "file"));
         $f->addElement($t);
 
@@ -358,7 +377,8 @@ class User implements Module {
         return;
     }
 
-    public function permissions() {
+    public function permissions()
+    {
         return true;
     }
 

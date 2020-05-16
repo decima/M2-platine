@@ -1,1 +1,1 @@
-,User,Group,Friends,PermissionsManager,MenuWidget,VGroups,Publication
+,User,MenuWidget,Group,VGroups,Doc,Messages,Publication,HelloWorld,Euro,Friends,PermissionsManager,Widget,File

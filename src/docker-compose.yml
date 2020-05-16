@@ -1,0 +1,14 @@
+version: "3.7"
+services:
+  db:
+    image: mysql:5
+    environment: 
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: jinn
+    ports:
+      - 3306:3306
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080

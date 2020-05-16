@@ -88,6 +88,6 @@ class UserObject extends DataObject {
     }
 
     public function set_avatar($fid){
-        Database::insert("user_avatar", array("uid" => $this->uid, "fid" => $fid), true);
+        return Database::insert("user_avatar", array("uid" => $this->uid, "fid" => $fid), true);
     }
 }

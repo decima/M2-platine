@@ -7,90 +7,95 @@
  * */
 require_once("FileObject.php");
 
-class File implements SystemModule {
+class File implements SystemModule
+{
 
-    public function info() {
-        return array(
-            "name" => "File",
-            "readablename" => "File"
-        );
+    public function info()
+    {
+        return [
+            "name"         => "File",
+            "readablename" => "File",
+        ];
     }
 
-    public function schema($schema = array()) {
+    public function schema($schema = [])
+    {
         FileObject::schema($schema);
         return $schema;
     }
 
-    public function menu($item = array()) {
-        $item['/file/install'] = array(
-            "access" => "access content",
-            "callback" => array("File", "inst")
-        );
-        $item['/file/@'] = array(
-            "access" => "access content",
-            "callback" => array("File", "page_display_content")
-        );
-        $item['/file/@/download'] = array(
-            "access" => "access content",
-            "callback" => array("File", "page_download_content")
-        );
-        $item['/file/upload'] = array(
-            "access" => "access content",
-            "callback" => array("File", "page_upload_content")
-        );
+    public function menu($item = [])
+    {
+        $item['/file/install'] = [
+            "access"   => "access content",
+            "callback" => ["File", "inst"],
+        ];
+        $item['/file/@'] = [
+            "access"   => "access content",
+            "callback" => ["File", "page_display_content"],
+        ];
+        $item['/file/@/download'] = [
+            "access"   => "access content",
+            "callback" => ["File", "page_download_content"],
+        ];
+        $item['/file/upload'] = [
+            "access"   => "access content",
+            "callback" => ["File", "page_upload_content"],
+        ];
         return $item;
     }
 
-    public static function page_download_content($id_file) {
+    public static function page_download_content($id_file)
+    {
         $theme = new Theme();
         $f = new FileObject();
 
-        if($f->load($id_file)) {
+        if ($f->load($id_file)) {
             $f->nb_dl++;
             $f->save();
 
             $filename = Page::path($f->path);
 
-            if(ini_get('zlib.output_compression')) {
+            if (ini_get('zlib.output_compression')) {
                 ini_set('zlib.output_compression', 'Off');
             }
 
-            header('Pragma: public'); 	// required
+            header('Pragma: public');    // required
             header("Content-Type: $f->content_type");
-            header('Content-Disposition: attachment; filename="'.$f->id_file.'.'.$f->getExtension().'"');
+            header('Content-Disposition: attachment; filename="' . $f->id_file . '.' . $f->getExtension() . '"');
             header('Content-Transfer-Encoding: binary');
-            header('Content-Length: '.filesize($filename));	// provide file size
+            header('Content-Length: ' . filesize($filename));    // provide file size
             header('Connection: close');
-            readfile($filename);		// push it out
+            readfile($filename);        // push it out
             exit();
-        }
-        else {
+        } else {
             $theme->process_404();
         }
         return;
     }
 
-    public static function page_display_content($id_file) {
+    public static function page_display_content($id_file)
+    {
         $theme = new Theme();
         $f = new FileObject();
 
-        if($f->load($id_file)) {
+        if ($f->load($id_file)) {
             header("Content-Type: $f->content_type");
-            header("Cache-Control: max-age=86400");
-            echo file_get_contents(Page::url($f->path));
-        }
-        else {
+            header("Cache-Control: max-age=1");
+            echo file_get_contents(Page::path($f->path));
+        } else {
             $theme->process_404();
         }
         return;
     }
 
-    public static function page_upload_content() {
+    public static function page_upload_content()
+    {
         $theme = new Theme();
 
-        if(isset($_FILES['file'])){
+        if (isset($_FILES['file'])) {
             $file = new FileObject();
-            if($file -> uploadFile($_FILES['file'])){
+            if ($file->uploadFile($_FILES['file'])) {
                 Notification::statusNotify(t("Le fichier a bien été uploadé."), Notification::STATUS_SUCCESS);
             } else {
                 Notification::statusNotify(t("Une erreur s'est produite lors de l'upload."), Notification::STATUS_ERROR);
@@ -98,7 +103,7 @@ class File implements SystemModule {
         }
 
         $f = new Form("POST", Page::url("/file/upload"));
-        $f -> setAttribute("enctype", "multipart/form-data");
+        $f->setAttribute("enctype", "multipart/form-data");
         $t = (new InputElement("file", t("Fichier : "), "", "file"));
         $f->addElement($t);
 
@@ -111,16 +116,19 @@ class File implements SystemModule {
         return;
     }
 
-    public static function inst(){
+    public static function inst()
+    {
         ModuleManager::install_module("File", "./system/File/module.php");
     }
 
 
-    public function priority() {
+    public function priority()
+    {
         return 100;
     }
 
-    public function system_init() {
+    public function system_init()
+    {
         // TODO: Implement system_init() method.
     }
 

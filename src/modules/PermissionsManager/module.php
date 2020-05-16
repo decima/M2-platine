@@ -43,7 +43,7 @@ class PermissionsManager implements Module {
         return true;
     }
 
-    public function page_permissions() {
+    public static function page_permissions() {
         if (isset($_POST['save-permissions'])) {
             PermissionObject::removeAllPermissions();
             if (isset($_POST['permission']))

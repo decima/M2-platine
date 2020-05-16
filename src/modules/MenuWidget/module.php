@@ -23,7 +23,7 @@ class MenuWidget implements Module {
         return $item;
     }
 
-    public function widget_menu_view() {
+    public static function widget_menu_view() {
         $theme = new Theme();
         $list = array();
         $list[] = Theme::linking(Page::url("/admin/view/widget"), t("<i class=\"fa fa-cogs fa-fw\"></i> Widgets"));
@@ -31,7 +31,7 @@ class MenuWidget implements Module {
         return t("<div class=\"widget_titre\"><i class=\"fa fa-laptop fa-fw\"></i> Vue</div>") . $theme->listing($list);
     }
 
-    public function widget_menu_utilisateurs_groupes() {
+    public static function widget_menu_utilisateurs_groupes() {
         $theme = new Theme();
         $list = array();
 
@@ -42,7 +42,7 @@ class MenuWidget implements Module {
         return t("<div class=\"widget_titre\"><i class=\"fa fa-users fa-fw\"></i> Utilisateurs</div>") . $theme->listing($list);
     }
 
-    public function widget_menu_system() {
+    public static function widget_menu_system() {
         $theme = new Theme();
         $list = array();
 

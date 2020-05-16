@@ -18,10 +18,11 @@ class Page implements SystemModule {
         $res = $this->get_declared_pages();
         $jpage = "";
         $page = array("/");
-        if (isset($_GET['jpage'])) {
-            $jpage = trim($_GET['jpage'], "/");
+        if (isset($_SERVER['REQUEST_URI'])) {
+            $jpage = trim($_SERVER['REQUEST_URI'], "/");
             $page = explode("/", $jpage);
         }
+        if(!$page[0])$page[0]="/";
         $parameters = array();
         foreach ($page as $p) {
             if (isset($res[$p])) {
@@ -30,6 +31,7 @@ class Page implements SystemModule {
                 $parameters[] = $p;
                 $res = $res['@'];
             } else {
+            
                 echo $this->E404();
                 return;
             }
@@ -111,7 +113,7 @@ class Page implements SystemModule {
             $s .=":" . $_SERVER['SERVER_PORT'];
 
         $s .=str_replace("/index.php", "", $_SERVER['PHP_SELF']);
-        return $s . $path;
+        return $path;
     }
     public static function path($path="/"){
         $s =  getcwd();

@@ -5,50 +5,55 @@
  *
  *
  * */
-class Messages implements Module {
+class Messages implements Module
+{
 
-    public function info() {
-        return array(
-            "name" => "Messages",
-            "readablename" => "Messagerie"
-        );
+    public function info()
+    {
+        return [
+            "name"         => "Messages",
+            "readablename" => "Messagerie",
+        ];
     }
 
-    public function schema($schema = array()) {
-        $schema["messages"] = array(
-            "mid" => Database::FIELD_TYPE_INT + Database::PRIMARY_KEY + Database::AUTOINCREMENT,
-            "sid" => Database::FIELD_TYPE_INT + Database::NOTNULLVAL,
-            "rid" => Database::FIELD_TYPE_INT + Database::NOTNULLVAL,
+    public function schema($schema = [])
+    {
+        $schema["messages"] = [
+            "mid"     => Database::FIELD_TYPE_INT + Database::PRIMARY_KEY + Database::AUTOINCREMENT,
+            "sid"     => Database::FIELD_TYPE_INT + Database::NOTNULLVAL,
+            "rid"     => Database::FIELD_TYPE_INT + Database::NOTNULLVAL,
             "message" => Database::FIELD_TYPE_TEXT,
             "sent_on" => Database::FIELD_TYPE_INT + Database::NOTNULLVAL,
-            "read" => Database::FIELD_TYPE_INT + Database::NOTNULLVAL,
-        );
+            "read"    => Database::FIELD_TYPE_INT + Database::NOTNULLVAL,
+        ];
         return $schema;
     }
 
-    public function menu($item = array()) {
-        $item['/messages'] = array(
-            "access" => "access content",
-            "callback" => array("Messages", "discussions")
-        );
-        $item['/messages/@'] = array(
-            "access" => "access content",
-            "callback" => array("Messages", "chat")
-        );
-        $item['/messages/@/ajax'] = array(
-            "access" => "access content",
-            "callback" => array("Messages", "ajax_chat"),
-        );
+    public function menu($item = [])
+    {
+        $item['/messages'] = [
+            "access"   => "access content",
+            "callback" => ["Messages", "discussions"],
+        ];
+        $item['/messages/@'] = [
+            "access"   => "access content",
+            "callback" => ["Messages", "chat"],
+        ];
+        $item['/messages/@/ajax'] = [
+            "access"   => "access content",
+            "callback" => ["Messages", "ajax_chat"],
+        ];
 
-        $item['/messages/@/ajax/send'] = array(
-            "access" => "access content",
-            "callback" => array("Messages", "ajax_post_message"),
-        );
+        $item['/messages/@/ajax/send'] = [
+            "access"   => "access content",
+            "callback" => ["Messages", "ajax_post_message"],
+        ];
 
         return $item;
     }
 
-    public function ajax_chat($id) {
+    public static function ajax_chat($id)
+    {
         header("content-type: application/json");
         $page = 0;
         if (isset($_GET['page'])) {
@@ -65,7 +70,8 @@ class Messages implements Module {
         return json_encode($r);
     }
 
-    public function ajax_post_message($id) {
+    public function ajax_post_message($id)
+    {
         if (isset($_POST['message'])) {
             MessagesDB::submitMessage(User::get_user_logged_id(), $id, htmlentities($_POST['message']));
         } elseif (isset($_GET['message'])) {
@@ -74,11 +80,12 @@ class Messages implements Module {
         }
     }
 
-    public function chat($id) {
+    public static function chat($id)
+    {
         $u = new UserObject();
         $u->load($id);
         $theme = new Theme();
-        $theme->set_title(t("Messagerie · %first %last", array("%first" => $u->firstname, "%last" => $u->lastname)));
+        $theme->set_title(t("Messagerie · %first %last", ["%first" => $u->firstname, "%last" => $u->lastname]));
         $messages = MessagesDB::getConversation(User::get_user_logged_id(), $id);
 
         $script = "<script src='" . Page::url("/modules/Messages/chat.js") . "'></script>";
@@ -100,7 +107,8 @@ class Messages implements Module {
         $theme->process_theme(Theme::STRUCT_DEFAULT);
     }
 
-    public function discussions() {
+    public static function discussions()
+    {
         if (User::get_user_logged_id() != null) {
             $messages = MessagesDB::getDiscussions(User::get_user_logged_id());
             $theme = new Theme();
@@ -140,16 +148,19 @@ class Messages implements Module {
         }
     }
 
-    public function hook_has_new_messages() {
+    public function hook_has_new_messages()
+    {
         $e = MessagesDB::getUnreadMessages(User::get_user_logged_id());
         return $e;
     }
 
 }
 
-class MessagesDB {
+class MessagesDB
+{
 
-    public static function getUnreadMessages($uid, $uid2 = null) {
+    public static function getUnreadMessages($uid, $uid2 = null)
+    {
         $tbl = CONFIG_DB_PREFIX . "messages";
         $t = " ";
         if ($uid2 != null) {
@@ -160,7 +171,8 @@ class MessagesDB {
         return $e != false ? $e : 0;
     }
 
-    public static function getConversation($uid, $uid2, $page = 0) {
+    public static function getConversation($uid, $uid2, $page = 0)
+    {
         $tbl = CONFIG_DB_PREFIX . "messages";
         $tbl2 = CONFIG_DB_PREFIX . "user";
         $int = 10;
@@ -180,9 +192,10 @@ class MessagesDB {
         return $rest;
     }
 
-    public static function getDiscussions($uid) {
-        $messages = array();
-        $messagers = array();
+    public static function getDiscussions($uid)
+    {
+        $messages = [];
+        $messagers = [];
         $tbl = CONFIG_DB_PREFIX . "messages";
         $request = "SELECT m1.*
 FROM $tbl m1 LEFT JOIN $tbl m2
@@ -216,8 +229,9 @@ WHERE m2.mid IS NULL and m1.sid=$uid OR m1.rid=$uid ORDER BY m1.sent_on DESC;";
         return $messages;
     }
 
-    public static function submitMessage($sid, $rid, $message) {
-        $a = array("sid" => $sid, "rid" => $rid, "message" => $message, "sent_on" => time(), "read" => 0);
+    public static function submitMessage($sid, $rid, $message)
+    {
+        $a = ["sid" => $sid, "rid" => $rid, "message" => $message, "sent_on" => time(), "read" => 0];
         Database::insert("messages", $a);
     }
 

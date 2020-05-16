@@ -1,6 +1,7 @@
 <?php
 
-class Database implements SystemModule {
+class Database implements SystemModule
+{
 
     const FIELD_TYPE_INT = 128;
     const FIELD_TYPE_FLOAT = 64;
@@ -13,8 +14,9 @@ class Database implements SystemModule {
 
     public static $connector = null;
 
-    public static function schema_installer($schema) {
-        $keywords = array("INT", "FLOAT", "VARCHAR(255)", "TEXT", "DATETIME", "PRIMARY KEY", "AUTO_INCREMENT", "NOT NULL");
+    public static function schema_installer($schema)
+    {
+        $keywords = ["INT", "FLOAT", "VARCHAR(255)", "TEXT", "DATETIME", "PRIMARY KEY", "AUTO_INCREMENT", "NOT NULL"];
         foreach ($schema as $table => $attributes) {
             if (self::table_exists($table)) {
                 throw new Exception_Database("Table exists");
@@ -23,11 +25,11 @@ class Database implements SystemModule {
         foreach ($schema as $table => $attributes) {
             $sql = "CREATE TABLE IF NOT EXISTS " . CONFIG_DB_PREFIX . "$table(";
             $i = 0;
-            $pks = array();
+            $pks = [];
 
             foreach ($attributes as $key => $infos) {
                 $i++;
-                $sql .="\n`$key` ";
+                $sql .= "\n`$key` ";
                 $row = str_pad(decbin($infos), 8, "0", STR_PAD_LEFT);
                 $splited_row = str_split($row);
                 foreach ($splited_row as $k => $r) {
@@ -35,14 +37,14 @@ class Database implements SystemModule {
                         if ($k == 5) {
                             $pks[] = $key;
                         } else {
-                            $sql .=$keywords[$k] . " ";
+                            $sql .= $keywords[$k] . " ";
                         }
                     }
                 }
-                $sql.=",";
+                $sql .= ",";
             }
             $sql .= "CONSTRAINT pk_$table PRIMARY KEY (" . implode(",", $pks) . ")";
-            $sql.=");";
+            $sql .= ");";
             self::execute($sql);
         }
         foreach ($schema as $table => $attributes) {
@@ -53,7 +55,8 @@ class Database implements SystemModule {
         }
     }
 
-    public static function schema_uninstaller($schema) {
+    public static function schema_uninstaller($schema)
+    {
 
         foreach ($schema as $table => $k) {
             self::execute("DROP TABLE IF EXISTS " . CONFIG_DB_PREFIX . "$table CASCADE");
@@ -65,63 +68,70 @@ class Database implements SystemModule {
         }
     }
 
-    public static function table_exists($tablename) {
+    public static function table_exists($tablename)
+    {
         $database = "jinn";
         $sql = "SELECT * FROM information_schema.tables WHERE table_schema = '$database' AND table_name = '" . CONFIG_DB_PREFIX . "$tablename' LIMIT 1;";
         return self::getAll($sql) != false;
     }
 
-    public function info() {
+    public function info()
+    {
         _Security::version(0, 1);
-        return array(
-            "name" => "Database",
-            "readablename" => "Database Module"
-        );
+        return [
+            "name"         => "Database",
+            "readablename" => "Database Module",
+        ];
     }
 
-    public function priority() {
+    public function priority()
+    {
         return -100;
     }
 
-    public function system_init() {
+    public function system_init()
+    {
         if (self::$connector == null) {
             $servername = CONFIG_DB_SERVER;
             $dbname = CONFIG_DB_DATABASE;
             $username = CONFIG_DB_LOGIN;
             $password = CONFIG_DB_PASSWORD;
-            self::$connector = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+            self::$connector = new PDO("mysql:host=$servername;port=3306;dbname=$dbname", $username, $password);
         }
     }
 
-    public static function execute($sql) {
+    public static function execute($sql)
+    {
         return self::$connector->query($sql);
     }
 
-    public static function lastID() {
+    public static function lastID()
+    {
         return self::$connector->lastInsertId();
     }
 
-    public static function insert($table, $fields, $duplicate = false) {
+    public static function insert($table, $fields, $duplicate = false)
+    {
         $imploding = implode("`,`", array_keys(objectToArray($fields)));
         $values = "'" . implode("','", array_values(objectToArray($fields))) . "'";
-        $vals = array();
+        $vals = [];
         foreach (objectToArray($fields) as $k => $v) {
             $vals[] = "`$k`='$v'";
         }
         $sql = "INSERT INTO " . CONFIG_DB_PREFIX . $table . " (`$imploding`) VALUES($values)";
         if ($duplicate) {
             $im = implode(" , ", $vals);
-            $sql .=" ON DUPLICATE KEY UPDATE " . $im;
+            $sql .= " ON DUPLICATE KEY UPDATE " . $im;
         }
-
         self::execute($sql);
     }
 
-    public static function update($table, $fields, $references = array()) {
-        $vals = array();
-        $conditions = array("1");
+    public static function update($table, $fields, $references = [])
+    {
+        $vals = [];
+        $conditions = ["1"];
         if (count($references) > 0) {
-            $conditions = array();
+            $conditions = [];
         }
         foreach ($fields as $k => $v) {
             $vals[] = "$k='$v'";
@@ -136,10 +146,11 @@ class Database implements SystemModule {
         self::execute($sql);
     }
 
-    public static function delete($table, $references) {
-        $vals = array();
+    public static function delete($table, $references)
+    {
+        $vals = [];
         if (count($references) > 0) {
-            $conditions = array();
+            $conditions = [];
             foreach ($references as $k => $v) {
                 $conditions[] = "$k='$v'";
             }
@@ -149,21 +160,24 @@ class Database implements SystemModule {
         }
     }
 
-    public static function getAll($sql) {
+    public static function getAll($sql)
+    {
         $exec = self::$connector->query($sql);
         if ($exec != false)
             return $exec->fetchAll(PDO::FETCH_OBJ);
         return false;
     }
 
-    public static function getRow($sql) {
+    public static function getRow($sql)
+    {
         $exec = self::$connector->query($sql);
         if ($exec != false)
             return $exec->fetch(PDO::FETCH_OBJ);
         return false;
     }
 
-    public static function getValue($sql) {
+    public static function getValue($sql)
+    {
         $exec = self::$connector->query($sql);
         if ($exec != false)
             return $exec->fetch(PDO::FETCH_COLUMN);
@@ -172,14 +186,17 @@ class Database implements SystemModule {
 
 }
 
-class Exception_Database extends Exception {
-    
+class Exception_Database extends Exception
+{
+
 }
 
-class Exception_Database_Exists extends Exception {
-    
+class Exception_Database_Exists extends Exception
+{
+
 }
 
-class Exception_Database_Format extends Exception {
-    
+class Exception_Database_Format extends Exception
+{
+
 }
